@@ -71,6 +71,20 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       return new Response(JSON.stringify({ agents: allAgents }), { status: 200, headers: { 'Content-Type': 'application/json' } });
     }
 
+    // Generic query (for intranet pages)
+    if (action === 'query' && body.table) {
+      const allowed = ['leads', 'reuniones', 'analytics', 'agent_logs', 'agent_config'];
+      if (!allowed.includes(body.table)) {
+        return new Response(JSON.stringify({ error: 'Tabla no permitida' }), { status: 400, headers: { 'Content-Type': 'application/json' } });
+      }
+      const data = await supabaseQuery(body.table, 'GET', {
+        order: body.order || 'created_at.desc',
+        limit: body.limit || 50,
+        filter: body.filter,
+      });
+      return new Response(JSON.stringify({ data }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+    }
+
     return new Response(JSON.stringify({ error: 'Acción no válida' }), { status: 400, headers: { 'Content-Type': 'application/json' } });
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);

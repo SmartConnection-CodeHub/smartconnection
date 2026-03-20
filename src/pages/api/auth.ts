@@ -2,9 +2,8 @@ export const prerender = false;
 
 import type { APIRoute } from 'astro';
 
-const AIRTABLE_TOKEN = import.meta.env.AIRTABLE_TOKEN;
-const AIRTABLE_BASE = import.meta.env.AIRTABLE_BASE;
-const AIRTABLE_TABLE = import.meta.env.AIRTABLE_TABLE_USERS || 'Usuarios';
+const SUPABASE_URL = import.meta.env.SUPABASE_URL;
+const SUPABASE_SERVICE_KEY = import.meta.env.SUPABASE_SERVICE_KEY;
 const SESSION_SECRET = import.meta.env.SESSION_SECRET || 'sm-connection-2026';
 
 function hashSession(user: string): string {
@@ -43,16 +42,18 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       });
     }
 
-    // Query Airtable for user
-    const filter = encodeURIComponent(`AND({Email}='${email}',{Activo}=TRUE())`);
-    const url = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${encodeURIComponent(AIRTABLE_TABLE)}?filterByFormula=${filter}&maxRecords=1`;
+    // Query Supabase for user
+    const url = `${SUPABASE_URL}/rest/v1/usuarios?email=eq.${encodeURIComponent(email)}&activo=eq.true&limit=1`;
 
     const res = await fetch(url, {
-      headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` },
+      headers: {
+        apikey: SUPABASE_SERVICE_KEY,
+        Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+      },
     });
 
     if (!res.ok) {
-      console.error('Airtable error:', res.status, await res.text());
+      console.error('Supabase error:', res.status, await res.text());
       return new Response(JSON.stringify({ error: 'Error de autenticación' }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' },
@@ -61,17 +62,16 @@ export const POST: APIRoute = async ({ request, cookies }) => {
 
     const data = await res.json();
 
-    if (!data.records || data.records.length === 0) {
+    if (!data || data.length === 0) {
       return new Response(JSON.stringify({ error: 'Credenciales inválidas' }), {
         status: 401,
         headers: { 'Content-Type': 'application/json' },
       });
     }
 
-    const record = data.records[0].fields;
-    const storedPassword = record.Password || record.Contraseña || '';
+    const record = data[0];
 
-    if (password !== storedPassword) {
+    if (password !== record.password) {
       return new Response(JSON.stringify({ error: 'Credenciales inválidas' }), {
         status: 401,
         headers: { 'Content-Type': 'application/json' },
@@ -80,8 +80,8 @@ export const POST: APIRoute = async ({ request, cookies }) => {
 
     // Create session
     const sessionToken = hashSession(email);
-    const userName = record.Nombre || email.split('@')[0];
-    const role = record.Rol || 'user';
+    const userName = record.nombre || email.split('@')[0];
+    const role = record.rol || 'user';
 
     cookies.set('sc_session', sessionToken, {
       path: '/',

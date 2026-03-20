@@ -147,8 +147,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // --- Contact form: Unified Python Lambda Backend ---
-  var CONTACT_API = 'https://ejvzc4lsnisbjaoiqt6ikxsr3q0hztpx.lambda-url.us-east-1.on.aws/';
+  // --- Contact form: Supabase API Backend ---
+  var CONTACT_API = '/api/contact';
 
   function sendContactForm(data) {
     var submitBtn = form.querySelector('button[type="submit"]');
@@ -342,8 +342,8 @@ function submitScheduler(e) {
   window.open(calUrl, '_blank');
   closeScheduler();
 
-  // Save meeting via unified Lambda (email + Airtable CRM)
-  fetch('https://ejvzc4lsnisbjaoiqt6ikxsr3q0hztpx.lambda-url.us-east-1.on.aws/', {
+  // Save meeting via Supabase API
+  fetch('/api/contact', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({

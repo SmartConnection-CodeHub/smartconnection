@@ -1,23 +1,34 @@
+---
+import type { Lang } from '../i18n/translations';
+import { t } from '../i18n/translations';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const i = t(lang);
+
+const services = [
+  { icon: 'bi-cloud-arrow-up', title: i.sapBTP, desc: i.sapBTPDesc, badge: i.sapBadgeCloud },
+  { icon: 'bi-arrow-repeat', title: i.sapMigrations, desc: i.sapMigrationsDesc, badge: i.sapBadgeS4 },
+  { icon: 'bi-code-slash', title: i.sapABAP, desc: i.sapABAPDesc, badge: i.sapBadgeDev },
+  { icon: 'bi-diagram-3', title: i.sapIntegration, desc: i.sapIntegrationDesc, badge: i.sapBadgeInt },
+  { icon: 'bi-bar-chart-line', title: i.sapAnalytics, desc: i.sapAnalyticsDesc, badge: i.sapBadgeAnalytics },
+  { icon: 'bi-phone', title: i.sapMobile, desc: i.sapMobileDesc, badge: i.sapBadgeMobile },
+  { icon: 'bi-building-gear', title: i.sapPortal, desc: i.sapPortalDesc, badge: i.sapBadgeEnterprise },
+  { icon: 'bi-headset', title: i.sapAMS, desc: i.sapAMSDesc, badge: i.sapBadgeSupport },
+];
+---
+
 <section id="servicios-sap" class="relative py-24 overflow-hidden">
   <div class="blob -left-[200px] top-[10%]"></div>
   <div class="blob -right-[150px] bottom-[5%]"></div>
   <div class="max-w-7xl mx-auto px-6 relative z-10">
     <div class="text-center mb-16 animate-on-scroll">
-      <span class="text-primary text-sm font-semibold tracking-widest uppercase">Expertise SAP</span>
-      <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-3 mb-4">Consultoría y Servicios SAP</h2>
-      <p class="text-text-muted max-w-2xl mx-auto leading-relaxed">Nuestros consultores certificados comprenden tus necesidades y entregan soluciones SAP a la medida.</p>
+      <span class="text-primary text-sm font-semibold tracking-widest uppercase">{i.sapLabel}</span>
+      <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-3 mb-4">{i.sapTitle}</h2>
+      <p class="text-text-muted max-w-2xl mx-auto leading-relaxed">{i.sapDesc}</p>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-      {[
-        { icon: 'bi-cloud-arrow-up', title: 'SAP BTP & Cloud Platform', desc: 'Business Technology Platform: extensiones, integraciones y desarrollo de aplicaciones en la nube.', badge: 'Cloud' },
-        { icon: 'bi-arrow-repeat', title: 'Migraciones S/4HANA', desc: 'Arquitectura e implementación de proyectos de migración a S/4HANA con metodologías ágiles.', badge: 'S/4HANA Ready' },
-        { icon: 'bi-code-slash', title: 'ABAP & FIORI', desc: 'Desarrollo ABAP en ECC y S/4HANA. Aplicaciones FIORI con experiencia de usuario moderna.', badge: 'Development' },
-        { icon: 'bi-diagram-3', title: 'Integración PI/PO & CPI', desc: 'Integración de sistemas con SAP Process Integration y Cloud Platform Integration.', badge: 'Integration' },
-        { icon: 'bi-bar-chart-line', title: 'BW, HANA & Analítica', desc: 'Business Warehouse y SAP HANA para analítica empresarial avanzada y BI.', badge: 'Analytics' },
-        { icon: 'bi-phone', title: 'Movilidad & IoT', desc: 'SAP Mobile Services, mantenimiento móvil e Internet de las Cosas.', badge: 'Mobile' },
-        { icon: 'bi-building-gear', title: 'Portal & Workflow', desc: 'SAP Portal para portales corporativos. Automatización con Workflow y formularios.', badge: 'Enterprise' },
-        { icon: 'bi-headset', title: 'AMS & Soporte Continuo', desc: 'Application Management Services y mesa de ayuda SAP con SLA garantizados.', badge: 'Soporte 24/7' },
-      ].map(svc => (
+      {services.map(svc => (
         <div class="glass-card card-glow p-7 hover:-translate-y-2 transition-all duration-300 group animate-on-scroll">
           <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-2xl text-primary mb-5 group-hover:bg-primary/20 transition-colors">
             <i class={`bi ${svc.icon}`}></i>

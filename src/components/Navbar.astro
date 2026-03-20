@@ -1,21 +1,37 @@
+---
+import type { Lang } from '../i18n/translations';
+import { t, getLocalizedPath } from '../i18n/translations';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const i = t(lang);
+const altLang = lang === 'es' ? 'en' : 'es' as Lang;
+const altPath = getLocalizedPath(altLang as Lang);
+const altLabel = lang === 'es' ? 'EN' : 'ES';
+---
+
 <nav class="fixed top-0 left-0 right-0 z-[1000] py-4 transition-all duration-300" id="navbar">
   <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
     <a href="#" class="flex items-center">
       <img src="/img/logo_smart.svg" alt="Smart Connection Logo" width="220" height="44" class="h-16 w-auto transition-all duration-300" id="navLogo">
     </a>
     <ul class="hidden lg:flex items-center gap-8 list-none">
-      <li><a href="#servicios-sap" class="text-white/80 hover:text-primary font-medium transition-colors text-sm tracking-wide">SAP</a></li>
-      <li><a href="#apps-ia" class="text-white/80 hover:text-primary font-medium transition-colors text-sm tracking-wide">Apps + IA</a></li>
-      <li><a href="#equipo" class="text-white/80 hover:text-primary font-medium transition-colors text-sm tracking-wide">Equipo</a></li>
-      <li><a href="#pymes" class="text-white/80 hover:text-primary font-medium transition-colors text-sm tracking-wide">PYMES</a></li>
-      <li><a href="#contacto" class="bg-primary/10 text-primary px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-primary/20 transition-all border border-primary/30">Contacto</a></li>
-      <li><a href="#" class="bg-primary text-dark-bg px-5 py-2.5 rounded-full text-sm font-bold hover:bg-primary-light transition-all flex items-center gap-2" onclick="openScheduler(); return false;"><i class="bi bi-calendar-check"></i> Agendar</a></li>
+      <li><a href="#servicios-sap" class="text-white/80 hover:text-primary font-medium transition-colors text-sm tracking-wide">{i.navSAP}</a></li>
+      <li><a href="#apps-ia" class="text-white/80 hover:text-primary font-medium transition-colors text-sm tracking-wide">{i.navAppsIA}</a></li>
+      <li><a href="#equipo" class="text-white/80 hover:text-primary font-medium transition-colors text-sm tracking-wide">{i.navTeam}</a></li>
+      <li><a href="#pymes" class="text-white/80 hover:text-primary font-medium transition-colors text-sm tracking-wide">{i.navPymes}</a></li>
+      <li><a href="#contacto" class="bg-primary/10 text-primary px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-primary/20 transition-all border border-primary/30">{i.navContact}</a></li>
+      <li><a href="#" class="bg-primary text-dark-bg px-5 py-2.5 rounded-full text-sm font-bold hover:bg-primary-light transition-all flex items-center gap-2" onclick="openScheduler(); return false;"><i class="bi bi-calendar-check"></i> {i.navSchedule}</a></li>
+      <li><a href={altPath} class="text-white/60 hover:text-white font-semibold transition-colors text-sm border border-white/20 rounded-full px-3 py-1.5">{altLabel}</a></li>
     </ul>
-    <a href="tel:+56955361419" class="lg:hidden text-primary text-xl p-2" aria-label="Llamar"><i class="bi bi-telephone-fill"></i></a>
-    <button class="lg:hidden flex flex-col gap-1.5 p-2" aria-label="Abrir menú" id="menuToggle">
-      <span class="w-6 h-0.5 bg-white transition-all"></span>
-      <span class="w-6 h-0.5 bg-white transition-all"></span>
-      <span class="w-6 h-0.5 bg-white transition-all"></span>
-    </button>
+    <div class="lg:hidden flex items-center gap-3">
+      <a href={altPath} class="text-white/60 hover:text-white font-semibold text-xs border border-white/20 rounded-full px-2.5 py-1">{altLabel}</a>
+      <a href="tel:+56955361419" class="text-primary text-xl p-2" aria-label={i.navCall}><i class="bi bi-telephone-fill"></i></a>
+      <button class="flex flex-col gap-1.5 p-2" aria-label={i.navOpenMenu} id="menuToggle">
+        <span class="w-6 h-0.5 bg-white transition-all"></span>
+        <span class="w-6 h-0.5 bg-white transition-all"></span>
+        <span class="w-6 h-0.5 bg-white transition-all"></span>
+      </button>
+    </div>
   </div>
 </nav>

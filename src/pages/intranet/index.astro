@@ -1,0 +1,365 @@
+---
+export const prerender = false;
+
+import { verifySession } from '../api/auth';
+
+const session = verifySession(Astro.cookies.get('sc_session')?.value);
+const isAuth = session.valid;
+const user = session.user || '';
+---
+
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smart Connection — Intranet</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="shortcut icon" href="/img/smart.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #00c1c1;
+      --primary-light: #00e5e5;
+      --gold: #f0ab00;
+      --bg: #0a0e17;
+      --bg2: #111827;
+      --bg3: #1a2332;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+    }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    ::selection { background: rgba(0,193,193,0.3); color: #fff; }
+
+    /* Login */
+    .login-container { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 1rem; }
+    .login-card { background: rgba(17,24,39,0.8); backdrop-filter: blur(20px); border: 1px solid rgba(0,193,193,0.15); border-radius: 20px; padding: 3rem; max-width: 420px; width: 100%; }
+    .login-card h1 { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .login-card p { color: var(--muted); font-size: 0.875rem; margin-bottom: 2rem; }
+    .login-card label { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .login-card input { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 0.75rem 1rem; color: #fff; font-size: 0.875rem; outline: none; transition: border 0.2s; margin-bottom: 1rem; }
+    .login-card input:focus { border-color: var(--primary); }
+    .login-btn { width: 100%; background: var(--primary); color: var(--bg); font-weight: 700; padding: 0.875rem; border-radius: 12px; border: none; cursor: pointer; font-size: 0.875rem; transition: background 0.2s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+    .login-btn:hover { background: var(--primary-light); }
+    .login-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .login-error { color: #ef4444; font-size: 0.8rem; margin-bottom: 1rem; display: none; }
+
+    /* Dashboard */
+    .dashboard { display: none; }
+    .dashboard.active { display: block; }
+    .topbar { background: var(--bg2); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 1rem 2rem; display: flex; align-items: center; justify-content: between; gap: 1rem; }
+    .topbar-left { display: flex; align-items: center; gap: 1rem; flex: 1; }
+    .topbar-right { display: flex; align-items: center; gap: 1rem; }
+    .topbar img { height: 32px; }
+    .topbar .badge { background: var(--primary); color: var(--bg); font-size: 0.65rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 999px; }
+    .user-name { color: var(--muted); font-size: 0.8rem; }
+    .logout-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--muted); padding: 0.4rem 1rem; border-radius: 8px; cursor: pointer; font-size: 0.75rem; transition: all 0.2s; }
+    .logout-btn:hover { border-color: #ef4444; color: #ef4444; }
+
+    .main { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+    .section-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .section-title i { color: var(--primary); }
+
+    /* Agents Grid */
+    .agents-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 2.5rem; }
+    .agent-card { background: var(--bg2); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 1.5rem; transition: all 0.3s; position: relative; overflow: hidden; }
+    .agent-card:hover { border-color: rgba(0,193,193,0.2); transform: translateY(-2px); }
+    .agent-card .agent-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+    .agent-card .agent-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; }
+    .agent-card .agent-name { font-weight: 700; font-size: 0.95rem; }
+    .agent-card .agent-role { color: var(--muted); font-size: 0.75rem; }
+    .agent-card .agent-desc { color: var(--muted); font-size: 0.8rem; line-height: 1.5; margin-bottom: 1rem; }
+    .agent-card .agent-status { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .status-dot.active { background: #22c55e; box-shadow: 0 0 8px rgba(34,197,94,0.5); }
+    .status-dot.standby { background: var(--gold); box-shadow: 0 0 8px rgba(240,171,0,0.5); }
+    .status-dot.offline { background: #64748b; }
+    .agent-actions { display: flex; gap: 0.5rem; margin-top: 1rem; }
+    .agent-btn { flex: 1; padding: 0.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); color: var(--text); font-size: 0.75rem; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 0.3rem; }
+    .agent-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .agent-btn.primary { background: rgba(0,193,193,0.1); border-color: rgba(0,193,193,0.3); color: var(--primary); }
+    .agent-btn.primary:hover { background: rgba(0,193,193,0.2); }
+
+    /* Activity Log */
+    .activity-log { background: var(--bg2); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 1.5rem; }
+    .log-entry { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+    .log-entry:last-child { border-bottom: none; }
+    .log-time { color: var(--muted); font-size: 0.7rem; min-width: 60px; padding-top: 2px; }
+    .log-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; flex-shrink: 0; }
+    .log-content { flex: 1; }
+    .log-content strong { font-size: 0.8rem; }
+    .log-content p { color: var(--muted); font-size: 0.75rem; margin-top: 0.2rem; }
+
+    /* Quick Stats */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2.5rem; }
+    .stat-card { background: var(--bg2); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 1.25rem; }
+    .stat-card .stat-label { color: var(--muted); font-size: 0.75rem; margin-bottom: 0.5rem; }
+    .stat-card .stat-value { font-size: 1.75rem; font-weight: 800; color: var(--primary); }
+    .stat-card .stat-sub { font-size: 0.7rem; color: var(--muted); margin-top: 0.25rem; }
+  </style>
+</head>
+<body>
+  <!-- Login Screen -->
+  <div class="login-container" id="loginScreen" style={isAuth ? 'display:none' : ''}>
+    <div class="login-card">
+      <div style="text-align:center;margin-bottom:1.5rem;">
+        <img src="/img/logo_smart.svg" alt="Smart Connection" style="height:48px;">
+      </div>
+      <h1>Intranet</h1>
+      <p>Acceso exclusivo para el equipo Smart Connection</p>
+      <div class="login-error" id="loginError"></div>
+      <form id="loginForm">
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" placeholder="tu@smconnection.cl" required>
+        <label for="loginPassword">Contraseña</label>
+        <input type="password" id="loginPassword" placeholder="••••••••" required>
+        <button type="submit" class="login-btn" id="loginBtn">
+          <i class="bi bi-shield-lock"></i> Ingresar
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div class="dashboard" id="dashboard" style={isAuth ? 'display:block' : ''}>
+    <div class="topbar">
+      <div class="topbar-left">
+        <img src="/img/logo_smart.svg" alt="Smart Connection">
+        <span class="badge">INTRANET</span>
+      </div>
+      <div class="topbar-right">
+        <span class="user-name" id="userName">{isAuth ? user : ''}</span>
+        <button class="logout-btn" id="logoutBtn"><i class="bi bi-box-arrow-right"></i> Salir</button>
+      </div>
+    </div>
+
+    <div class="main">
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Agentes Activos</div>
+          <div class="stat-value" id="activeCount">0</div>
+          <div class="stat-sub">de 5 configurados</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Tareas Hoy</div>
+          <div class="stat-value" id="tasksCount">0</div>
+          <div class="stat-sub">completadas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Último Deploy</div>
+          <div class="stat-value" style="font-size:1rem;" id="lastDeploy">—</div>
+          <div class="stat-sub">Vercel + AWS</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Uptime</div>
+          <div class="stat-value">99%</div>
+          <div class="stat-sub">últimos 30 días</div>
+        </div>
+      </div>
+
+      <!-- Agents -->
+      <h2 class="section-title"><i class="bi bi-robot"></i> Agentes IA</h2>
+      <div class="agents-grid" id="agentsGrid"></div>
+
+      <!-- Activity Log -->
+      <h2 class="section-title"><i class="bi bi-activity"></i> Actividad Reciente</h2>
+      <div class="activity-log" id="activityLog"></div>
+    </div>
+  </div>
+
+  <script is:inline>
+    // --- Agent definitions ---
+    var agents = [
+      {
+        id: 'claude',
+        name: 'Claude',
+        provider: 'Anthropic',
+        role: 'Desarrollo & Code Review',
+        desc: 'Agente principal de desarrollo. Genera código, revisa PRs, sugiere mejoras de arquitectura y refactoring.',
+        icon: 'bi-robot',
+        color: '#d97706',
+        bgColor: 'rgba(217,119,6,0.1)',
+        status: 'active',
+        tasks: 12,
+      },
+      {
+        id: 'gpt',
+        name: 'GPT-4',
+        provider: 'OpenAI',
+        role: 'Contenido & Copywriting',
+        desc: 'Genera contenido para el sitio, emails de marketing, descripciones de servicios y traducciones.',
+        icon: 'bi-stars',
+        color: '#10b981',
+        bgColor: 'rgba(16,185,129,0.1)',
+        status: 'standby',
+        tasks: 8,
+      },
+      {
+        id: 'grok',
+        name: 'Grok',
+        provider: 'xAI',
+        role: 'Análisis & Research',
+        desc: 'Analiza tendencias del mercado SAP, investiga competencia y genera reportes de inteligencia de negocio.',
+        icon: 'bi-lightning-charge',
+        color: '#8b5cf6',
+        bgColor: 'rgba(139,92,246,0.1)',
+        status: 'active',
+        tasks: 5,
+      },
+      {
+        id: 'gemini',
+        name: 'Gemini',
+        provider: 'Google',
+        role: 'SEO & Analytics',
+        desc: 'Optimiza SEO, analiza métricas de Google Analytics y sugiere mejoras de posicionamiento.',
+        icon: 'bi-gem',
+        color: '#3b82f6',
+        bgColor: 'rgba(59,130,246,0.1)',
+        status: 'standby',
+        tasks: 3,
+      },
+      {
+        id: 'deployer',
+        name: 'Deploy Bot',
+        provider: 'GitHub Actions',
+        role: 'CI/CD & Deploy',
+        desc: 'Automatiza deploys a Vercel y AWS. Ejecuta tests, valida builds y gestiona releases.',
+        icon: 'bi-gear-wide-connected',
+        color: '#00c1c1',
+        bgColor: 'rgba(0,193,193,0.1)',
+        status: 'active',
+        tasks: 15,
+      },
+    ];
+
+    var activityData = [
+      { time: 'Ahora', agent: 'Claude', icon: 'bi-robot', color: 'rgba(217,119,6,0.1)', text: 'i18n implementado — español/inglés con language switcher' },
+      { time: '2h', agent: 'Grok', icon: 'bi-lightning-charge', color: 'rgba(139,92,246,0.1)', text: 'Agregado como partner tecnológico en Trust y AppsIA' },
+      { time: '3h', agent: 'Deploy Bot', icon: 'bi-gear-wide-connected', color: 'rgba(0,193,193,0.1)', text: 'Build exitoso — 2 páginas generadas (es + en)' },
+      { time: '5h', agent: 'GPT-4', icon: 'bi-stars', color: 'rgba(16,185,129,0.1)', text: 'Traducciones EN generadas para todos los componentes' },
+      { time: '1d', agent: 'Gemini', icon: 'bi-gem', color: 'rgba(59,130,246,0.1)', text: 'SEO audit — hreflang tags y canonical URLs configurados' },
+    ];
+
+    // --- Render agents ---
+    function renderAgents() {
+      var grid = document.getElementById('agentsGrid');
+      if (!grid) return;
+      var activeCount = 0;
+      var totalTasks = 0;
+
+      grid.innerHTML = agents.map(function(a) {
+        if (a.status === 'active') activeCount++;
+        totalTasks += a.tasks;
+        var statusLabel = a.status === 'active' ? 'Activo' : a.status === 'standby' ? 'En espera' : 'Offline';
+        return '<div class="agent-card">' +
+          '<div class="agent-header">' +
+            '<div class="agent-icon" style="background:' + a.bgColor + ';color:' + a.color + '"><i class="bi ' + a.icon + '"></i></div>' +
+            '<div><div class="agent-name">' + a.name + '</div><div class="agent-role">' + a.role + '</div></div>' +
+          '</div>' +
+          '<div class="agent-desc">' + a.desc + '</div>' +
+          '<div class="agent-status">' +
+            '<span class="status-dot ' + a.status + '"></span>' +
+            '<span>' + statusLabel + '</span>' +
+            '<span style="margin-left:auto;color:var(--muted)">' + a.tasks + ' tareas</span>' +
+          '</div>' +
+          '<div class="agent-actions">' +
+            '<button class="agent-btn primary" onclick="toggleAgent(\'' + a.id + '\')"><i class="bi bi-play-fill"></i> ' + (a.status === 'active' ? 'Pausar' : 'Activar') + '</button>' +
+            '<button class="agent-btn"><i class="bi bi-terminal"></i> Logs</button>' +
+            '<button class="agent-btn"><i class="bi bi-sliders"></i> Config</button>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+
+      document.getElementById('activeCount').textContent = activeCount;
+      document.getElementById('tasksCount').textContent = totalTasks;
+      document.getElementById('lastDeploy').textContent = new Date().toLocaleDateString('es-CL');
+    }
+
+    // --- Render activity ---
+    function renderActivity() {
+      var log = document.getElementById('activityLog');
+      if (!log) return;
+      log.innerHTML = activityData.map(function(entry) {
+        return '<div class="log-entry">' +
+          '<span class="log-time">' + entry.time + '</span>' +
+          '<div class="log-icon" style="background:' + entry.color + '"><i class="bi ' + entry.icon + '"></i></div>' +
+          '<div class="log-content"><strong>' + entry.agent + '</strong><p>' + entry.text + '</p></div>' +
+        '</div>';
+      }).join('');
+    }
+
+    // --- Toggle agent ---
+    function toggleAgent(id) {
+      for (var i = 0; i < agents.length; i++) {
+        if (agents[i].id === id) {
+          agents[i].status = agents[i].status === 'active' ? 'standby' : 'active';
+          break;
+        }
+      }
+      renderAgents();
+    }
+
+    // --- Auth ---
+    var loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+      loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var email = document.getElementById('loginEmail').value;
+        var password = document.getElementById('loginPassword').value;
+        var btn = document.getElementById('loginBtn');
+        var error = document.getElementById('loginError');
+
+        btn.disabled = true;
+        btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Verificando...';
+        error.style.display = 'none';
+
+        fetch('/api/auth', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email, password: password }),
+        })
+        .then(function(r) { return r.json().then(function(d) { return { ok: r.ok, data: d }; }); })
+        .then(function(res) {
+          if (res.ok && res.data.success) {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            document.getElementById('userName').textContent = res.data.user.name;
+            renderAgents();
+            renderActivity();
+          } else {
+            error.textContent = res.data.error || 'Error de autenticación';
+            error.style.display = 'block';
+          }
+        })
+        .catch(function() {
+          error.textContent = 'Error de conexión';
+          error.style.display = 'block';
+        })
+        .finally(function() {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="bi bi-shield-lock"></i> Ingresar';
+        });
+      });
+    }
+
+    // --- Logout ---
+    var logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', function() {
+        fetch('/api/auth', { method: 'DELETE' }).then(function() {
+          window.location.reload();
+        });
+      });
+    }
+
+    // --- Init if already authenticated ---
+    if (document.getElementById('dashboard').style.display === 'block') {
+      renderAgents();
+      renderActivity();
+    }
+  </script>
+</body>
+</html>

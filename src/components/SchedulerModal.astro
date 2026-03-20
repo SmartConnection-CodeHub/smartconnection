@@ -1,30 +1,39 @@
+---
+import type { Lang } from '../i18n/translations';
+import { t } from '../i18n/translations';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const i = t(lang);
+---
+
 <div id="schedulerModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[2000] hidden items-center justify-center p-4">
   <div class="glass-card max-w-lg w-full p-8 relative border-primary/20">
     <button class="absolute top-4 right-4 text-text-muted hover:text-white text-2xl" onclick="closeScheduler()">&times;</button>
     <h3 class="text-white text-xl font-bold flex items-center gap-2 mb-2">
-      <i class="bi bi-calendar-check text-primary"></i> Agendar Reunión
+      <i class="bi bi-calendar-check text-primary"></i> {i.schedTitle}
     </h3>
-    <p class="text-text-muted text-sm mb-6">Selecciona fecha y hora para agendar una reunión de 30 min vía Google Meet.</p>
+    <p class="text-text-muted text-sm mb-6">{i.schedDesc}</p>
     <form id="schedulerForm" onsubmit="submitScheduler(event)">
       <div class="grid grid-cols-2 gap-4 mb-4">
         <div>
-          <label for="sched-nombre" class="block text-sm text-text-muted mb-2">Tu nombre *</label>
-          <input type="text" id="sched-nombre" required placeholder="Nombre completo" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-primary focus:outline-none">
+          <label for="sched-nombre" class="block text-sm text-text-muted mb-2">{i.schedName}</label>
+          <input type="text" id="sched-nombre" required placeholder={i.schedNamePh} class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-primary focus:outline-none">
         </div>
         <div>
-          <label for="sched-email" class="block text-sm text-text-muted mb-2">Tu email *</label>
+          <label for="sched-email" class="block text-sm text-text-muted mb-2">{i.schedEmail}</label>
           <input type="email" id="sched-email" required placeholder="tu@email.com" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-primary focus:outline-none">
         </div>
       </div>
       <div class="grid grid-cols-2 gap-4 mb-4">
         <div>
-          <label for="sched-fecha" class="block text-sm text-text-muted mb-2">Fecha *</label>
+          <label for="sched-fecha" class="block text-sm text-text-muted mb-2">{i.schedDate}</label>
           <input type="date" id="sched-fecha" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-primary focus:outline-none">
         </div>
         <div>
-          <label for="sched-hora" class="block text-sm text-text-muted mb-2">Hora *</label>
+          <label for="sched-hora" class="block text-sm text-text-muted mb-2">{i.schedTime}</label>
           <select id="sched-hora" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-primary focus:outline-none">
-            <option value="">Selecciona</option>
+            <option value="">{i.schedTimePh}</option>
             <option value="09:00">09:00</option><option value="09:30">09:30</option>
             <option value="10:00">10:00</option><option value="10:30">10:30</option>
             <option value="11:00">11:00</option><option value="11:30">11:30</option>
@@ -36,16 +45,16 @@
         </div>
       </div>
       <div class="mb-6">
-        <label for="sched-tema" class="block text-sm text-text-muted mb-2">Tema</label>
+        <label for="sched-tema" class="block text-sm text-text-muted mb-2">{i.schedTopic}</label>
         <select id="sched-tema" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-primary focus:outline-none">
-          <option value="Consultoría SAP">Consultoría SAP</option>
-          <option value="Desarrollo App con IA">Desarrollo App con IA</option>
-          <option value="Solución para PYME">Solución para PYME</option>
-          <option value="Otro">Otro</option>
+          <option value="Consultoría SAP">{i.schedTopicSAP}</option>
+          <option value="Desarrollo App con IA">{i.schedTopicApp}</option>
+          <option value="Solución para PYME">{i.schedTopicPyme}</option>
+          <option value="Otro">{i.schedTopicOther}</option>
         </select>
       </div>
       <button type="submit" class="w-full bg-primary hover:bg-primary-light text-dark-bg font-bold py-3.5 rounded-xl text-sm transition-all flex items-center justify-center gap-2">
-        <i class="bi bi-google"></i> Abrir en Google Calendar
+        <i class="bi bi-google"></i> {i.schedSubmit}
       </button>
     </form>
   </div>

@@ -1,33 +1,47 @@
 ---
+import type { Lang } from '../i18n/translations';
+import { t, defaultLang, getLocalizedPath } from '../i18n/translations';
+
 interface Props {
   title?: string;
   description?: string;
+  lang?: Lang;
 }
 
+const lang = (Astro.props.lang ?? defaultLang) as Lang;
+const i = t(lang);
 const {
-  title = 'Smart Connection | SAP + IA - Soluciones Tecnológicas Chile',
-  description = 'Smart Connection: consultores SAP certificados en Chile. Servicios SAP BTP, S/4HANA, FIORI, PI/PO, CPI, HANA, migraciones, IoT, movilidad y desarrollo de apps con IA para empresas y PYMES.',
+  title = i.siteTitle,
+  description = i.siteDescription,
 } = Astro.props;
+
+const htmlLang = lang === 'es' ? 'es-CL' : 'en';
+const altLang = lang === 'es' ? 'en' : 'es' as Lang;
+const altPath = getLocalizedPath(altLang);
+const canonicalPath = getLocalizedPath(lang);
 ---
 
 <!DOCTYPE html>
-<html lang="es-CL">
+<html lang={htmlLang}>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{title}</title>
   <meta name="description" content={description}>
-  <meta name="keywords" content="SAP Chile, SAP BTP, S/4HANA, FIORI, ABAP, inteligencia artificial, apps empresariales, PYMES, Smart Connection, consultoría SAP">
+  <meta name="keywords" content={i.siteKeywords}>
   <meta name="author" content="Smart Connection">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://www.smconnection.cl/">
+  <link rel="canonical" href={`https://www.smconnection.cl${canonicalPath}`}>
+  <link rel="alternate" hreflang={lang === 'es' ? 'es' : 'en'} href={`https://www.smconnection.cl${canonicalPath}`} />
+  <link rel="alternate" hreflang={altLang === 'es' ? 'es' : 'en'} href={`https://www.smconnection.cl${altPath}`} />
+  <link rel="alternate" hreflang="x-default" href="https://www.smconnection.cl/" />
 
   <meta property="og:type" content="website">
   <meta property="og:title" content={title}>
   <meta property="og:description" content={description}>
-  <meta property="og:url" content="https://www.smconnection.cl/">
+  <meta property="og:url" content={`https://www.smconnection.cl${canonicalPath}`}>
   <meta property="og:site_name" content="Smart Connection">
-  <meta property="og:locale" content="es_CL">
+  <meta property="og:locale" content={i.ogLocale}>
   <meta property="og:image" content="https://www.smconnection.cl/img/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -46,7 +60,7 @@ const {
     "name": "Smart Connection",
     "url": "https://www.smconnection.cl",
     "logo": "https://www.smconnection.cl/img/logo_smart_black.png",
-    "description": "Empresa chilena de servicios profesionales especializada en consultoría SAP y desarrollo de apps con IA.",
+    "description": description,
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Barros Borgoño 71",

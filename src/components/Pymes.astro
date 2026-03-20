@@ -1,29 +1,41 @@
+---
+import type { Lang } from '../i18n/translations';
+import { t } from '../i18n/translations';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const i = t(lang);
+
+const benefits = [i.pymesBenefit1, i.pymesBenefit2, i.pymesBenefit3, i.pymesBenefit4];
+const examples = [
+  { icon: 'bi-calculator', title: i.pymesQuote, desc: i.pymesQuoteDesc },
+  { icon: 'bi-clipboard-data', title: i.pymesCRM, desc: i.pymesCRMDesc },
+  { icon: 'bi-bar-chart-line', title: i.pymesReports, desc: i.pymesReportsDesc },
+  { icon: 'bi-robot', title: i.pymesAssistant, desc: i.pymesAssistantDesc },
+];
+---
+
 <section id="pymes" class="relative py-24 overflow-hidden">
   <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(rgba(0,193,193,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(0,193,193,0.3) 1px, transparent 1px); background-size: 50px 50px; animation: gridMove 4s linear infinite;"></div>
   <div class="max-w-7xl mx-auto px-6 relative z-10">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
       <div class="animate-on-scroll">
-        <span class="text-accent-gold text-sm font-semibold tracking-widest uppercase">Para PYMES y Negocios</span>
-        <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-3 mb-4">¿Tienes un negocio y necesitas automatizar procesos?</h2>
-        <p class="text-text-muted leading-relaxed mb-8">No necesitas ser una gran empresa para acceder a tecnología de primer nivel. Creamos soluciones a tu medida.</p>
+        <span class="text-accent-gold text-sm font-semibold tracking-widest uppercase">{i.pymesLabel}</span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-3 mb-4">{i.pymesTitle}</h2>
+        <p class="text-text-muted leading-relaxed mb-8">{i.pymesDesc}</p>
         <ul class="space-y-3 mb-8">
-          {['Sin grandes inversiones iniciales', 'Implementación rápida con IA', 'Soporte continuo incluido', 'Escalable según tu crecimiento'].map(item => (
+          {benefits.map(item => (
             <li class="flex items-center gap-3 text-text-muted">
               <span class="text-primary font-bold">✓</span> {item}
             </li>
           ))}
         </ul>
         <a href="#contacto" class="bg-accent-gold hover:brightness-110 text-dark-bg font-bold px-7 py-3.5 rounded-xl text-sm transition-all inline-flex items-center gap-2">
-          <i class="bi bi-chat-dots"></i> Cuéntanos tu proyecto
+          <i class="bi bi-chat-dots"></i> {i.pymesCTA}
         </a>
       </div>
       <div class="space-y-4 animate-on-scroll">
-        {[
-          { icon: 'bi-calculator', title: 'Cotizador Online', desc: 'Automatiza cotizaciones con precios y envío automático.' },
-          { icon: 'bi-clipboard-data', title: 'CRM Simple', desc: 'Gestiona clientes y seguimiento de ventas en una plataforma.' },
-          { icon: 'bi-bar-chart-line', title: 'Reportes Automáticos', desc: 'Dashboards en tiempo real con tus métricas de negocio.' },
-          { icon: 'bi-robot', title: 'Asistente IA', desc: 'Chatbot inteligente para atención al cliente 24/7.' },
-        ].map(ex => (
+        {examples.map(ex => (
           <div class="glass-card p-5 flex gap-4 items-start hover:border-accent-gold/20 transition-all">
             <span class="w-12 h-12 rounded-xl bg-accent-gold/10 flex items-center justify-center text-xl text-accent-gold shrink-0">
               <i class={`bi ${ex.icon}`}></i>

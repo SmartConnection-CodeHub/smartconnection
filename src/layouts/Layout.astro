@@ -51,6 +51,11 @@ const canonicalPath = getLocalizedPath(lang);
   <meta name="twitter:description" content={description}>
   <meta name="twitter:image" content="https://www.smconnection.cl/img/og-image.png">
 
+  <!-- Social Media Additional -->
+  <meta property="og:image:alt" content="Smart Connection - SAP + IA">
+  <meta name="twitter:site" content="@smconnection">
+  <meta name="twitter:creator" content="@smconnection">
+
   <link rel="shortcut icon" href="/img/smart.ico">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
 
@@ -70,7 +75,12 @@ const canonicalPath = getLocalizedPath(lang);
     },
     "telephone": ["+56955361419", "+56977008176"],
     "email": "contacto@smconnection.cl",
-    "sameAs": ["https://www.linkedin.com/company/smconnection/"]
+    "sameAs": [
+      "https://www.linkedin.com/company/smconnection/",
+      "https://www.instagram.com/smconnection.cl/",
+      "https://x.com/smconnection",
+      "https://www.youtube.com/@smconnection"
+    ]
   })} />
 </head>
 <body class="bg-dark-bg text-text-main font-sans">
@@ -79,5 +89,25 @@ const canonicalPath = getLocalizedPath(lang);
   <style is:global>
     @import '../styles/global.css';
   </style>
+<script is:inline>
+  // Marketing analytics - track UTM params and page views
+  (function() {
+    var params = new URLSearchParams(window.location.search);
+    var data = {
+      event: 'pageview',
+      source: params.get('utm_source') || document.referrer ? new URL(document.referrer || 'https://direct').hostname : 'direct',
+      medium: params.get('utm_medium') || 'none',
+      campaign: params.get('utm_campaign') || null,
+      page: window.location.pathname,
+      referrer: document.referrer || null,
+      lang: document.documentElement.lang === 'en' ? 'en' : 'es',
+    };
+    fetch('/api/marketing', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    }).catch(function(){});
+  })();
+</script>
 </body>
 </html>

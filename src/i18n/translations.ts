@@ -110,6 +110,28 @@ export const translations = {
     trustTitle: 'Tecnologías y Plataformas',
     trustDesc: 'Trabajamos con las principales plataformas tecnológicas del mercado.',
 
+    // Portfolio
+    portfolioLabel: 'Portafolio',
+    portfolioTitle: 'Proyectos que hemos desarrollado',
+    portfolioDesc: 'Casos reales de transformación digital para empresas y PYMES en Chile.',
+    portfolioVOY: 'VOY Marketplace',
+    portfolioVOYDesc: 'Plataforma de servicios profesionales con mapa interactivo, sistema de cotizaciones, pagos y chat en tiempo real.',
+    portfolioVOYTech: 'JavaScript · Airtable · Leaflet · Vercel',
+    portfolioInfoPet: 'InfoPet Panel',
+    portfolioInfoPetDesc: 'Panel de gestión para tienda de mascotas con sincronización Bsale/Jumpseller, IA para análisis de inventario y OCR.',
+    portfolioInfoPetTech: 'Next.js · AWS Amplify · Groq AI · Bsale API',
+    portfolioSMC: 'Smart Connection Web',
+    portfolioSMCDesc: 'Sitio corporativo bilingüe con intranet de agentes IA, CRM integrado y deploy dual Vercel + AWS.',
+    portfolioSMCTech: 'Astro · Tailwind · Supabase · Vercel',
+    portfolioIntranet: 'Intranet IA',
+    portfolioIntranetDesc: 'Dashboard interno con 5 agentes de IA (Claude, GPT, Grok, Gemini) para automatización de desarrollo, contenido y SEO.',
+    portfolioIntranetTech: 'Astro · Supabase · Anthropic · xAI · OpenAI',
+    portfolioCTA: 'Ver más proyectos',
+    portfolioTag: 'En producción',
+
+    // Navbar Portfolio
+    navPortfolio: 'Portafolio',
+
     // Pymes
     pymesLabel: 'Para PYMES y Negocios',
     pymesTitle: '¿Tienes un negocio y necesitas automatizar procesos?',
@@ -292,6 +314,28 @@ export const translations = {
     trustLabel: 'Partners',
     trustTitle: 'Technologies & Platforms',
     trustDesc: 'We work with leading technology platforms in the market.',
+
+    // Portfolio
+    portfolioLabel: 'Portfolio',
+    portfolioTitle: 'Projects we have built',
+    portfolioDesc: 'Real digital transformation cases for enterprises and SMBs in Chile.',
+    portfolioVOY: 'VOY Marketplace',
+    portfolioVOYDesc: 'Professional services platform with interactive map, quotation system, payments and real-time chat.',
+    portfolioVOYTech: 'JavaScript · Airtable · Leaflet · Vercel',
+    portfolioInfoPet: 'InfoPet Panel',
+    portfolioInfoPetDesc: 'Pet store management panel with Bsale/Jumpseller sync, AI inventory analysis and OCR.',
+    portfolioInfoPetTech: 'Next.js · AWS Amplify · Groq AI · Bsale API',
+    portfolioSMC: 'Smart Connection Web',
+    portfolioSMCDesc: 'Bilingual corporate site with AI agent intranet, integrated CRM and dual Vercel + AWS deploy.',
+    portfolioSMCTech: 'Astro · Tailwind · Supabase · Vercel',
+    portfolioIntranet: 'AI Intranet',
+    portfolioIntranetDesc: 'Internal dashboard with 5 AI agents (Claude, GPT, Grok, Gemini) for development, content and SEO automation.',
+    portfolioIntranetTech: 'Astro · Supabase · Anthropic · xAI · OpenAI',
+    portfolioCTA: 'View more projects',
+    portfolioTag: 'In production',
+
+    // Navbar Portfolio
+    navPortfolio: 'Portfolio',
 
     // Pymes
     pymesLabel: 'For SMBs & Businesses',

@@ -4,6 +4,8 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+  var isEnglish = document.documentElement.lang === 'en';
+
   // --- Navbar scroll effect ---
   var navbar = document.getElementById('navbar');
   if (navbar) {
@@ -174,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function sendContactForm(data) {
     var submitBtn = form.querySelector('button[type="submit"]');
     var originalText = submitBtn.innerHTML;
-    submitBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> Enviando...';
+    submitBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> ' + (isEnglish ? 'Sending...' : 'Enviando...');
     submitBtn.disabled = true;
 
     // Single call to Lambda — handles email + Airtable CRM server-side
@@ -186,13 +188,13 @@ document.addEventListener('DOMContentLoaded', function () {
       body: JSON.stringify(data)
     }).then(function (r) {
       if (r.status === 429) {
-        showToast('Demasiados mensajes. Intenta en unos minutos.', 'error');
+        showToast(isEnglish ? 'Too many messages. Try again in a few minutes.' : 'Demasiados mensajes. Intenta en unos minutos.', 'error');
         throw new Error('rate-limited');
       }
       if (!r.ok) throw new Error('Error: ' + r.status);
       return r.json();
     }).then(function () {
-      showToast('Mensaje enviado correctamente. Nos pondremos en contacto pronto.', 'success');
+      showToast(isEnglish ? 'Message sent successfully. We will contact you soon.' : 'Mensaje enviado correctamente. Nos pondremos en contacto pronto.', 'success');
       resetForm();
     }).catch(function (error) {
       if (error.message !== 'rate-limited') {
@@ -216,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function () {
       'Mensaje: ' + data.mensaje
     );
     window.open('mailto:contacto@smconnection.cl?subject=' + subject + '&body=' + body, '_blank');
-    showToast('Se abrirá tu cliente de correo para enviar el mensaje.', 'success');
+    showToast(isEnglish ? 'Your email client will open to send the message.' : 'Se abrirá tu cliente de correo para enviar el mensaje.', 'success');
     resetForm();
   }
 
@@ -253,7 +255,12 @@ document.addEventListener('DOMContentLoaded', function () {
   // --- Typewriter effect for hero badge ---
   var badge = document.querySelector('.hero-badge');
   if (badge) {
-    var phrases = [
+    var phrases = isEnglish ? [
+      'Certified SAP Consultants · AI Specialists',
+      'SAP BTP · S/4HANA · FIORI · ABAP · PI/PO',
+      'Apps with Claude · AWS · Airtable · GitHub',
+      'Solutions for Enterprises and SMBs in Chile'
+    ] : [
       'Consultores SAP Certificados · Especialistas en IA',
       'SAP BTP · S/4HANA · FIORI · ABAP · PI/PO',
       'Apps con Claude · AWS · Airtable · GitHub',

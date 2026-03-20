@@ -201,7 +201,9 @@ export const translations = {
     // Footer
     footerDesc: 'Servicios profesionales SAP con consultores certificados. Desarrollo de apps con IA para empresas y PYMES en Chile.',
     footerSAPServices: 'Servicios SAP',
+    footerSAPItems: 'SAP BTP,Migraciones S/4HANA,ABAP & FIORI,PI/PO & CPI,AMS & Soporte',
     footerAppsIA: 'Apps + IA',
+    footerAppsItems: 'Claude Code,Airtable,AWS Deploy,GitHub CI/CD',
     footerContact: 'Contacto',
     footerCopyright: '© 2026 Smart Connection. Todos los derechos reservados.',
     footerLocation: 'Santiago, Chile',
@@ -406,7 +408,9 @@ export const translations = {
     // Footer
     footerDesc: 'Professional SAP services with certified consultants. AI-powered app development for enterprises and SMBs in Chile.',
     footerSAPServices: 'SAP Services',
+    footerSAPItems: 'SAP BTP,S/4HANA Migrations,ABAP & FIORI,PI/PO & CPI,AMS & Support',
     footerAppsIA: 'Apps + AI',
+    footerAppsItems: 'Claude Code,Airtable,AWS Deploy,GitHub CI/CD',
     footerContact: 'Contact',
     footerCopyright: '© 2026 Smart Connection. All rights reserved.',
     footerLocation: 'Santiago, Chile',

@@ -141,22 +141,18 @@ const user = session.user || '';
       <h1>Intranet</h1>
       <p>Ingresa tu PIN de acceso</p>
       <div class="pin-container" id="pinContainer">
-        <input type="password" class="pin-digit" maxlength="1" inputmode="numeric" autocomplete="off" data-index="0">
-        <input type="password" class="pin-digit" maxlength="1" inputmode="numeric" autocomplete="off" data-index="1">
-        <input type="password" class="pin-digit" maxlength="1" inputmode="numeric" autocomplete="off" data-index="2">
-        <input type="password" class="pin-digit" maxlength="1" inputmode="numeric" autocomplete="off" data-index="3">
-        <input type="password" class="pin-digit" maxlength="1" inputmode="numeric" autocomplete="off" data-index="4">
-        <input type="password" class="pin-digit" maxlength="1" inputmode="numeric" autocomplete="off" data-index="5">
+        <input type="password" class="pin-digit" maxlength="1" autocomplete="off" data-index="0">
+        <input type="password" class="pin-digit" maxlength="1" autocomplete="off" data-index="1">
+        <input type="password" class="pin-digit" maxlength="1" autocomplete="off" data-index="2">
+        <input type="password" class="pin-digit" maxlength="1" autocomplete="off" data-index="3">
       </div>
       <div class="pin-dots">
         <span class="pin-dot" data-dot="0"></span>
         <span class="pin-dot" data-dot="1"></span>
         <span class="pin-dot" data-dot="2"></span>
         <span class="pin-dot" data-dot="3"></span>
-        <span class="pin-dot" data-dot="4"></span>
-        <span class="pin-dot" data-dot="5"></span>
       </div>
-      <div class="pin-status" id="pinStatus"><i class="bi bi-shield-lock"></i> 6 dígitos</div>
+      <div class="pin-status" id="pinStatus"><i class="bi bi-shield-lock"></i> 4 caracteres</div>
     </div>
   </div>
 
@@ -545,7 +541,7 @@ const user = session.user || '';
             // Check if all filled — auto-submit
             var pin = '';
             pinDigits.forEach(function(d) { pin += d.value; });
-            if (pin.length === 6 && !pinLocked) {
+            if (pin.length === 4 && !pinLocked) {
               pinLocked = true;
               pinStatus.innerHTML = '<i class="bi bi-hourglass-split"></i> Verificando...';
               pinStatus.className = 'pin-status';
@@ -570,17 +566,17 @@ const user = session.user || '';
         input.addEventListener('paste', function(e) {
           e.preventDefault();
           var pasted = (e.clipboardData || window.clipboardData).getData('text').replace(/[^0-9a-zA-Z]/g, '');
-          for (var i = 0; i < Math.min(pasted.length, 6); i++) {
+          for (var i = 0; i < Math.min(pasted.length, 4); i++) {
             pinDigits[i].value = pasted[i];
             pinDigits[i].classList.add('filled');
             if (pinDots[i]) pinDots[i].classList.add('active');
           }
-          if (pasted.length >= 6 && !pinLocked) {
+          if (pasted.length >= 4 && !pinLocked) {
             pinLocked = true;
             pinStatus.innerHTML = '<i class="bi bi-hourglass-split"></i> Verificando...';
-            submitPin(pasted.substring(0, 6));
-          } else if (pasted.length < 6) {
-            pinDigits[Math.min(pasted.length, 5)].focus();
+            submitPin(pasted.substring(0, 4));
+          } else if (pasted.length < 4) {
+            pinDigits[Math.min(pasted.length, 3)].focus();
           }
         });
       });
@@ -612,7 +608,7 @@ const user = session.user || '';
           pinStatus.className = 'pin-status error';
           setTimeout(function() {
             pinDigits.forEach(function(d) { d.classList.remove('error', 'filled'); });
-            pinStatus.innerHTML = '<i class="bi bi-shield-lock"></i> 6 dígitos';
+            pinStatus.innerHTML = '<i class="bi bi-shield-lock"></i> 4 caracteres';
             pinStatus.className = 'pin-status';
             pinLocked = false;
             pinDigits[0].focus();

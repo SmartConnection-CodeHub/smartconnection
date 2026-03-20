@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" viewBox="0 0 600 300">
+  <rect fill="#0a0e17" width="600" height="300"/>
+  <rect fill="#00c1c1" x="0" y="0" width="600" height="4" opacity="0.8"/>
+  <rect fill="#111827" x="20" y="50" width="560" height="50" rx="10"/>
+  <rect fill="#111827" x="20" y="120" width="270" height="160" rx="12"/>
+  <rect fill="#111827" x="310" y="120" width="270" height="160" rx="12"/>
+  <rect fill="#00c1c1" x="40" y="65" width="80" height="20" rx="10" opacity="0.2"/>
+  <rect fill="#94a3b8" x="200" y="70" width="50" height="10" rx="5" opacity="0.2"/>
+  <rect fill="#94a3b8" x="270" y="70" width="50" height="10" rx="5" opacity="0.2"/>
+  <rect fill="#94a3b8" x="340" y="70" width="50" height="10" rx="5" opacity="0.2"/>
+  <circle cx="155" cy="190" r="35" fill="#00c1c1" opacity="0.15"/>
+  <text x="155" y="195" text-anchor="middle" fill="#00c1c1" font-family="system-ui" font-size="18" font-weight="800">SAP+IA</text>
+  <rect fill="#94a3b8" x="40" y="240" width="200" height="6" rx="3" opacity="0.2"/>
+  <rect fill="#94a3b8" x="40" y="256" width="160" height="6" rx="3" opacity="0.2"/>
+  <circle cx="445" cy="190" r="35" fill="#00c1c1" opacity="0.15"/>
+  <text x="445" y="195" text-anchor="middle" fill="#00c1c1" font-family="system-ui" font-size="18" font-weight="800">ES/EN</text>
+  <rect fill="#94a3b8" x="330" y="240" width="200" height="6" rx="3" opacity="0.2"/>
+  <rect fill="#94a3b8" x="330" y="256" width="160" height="6" rx="3" opacity="0.2"/>
+</svg>

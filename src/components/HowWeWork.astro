@@ -1,0 +1,89 @@
+---
+import type { Lang } from '../i18n/translations';
+import { t } from '../i18n/translations';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const i = t(lang);
+
+const iaCards = [
+  { icon: 'bi-plug', title: i.howMcp, desc: i.howMcpDesc, ref: i.howMcpRef },
+  { icon: 'bi-diagram-3', title: i.howMultiAgent, desc: i.howMultiAgentDesc, ref: i.howMultiAgentRef },
+  { icon: 'bi-search', title: i.howRag, desc: i.howRagDesc, ref: i.howRagRef },
+  { icon: 'bi-shield-lock', title: i.howGuardrails, desc: i.howGuardrailsDesc, ref: i.howGuardrailsRef },
+];
+
+const methodCards = [
+  { icon: 'bi-clipboard-data', title: i.howEval, desc: i.howEvalDesc, ref: i.howEvalRef },
+  { icon: 'bi-arrow-repeat', title: i.howKaizen, desc: i.howKaizenDesc, ref: i.howKaizenRef },
+  { icon: 'bi-building-gear', title: i.howGov, desc: i.howGovDesc, ref: i.howGovRef },
+  { icon: 'bi-eye', title: i.howMaqueta, desc: i.howMaquetaDesc, ref: i.howMaquetaRef },
+];
+---
+
+<section id="como-trabajamos" class="relative py-24 overflow-hidden">
+  <div class="blob -left-[120px] top-[8%]"></div>
+  <div class="blob -right-[120px] bottom-[8%]"></div>
+  <div class="max-w-7xl mx-auto px-6 relative z-10">
+
+    <div class="text-center mb-16 animate-on-scroll">
+      <span class="text-primary text-sm font-semibold tracking-widest uppercase">{i.howLabel}</span>
+      <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-3 mb-4">{i.howTitle1}<span class="highlight">{i.howTitle2}</span></h2>
+      <p class="text-text-muted max-w-2xl mx-auto leading-relaxed">{i.howDesc}</p>
+    </div>
+
+    <!-- IA Block -->
+    <div class="mb-3 animate-on-scroll">
+      <span class="inline-flex items-center gap-2 text-[0.7rem] font-bold tracking-widest uppercase text-primary bg-primary/[0.06] border border-primary/[0.12] px-3 py-1.5 rounded-full">
+        <i class="bi bi-cpu"></i> {i.howIaLabel}
+      </span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-10">
+      {iaCards.map(card => (
+        <div class="glass-card card-glow p-6 hover:-translate-y-1 transition-all duration-300 animate-on-scroll">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-lg text-primary flex-shrink-0">
+              <i class={`bi ${card.icon}`}></i>
+            </span>
+            <h3 class="text-white font-bold text-sm leading-tight">{card.title}</h3>
+          </div>
+          <p class="text-text-muted text-xs leading-relaxed mb-3">{card.desc}</p>
+          <span class="text-primary/40 text-[0.65rem] font-medium flex items-center gap-1">
+            <i class="bi bi-circle-fill text-[0.35rem]"></i> {card.ref}
+          </span>
+        </div>
+      ))}
+    </div>
+
+    <!-- Methods Block -->
+    <div class="mb-3 animate-on-scroll">
+      <span class="inline-flex items-center gap-2 text-[0.7rem] font-bold tracking-widest uppercase text-accent-gold bg-accent-gold/[0.06] border border-accent-gold/[0.12] px-3 py-1.5 rounded-full">
+        <i class="bi bi-gear"></i> {i.howMethodLabel}
+      </span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+      {methodCards.map(card => (
+        <div class="glass-card card-glow p-6 border-accent-gold/[0.06] hover:-translate-y-1 transition-all duration-300 animate-on-scroll">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-10 h-10 rounded-lg bg-accent-gold/[0.08] flex items-center justify-center text-lg text-accent-gold flex-shrink-0">
+              <i class={`bi ${card.icon}`}></i>
+            </span>
+            <h3 class="text-white font-bold text-sm leading-tight">{card.title}</h3>
+          </div>
+          <p class="text-text-muted text-xs leading-relaxed mb-3">{card.desc}</p>
+          <span class="text-accent-gold/40 text-[0.65rem] font-medium flex items-center gap-1">
+            <i class="bi bi-circle-fill text-[0.35rem]"></i> {card.ref}
+          </span>
+        </div>
+      ))}
+    </div>
+
+    <!-- Bottom -->
+    <div class="mt-10 text-center p-5 rounded-2xl bg-dark-bg-2/30 border border-white/[0.04] animate-on-scroll">
+      <p class="text-text-muted text-sm leading-relaxed max-w-2xl mx-auto">{i.howBottom}</p>
+    </div>
+
+  </div>
+</section>

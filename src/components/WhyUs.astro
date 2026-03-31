@@ -41,7 +41,7 @@ const stats = [
     </div>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-6 animate-on-scroll">
       {stats.map(stat => (
-        <div class="text-center p-6">
+        <div class="glass-card text-center p-8">
           <span class="text-4xl md:text-5xl font-black text-primary stat-number" data-count={stat.count} data-suffix={stat.suffix}>0</span>
           <span class="block text-text-muted text-sm mt-2">{stat.label}</span>
         </div>

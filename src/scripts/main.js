@@ -675,7 +675,7 @@ function submitScheduler(e) {
 (function () {
   if (window.innerWidth < 768) return;
 
-  var buttons = document.querySelectorAll('.btn, .nav-cta, .nav-cta-calendar');
+  var buttons = document.querySelectorAll('#inicio a, #navbar a[href="#"], #navbar button, section a[class*="bg-primary"], section button[class*="bg-primary"]');
   buttons.forEach(function (btn) {
     btn.classList.add('btn-magnetic');
 
@@ -729,7 +729,7 @@ function submitScheduler(e) {
 
 // --- Floating Dots Generator ---
 (function () {
-  var sections = document.querySelectorAll('.services-section, .why-section');
+  var sections = document.querySelectorAll('#servicios-sap, #por-que');
   sections.forEach(function (section) {
     var container = document.createElement('div');
     container.className = 'floating-dots';
@@ -763,7 +763,7 @@ function submitScheduler(e) {
 
 // --- Holographic background for hero ---
 (function () {
-  var hero = document.querySelector('.hero');
+  var hero = document.querySelector('#inicio');
   if (!hero) return;
   var holo = document.createElement('div');
   holo.className = 'holo-bg';

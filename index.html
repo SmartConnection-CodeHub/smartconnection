@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Smart Connection | SAP + IA - Soluciones Tecnologicas Chile</title>
+<meta name="google" content="notranslate">
+<title>Smart Connection | SAP + IA - Soluciones Tecnológicas Chile</title>
 <meta name="description" content="Smart Connection: consultores SAP certificados en Chile. SaaS Factory con IA: 12 agentes especializados. SAP BTP, S/4HANA, FIORI, apps con IA para empresas y PYMES.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20fill%3D%22none%22%20viewBox%3D%220%200%20128%20128%22%3E%3Cpath%20fill%3D%22%2300b4d8%22%20d%3D%22M50.4%2078.5a75.1%2075.1%200%200%200-28.5%206.9l24.2-65.7c.7-2%201.9-3.2%203.4-3.2h29c1.5%200%202.7%201.2%203.4%203.2l24.2%2065.7s-11.6-7-28.5-7L67%2045.5c-.4-1.7-1.6-2.8-2.9-2.8-1.3%200-2.5%201.1-2.9%202.7L50.4%2078.5Zm-1.1%2028.2Zm-4.2-20.2c-2%206.6-.6%2015.8%204.2%2020.2a17.5%2017.5%200%200%201%20.2-.7%205.5%205.5%200%200%201%205.7-4.5c2.8.1%204.3%201.5%204.7%204.7.2%201.1.2%202.3.2%203.5v.4c0%202.7.7%205.2%202.2%207.4a13%2013%200%200%200%205.7%204.9v-.3l-.2-.3c-1.8-5.6-.5-9.5%204.4-12.8l1.5-1a73%2073%200%200%200%203.2-2.2%2016%2016%200%200%200%206.8-11.4c.3-2%20.1-4-.6-6l-.8.6-1.6%201a37%2037%200%200%201-22.4%202.7c-5-.7-9.7-2-13.2-6.2Z%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -516,12 +517,7 @@ footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; hei
 .mm-orbit-node.active .mm-orb-inner { transform: scale(1.2); box-shadow: 0 0 50px color-mix(in srgb, var(--nc) 30%, transparent); }
 .mm-od-item { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 12px; color: var(--text2); line-height: 1.5; }
 .mm-od-item:last-child { border-bottom: none; }
-@media(max-width:768px) {
-  .mind-map-wrap { min-height: auto !important; display: flex; flex-direction: column; gap: 12px; align-items: center; padding: 20px 0; }
-  .mm-center { position: relative !important; left: auto !important; top: auto !important; transform: none !important; }
-  .mm-orbit-node { position: relative !important; left: auto !important; top: auto !important; transform: none !important; }
-  .mm-orb-detail { position: relative; top: 8px; left: auto; transform: none; width: 100%; }
-}
+/* Old methodology mobile layout removed — replaced by horizontal scroll in main 768px block */
 
 /* OLD METHODOLOGY CARDS (kept for compat) */
 .meth-cat { transition: all 0.4s ease; }
@@ -543,6 +539,69 @@ footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; hei
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
 /* ============================================
+   EFECTO 1: Border Glow Animated
+   ============================================ */
+.glow-border { position: relative; overflow: hidden; }
+.glow-border::before { content:''; position:absolute; inset:-2px; border-radius:inherit; background:conic-gradient(from var(--glow-angle,0deg),transparent 0%,var(--accent) 10%,transparent 20%); opacity:0; transition:opacity .4s; z-index:-1; }
+.glow-border:hover::before { opacity:1; animation:borderSpin 3s linear infinite; }
+.glow-border::after { content:''; position:absolute; inset:1px; border-radius:inherit; background:var(--elevated); z-index:-1; }
+@property --glow-angle { syntax:'<angle>'; initial-value:0deg; inherits:false; }
+@keyframes borderSpin { to { --glow-angle:360deg; } }
+
+/* ============================================
+   EFECTO 3: Marquee Ticker
+   ============================================ */
+.marquee-wrap { overflow:hidden; padding:20px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:rgba(6,9,18,0.6); }
+.marquee-track { display:flex; gap:48px; animation:marqueeScroll 30s linear infinite; width:max-content; }
+.marquee-track:hover { animation-play-state:paused; }
+.marquee-item { display:flex; align-items:center; gap:10px; white-space:nowrap; color:var(--text2); font-size:13px; font-weight:600; letter-spacing:.03em; }
+.marquee-item .mi-dot { width:6px; height:6px; border-radius:50%; background:var(--accent); opacity:.5; }
+@keyframes marqueeScroll { to { transform:translateX(-50%); } }
+
+/* ============================================
+   EFECTO 5: Hero Nebula (gradiente animado)
+   ============================================ */
+.hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 30% 50%,rgba(0,180,216,0.06) 0%,transparent 50%),radial-gradient(ellipse at 70% 30%,rgba(168,85,247,0.04) 0%,transparent 50%); background-size:200% 200%; animation:nebula 12s ease-in-out infinite alternate; pointer-events:none; z-index:0; }
+@keyframes nebula { 0%{background-position:0% 0%} 100%{background-position:100% 100%} }
+
+/* ============================================
+   EFECTO 6: Scroll Snap (desktop only)
+   ============================================ */
+@media(min-width:1025px) {
+  html.snap-enabled { scroll-snap-type:y proximity; }
+  .snap-enabled section { scroll-snap-align:start; }
+}
+
+/* ============================================
+   EFECTO 7: Stagger bounce mejorado
+   ============================================ */
+.aos-bounce { opacity:0; transform:translateY(30px) scale(0.95); }
+.aos-bounce.visible { opacity:1; transform:translateY(0) scale(1); transition:opacity .5s,transform .6s cubic-bezier(0.34,1.56,0.64,1); }
+
+/* ============================================
+   EFECTO 8: Morph blob (CTA section)
+   ============================================ */
+.cta-blob { position:absolute; width:400px; height:400px; border-radius:40% 60% 60% 40%/60% 30% 70% 40%; background:radial-gradient(circle,rgba(0,229,176,0.08),rgba(0,180,216,0.04)); filter:blur(60px); animation:blobMorph 10s ease-in-out infinite; pointer-events:none; z-index:0; }
+@keyframes blobMorph { 0%,100%{border-radius:40% 60% 60% 40%/60% 30% 70% 40%;transform:translate(-50%,-50%) rotate(0deg)} 33%{border-radius:60% 40% 30% 70%/40% 60% 70% 30%;transform:translate(-50%,-50%) rotate(60deg)} 66%{border-radius:30% 60% 70% 40%/50% 60% 30% 60%;transform:translate(-50%,-50%) rotate(-30deg)} }
+
+/* ============================================
+   EFECTO 9: Vignette Hero
+   ============================================ */
+.hero::after { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at center,transparent 40%,rgba(6,9,18,0.7) 100%); pointer-events:none; z-index:0; }
+.hero > * { position:relative; z-index:1; }
+
+/* ============================================
+   EFECTO 10: Typewriter cursor glow
+   ============================================ */
+.hero-badge span[style*="blink"] { text-shadow:0 0 8px var(--accent),0 0 16px rgba(0,229,176,0.3); }
+
+/* ============================================
+   EFECTO 2: Hover Tilt 3D
+   ============================================ */
+.tilt-card { transform-style:preserve-3d; perspective:800px; }
+.tilt-card .ci { transition:transform .3s ease-out; }
+
+/* ============================================
    RESPONSIVE
    ============================================ */
 @media (max-width: 1024px) {
@@ -556,36 +615,89 @@ footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; hei
   .how-grid { grid-template-columns: repeat(2, 1fr); }
   .apps-grid { grid-template-columns: repeat(2, 1fr); }
   .solar-container { max-width: 600px; }
-  .pymes-grid { grid-template-columns: 1fr; }
+  /* PYME: stack vertical + cards en scroll horizontal */
+  .pymes-grid { display: flex !important; flex-direction: column !important; gap: 24px !important; }
+  .pymes-examples { display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; overflow-x: auto !important; scroll-snap-type: x mandatory; gap: 14px !important; padding: 0 0 12px; -webkit-overflow-scrolling: touch; }
+  .pymes-examples::-webkit-scrollbar { display: none; }
+  .pymes-examples .glass-card { flex: 0 0 78% !important; scroll-snap-align: start; min-width: 0; }
   .contact-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 768px) {
   .nav-links { display: none; }
   .mobile-toggle { display: flex; }
+  .nav-cta { padding: 0 !important; font-size: 0 !important; width: 40px !important; height: 40px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; border-radius: 10px !important; flex-shrink: 0; }
+  .nav-cta i { font-size: 18px !important; margin: 0 !important; }
+  .logo { font-size: 16px; }
+  .navbar { padding: 10px 16px; }
+  .navbar.scrolled { padding: 8px 16px; }
   section { padding: 72px 16px; }
   .hero-title { font-size: 2rem; }
-  .concept-grid { grid-template-columns: 1fr; }
-  .services-grid { grid-template-columns: 1fr; }
-  .how-grid { grid-template-columns: 1fr; }
+
+  /* Hero CTAs: pills horizontales con scroll */
+  .hero-buttons { flex-direction: row !important; flex-wrap: nowrap !important; overflow-x: auto; scroll-snap-type: x mandatory; gap: 10px !important; padding-bottom: 8px; -webkit-overflow-scrolling: touch; }
+  .hero-buttons .btn { flex-shrink: 0 !important; width: auto !important; padding: 10px 18px !important; font-size: 13px !important; border-radius: 24px !important; scroll-snap-align: start; white-space: nowrap; }
+  .hero-buttons::-webkit-scrollbar { display: none; }
+
+  /* Factory cards: horizontal scroll snap */
+  .concept-grid { display: flex !important; overflow-x: auto; scroll-snap-type: x mandatory; gap: 16px !important; padding: 0 16px 16px; -webkit-overflow-scrolling: touch; }
+  .concept-grid::-webkit-scrollbar { display: none; }
+  .concept-grid .concept-card { flex: 0 0 82%; scroll-snap-align: start; min-width: 0; }
+  .concept-card .ci { text-align: center; }
+  .concept-card .concept-icon { margin-left: auto; margin-right: auto; }
+
+  /* SAP cards: horizontal scroll snap */
+  .services-grid { display: flex !important; overflow-x: auto; scroll-snap-type: x mandatory; gap: 16px !important; padding: 0 16px 16px; -webkit-overflow-scrolling: touch; }
+  .services-grid::-webkit-scrollbar { display: none; }
+  .services-grid .service-card { flex: 0 0 82%; scroll-snap-align: start; min-width: 0; }
+  .service-card .ci { text-align: center; }
+  .service-card .service-icon-wrap { margin-left: auto; margin-right: auto; }
+
+  /* Separadores de sección */
+  section + section::before { content: ''; display: block; width: 60%; max-width: 200px; height: 2px; margin: 0 auto 40px; background: linear-gradient(90deg, transparent, rgba(0,229,176,0.3), rgba(0,180,216,0.3), transparent); border-radius: 2px; }
+  /* How cards: horizontal scroll */
+  .how-grid { display: flex !important; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px !important; padding: 0 16px 12px; -webkit-overflow-scrolling: touch; }
+  .how-grid::-webkit-scrollbar { display: none; }
+  .how-grid .how-card { flex: 0 0 78%; scroll-snap-align: start; min-width: 0; }
+  .how-card .ci { text-align: center; }
+  .how-card .how-icon { margin-left: auto; margin-right: auto; }
+
   .apps-grid { grid-template-columns: 1fr; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* Stats: horizontal scroll */
+  .stats-grid { display: flex !important; overflow-x: auto; scroll-snap-type: x mandatory; gap: 16px !important; padding: 0 16px 12px; -webkit-overflow-scrolling: touch; }
+  .stats-grid::-webkit-scrollbar { display: none; }
+  .stats-grid .stat-card { flex: 0 0 45%; scroll-snap-align: start; min-width: 0; }
   .stat-number { font-size: 36px; }
-  .team-grid { grid-template-columns: 1fr; }
+
+  /* Team: horizontal scroll */
+  .team-grid { display: flex !important; overflow-x: auto; scroll-snap-type: x mandatory; gap: 16px !important; padding: 0 16px 12px; -webkit-overflow-scrolling: touch; }
+  .team-grid::-webkit-scrollbar { display: none; }
+  .team-grid > * { flex: 0 0 85%; scroll-snap-align: start; min-width: 0; }
+
   .cta-buttons { flex-direction: column; align-items: center; }
   .footer-grid { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; text-align: center; gap: 8px; }
   .galaxy-container { max-width: 100%; }
   .galaxy-methods { width: 90vw; }
   .solar-container { max-width: 100%; }
-  .mind-map-wrap { min-height: auto !important; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; padding: 20px 0; }
+  /* Metodologías: glass cards con paleta Space */
+  #metodologias { padding-bottom: 32px !important; }
+  .mind-map-wrap { min-height: auto !important; display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; overflow-x: auto !important; scroll-snap-type: x mandatory; gap: 14px; padding: 16px 20px; margin-top: 24px !important; -webkit-overflow-scrolling: touch; align-items: stretch; }
+  .mind-map-wrap::-webkit-scrollbar { display: none; }
   .mind-map-wrap canvas { display: none; }
   .mind-map-wrap svg { display: none; }
-  .mm-center { position: relative !important; left: auto !important; top: auto !important; transform: none !important; width: 100%; display: flex; justify-content: center; margin-bottom: 12px; }
-  .mm-orbit-node { position: relative !important; left: auto !important; top: auto !important; transform: none !important; }
-  .mm-orb-inner { width: 90px !important; height: 90px !important; }
+  .mm-center { position: relative !important; left: auto !important; top: auto !important; transform: none !important; flex: 0 0 auto; scroll-snap-align: start; }
+  .mm-center > div { width: 80px !important; height: 80px !important; background: rgba(0,180,216,0.1) !important; border: 1.5px solid rgba(0,180,216,0.3) !important; }
+  .mm-orbit-node { position: relative !important; left: auto !important; top: auto !important; transform: none !important; flex: 0 0 110px !important; scroll-snap-align: start; }
+  .mm-orb-inner { width: 110px !important; height: 110px !important; background: var(--bg-glass, rgba(15,22,35,0.85)) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border: 1px solid rgba(0,229,176,0.15) !important; border-color: rgba(0,229,176,0.15) !important; box-shadow: 0 4px 24px rgba(0,0,0,0.3), inset 0 0 20px rgba(0,229,176,0.03) !important; border-radius: 20px !important; }
+  .mm-orb-name { font-size: 11px !important; font-weight: 700 !important; color: var(--accent, #00e5b0) !important; letter-spacing: 0.5px; }
+  .mm-orb-count { font-size: 24px !important; font-weight: 800 !important; color: #f1f5f9 !important; }
   .mm-orb-detail { position: fixed !important; top: 50% !important; left: 50% !important; transform: translate(-50%,-50%) !important; width: 85vw !important; z-index: 100; }
   .form-row { grid-template-columns: 1fr; }
+  .marquee-wrap { padding: 12px 0; overflow: hidden; max-width: 100vw; }
+  .marquee-item { font-size: 11px; gap: 6px; }
+  .marquee-track { gap: 28px; }
 }
 @media (max-width: 480px) {
   .stats-grid { grid-template-columns: 1fr; }
@@ -593,59 +705,15 @@ footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; hei
   .radial-node span { width: 50px; height: 50px; font-size: 8px; }
   .radial-center { width: 66px; height: 66px; }
   .radial-center span { font-size: 11px !important; }
-  .hero-buttons { flex-direction: column; }
-  .hero-buttons .btn { width: 100%; justify-content: center; }
 }
 
-/* Fix 4: Mobile containment for methodology spheres and solar system */
+/* Solar system: scale down on small screens */
 @media (max-width: 480px) {
-  /* Methodology mind map: smaller spheres, contained */
-  .mind-map-wrap {
-    overflow: hidden !important;
-    max-width: 100vw;
-  }
-  .mm-orb-inner {
-    width: 72px !important;
-    height: 72px !important;
-  }
-  .mm-orb-name { font-size: 10px !important; }
-  .mm-orb-count { font-size: 18px !important; }
-  .mm-center > div {
-    width: 100px !important;
-    height: 100px !important;
-  }
-  .mm-center span:first-child { font-size: 22px !important; }
-  .mm-center span:last-child { font-size: 9px !important; }
-
-  /* Solar system: scale down to fit 375px viewport */
-  .solar-container {
-    max-width: 100% !important;
-    overflow: hidden;
-  }
-  .solar-svg {
-    transform: scale(0.55);
-    transform-origin: center center;
-  }
+  .solar-container { max-width: 100% !important; overflow: hidden; }
+  .solar-svg { transform: scale(0.55); transform-origin: center center; }
 }
 @media (max-width: 768px) and (min-width: 481px) {
-  .mind-map-wrap {
-    overflow: hidden !important;
-  }
-  .mm-orb-inner {
-    width: 80px !important;
-    height: 80px !important;
-  }
-  .solar-svg {
-    transform: scale(0.7);
-    transform-origin: center center;
-  }
-}
-/* Ensure methodology section doesn't overflow */
-#metodologias {
-  overflow: hidden !important;
-}
-#metodologias .mind-map-wrap {
-  overflow: hidden;
+  .solar-svg { transform: scale(0.7); transform-origin: center center; }
 }
 
 /* ============================================
@@ -694,22 +762,22 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
      ============================================ -->
 <nav class="navbar" id="navbar">
   <div class="nav-inner">
-    <a href="#" class="logo">Smart<span>Connection</span></a>
+    <a href="#" class="logo" data-no-i18n>Smart<span>Connection</span></a>
     <ul class="nav-links">
       <li><a href="#factory" data-i18n="nav.factory">SaaS Factory</a></li>
       <li><a href="#servicios-sap" data-i18n="nav.sap">SAP</a></li>
-      <li><a href="#metodologias" data-i18n="nav.metodologias">Metodologias</a></li>
+      <li><a href="#metodologias" data-i18n="nav.metodologias">Metodologías</a></li>
       <li><a href="#equipo" data-i18n="nav.equipo">Equipo</a></li>
       <li><a href="#pymes" data-i18n="nav.pymes">PYMES</a></li>
       <li><a href="#contacto" class="nav-contact" data-i18n="nav.contacto">Contacto</a></li>
     </ul>
-    <a href="#contacto" class="nav-cta" data-i18n="nav.cta"><i class="bi bi-calendar-check"></i> Agendar Reunion</a>
+    <a href="#contacto" class="nav-cta" data-i18n="nav.cta"><i class="bi bi-calendar-check"></i> Agendar Reunión</a>
     <button class="lang-toggle" id="langToggle" aria-label="Cambiar idioma">
       <span class="lang-es">ES</span>
       <span class="lang-separator">|</span>
       <span class="lang-en">EN</span>
     </button>
-    <button class="mobile-toggle" id="menuToggle" aria-label="Abrir menu">
+    <button class="mobile-toggle" id="menuToggle" aria-label="Abrir menú">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -738,6 +806,44 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
   </div>
 </section>
 
+<!-- EFECTO 3: Marquee de tecnologías -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item"><span class="mi-dot"></span>SAP BTP</span>
+    <span class="marquee-item"><span class="mi-dot"></span>Claude AI</span>
+    <span class="marquee-item"><span class="mi-dot"></span>Next.js</span>
+    <span class="marquee-item"><span class="mi-dot"></span>AWS</span>
+    <span class="marquee-item"><span class="mi-dot"></span>Supabase</span>
+    <span class="marquee-item"><span class="mi-dot"></span>S/4HANA</span>
+    <span class="marquee-item"><span class="mi-dot"></span>TypeScript</span>
+    <span class="marquee-item"><span class="mi-dot"></span>Tailwind</span>
+    <span class="marquee-item"><span class="mi-dot"></span>React</span>
+    <span class="marquee-item"><span class="mi-dot"></span>MCP Protocol</span>
+    <span class="marquee-item"><span class="mi-dot"></span>Groq</span>
+    <span class="marquee-item"><span class="mi-dot"></span>PostHog</span>
+    <span class="marquee-item"><span class="mi-dot"></span>Joule IA</span>
+    <span class="marquee-item"><span class="mi-dot"></span>LinkedIn API</span>
+    <span class="marquee-item"><span class="mi-dot"></span>Radix UI</span>
+    <span class="marquee-item"><span class="mi-dot"></span>CloudFront</span>
+    <span class="marquee-item"><span class="mi-dot"></span>SAP BTP</span>
+    <span class="marquee-item"><span class="mi-dot"></span>Claude AI</span>
+    <span class="marquee-item"><span class="mi-dot"></span>Next.js</span>
+    <span class="marquee-item"><span class="mi-dot"></span>AWS</span>
+    <span class="marquee-item"><span class="mi-dot"></span>Supabase</span>
+    <span class="marquee-item"><span class="mi-dot"></span>S/4HANA</span>
+    <span class="marquee-item"><span class="mi-dot"></span>TypeScript</span>
+    <span class="marquee-item"><span class="mi-dot"></span>Tailwind</span>
+    <span class="marquee-item"><span class="mi-dot"></span>React</span>
+    <span class="marquee-item"><span class="mi-dot"></span>MCP Protocol</span>
+    <span class="marquee-item"><span class="mi-dot"></span>Groq</span>
+    <span class="marquee-item"><span class="mi-dot"></span>PostHog</span>
+    <span class="marquee-item"><span class="mi-dot"></span>Joule IA</span>
+    <span class="marquee-item"><span class="mi-dot"></span>LinkedIn API</span>
+    <span class="marquee-item"><span class="mi-dot"></span>Radix UI</span>
+    <span class="marquee-item"><span class="mi-dot"></span>CloudFront</span>
+  </div>
+</div>
+
 <div class="divider"></div>
 
 <!-- ============================================
@@ -748,16 +854,16 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
   <div class="cx">
     <div class="section-header aos">
       <span class="section-label" data-i18n="factory.label">Nuestro diferenciador</span>
-      <h2 class="section-title" data-i18n="factory.title">Que es una <span class="hl">SaaS Factory con IA</span>?</h2>
-      <p class="section-desc" data-i18n="factory.desc">No construimos software de la manera tradicional. Operamos como una fabrica inteligente donde cada especialidad tiene un responsable dedicado, potenciado por inteligencia artificial.</p>
+      <h2 class="section-title" data-i18n="factory.title">Qué es una <span class="hl">SaaS Factory con IA</span>?</h2>
+      <p class="section-desc" data-i18n="factory.desc">No construimos software de la manera tradicional. Operamos como una fábrica inteligente donde cada especialidad tiene un responsable dedicado, potenciado por inteligencia artificial.</p>
     </div>
     <div class="concept-grid">
-      <div class="glass-card concept-card aos aos-d1"><div class="ci"><div class="concept-icon"><i class="bi bi-lightning-charge"></i></div><h3 data-i18n="factory.card1.title">Velocidad x Paralelismo</h3><p data-i18n="factory.card1.desc">Backend, frontend e IA se desarrollan simultaneamente contra contratos de API predefinidos. Lo que otros hacen en 3 meses, lo entregamos en semanas.</p></div></div>
-      <div class="glass-card concept-card aos aos-d2"><div class="ci"><div class="concept-icon"><i class="bi bi-cpu"></i></div><h3 data-i18n="factory.card2.title">IA en cada capa</h3><p data-i18n="factory.card2.desc">No solo construimos CON IA. Usamos IA para disenar, desarrollar, testear, optimizar prompts, evaluar calidad y monitorear en produccion.</p></div></div>
-      <div class="glass-card concept-card aos aos-d3"><div class="ci"><div class="concept-icon"><i class="bi bi-layers"></i></div><h3 data-i18n="factory.card3.title">Arquitectura Cross</h3><p data-i18n="factory.card3.desc">Un arquitecto define estandares, contratos y decisiones tecnicas que todos siguen. Nada se improvisa: cada pieza encaja por diseno.</p></div></div>
-      <div class="glass-card concept-card aos aos-d4"><div class="ci"><div class="concept-icon"><i class="bi bi-plug"></i></div><h3 data-i18n="factory.card4.title">MCP: IA que actúa</h3><p data-i18n="factory.card4.desc">Model Context Protocol conecta nuestra IA con calendarios, analytics, Asana, documentación y más. No es un chatbot — es IA que opera sobre tus sistemas reales.</p></div></div>
-      <div class="glass-card concept-card aos aos-d5"><div class="ci"><div class="concept-icon"><i class="bi bi-graph-up-arrow"></i></div><h3 data-i18n="factory.card5.title">Decisiones con datos</h3><p data-i18n="factory.card5.desc">Priorizamos con métricas reales (RICE scoring, AARRR). No construimos lo que "suena bien" — construimos lo que mueve tu negocio.</p></div></div>
-      <div class="glass-card concept-card aos aos-d6"><div class="ci"><div class="concept-icon"><i class="bi bi-megaphone"></i></div><h3 data-i18n="factory.card6.title">IA + Marketing Digital</h3><p data-i18n="factory.card6.desc">SEO técnico, Google Ads, Meta Pixel, PostHog analytics y contenido generado con IA. Tu marca visible donde importa, optimizada con datos en tiempo real.</p></div></div>
+      <div class="glass-card concept-card glow-border tilt-card aos aos-d1"><div class="ci"><div class="concept-icon"><i class="bi bi-lightning-charge"></i></div><h3 data-i18n="factory.card1.title">Velocidad x Paralelismo</h3><p data-i18n="factory.card1.desc">Backend, frontend e IA se desarrollan simultáneamente contra contratos de API predefinidos. Lo que otros hacen en 3 meses, lo entregamos en semanas.</p></div></div>
+      <div class="glass-card concept-card glow-border tilt-card aos aos-d2"><div class="ci"><div class="concept-icon"><i class="bi bi-cpu"></i></div><h3 data-i18n="factory.card2.title">IA en cada capa</h3><p data-i18n="factory.card2.desc">No solo construimos CON IA. Usamos IA para diseñar, desarrollar, testear, optimizar prompts, evaluar calidad y monitorear en producción.</p></div></div>
+      <div class="glass-card concept-card glow-border tilt-card aos aos-d3"><div class="ci"><div class="concept-icon"><i class="bi bi-layers"></i></div><h3 data-i18n="factory.card3.title">Arquitectura Cross</h3><p data-i18n="factory.card3.desc">Un arquitecto define estándares, contratos y decisiones técnicas que todos siguen. Nada se improvisa: cada pieza encaja por diseño.</p></div></div>
+      <div class="glass-card concept-card glow-border tilt-card aos aos-d4"><div class="ci"><div class="concept-icon"><i class="bi bi-plug"></i></div><h3 data-i18n="factory.card4.title">MCP: IA que actúa</h3><p data-i18n="factory.card4.desc">Model Context Protocol conecta nuestra IA con calendarios, analytics, Asana, documentación y más. No es un chatbot — es IA que opera sobre tus sistemas reales.</p></div></div>
+      <div class="glass-card concept-card glow-border tilt-card aos aos-d5"><div class="ci"><div class="concept-icon"><i class="bi bi-graph-up-arrow"></i></div><h3 data-i18n="factory.card5.title">Decisiones con datos</h3><p data-i18n="factory.card5.desc">Priorizamos con métricas reales (RICE scoring, AARRR). No construimos lo que "suena bien" — construimos lo que mueve tu negocio.</p></div></div>
+      <div class="glass-card concept-card glow-border tilt-card aos aos-d6"><div class="ci"><div class="concept-icon"><i class="bi bi-megaphone"></i></div><h3 data-i18n="factory.card6.title">IA + Marketing Digital</h3><p data-i18n="factory.card6.desc">SEO técnico, Google Ads, Meta Pixel, PostHog analytics y contenido generado con IA. Tu marca visible donde importa, optimizada con datos en tiempo real.</p></div></div>
     </div>
   </div>
 </section>
@@ -772,18 +878,18 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
   <div class="cx">
     <div class="section-header aos">
       <span class="section-label" data-i18n="sap.label">Expertise SAP</span>
-      <h2 class="section-title" data-i18n="sap.title">Consultoria y Servicios SAP</h2>
+      <h2 class="section-title" data-i18n="sap.title">Consultoría y Servicios SAP</h2>
       <p class="section-desc" data-i18n="sap.desc">Nuestros consultores certificados comprenden tus necesidades y entregan soluciones SAP a la medida.</p>
     </div>
     <div class="services-grid">
-      <div class="glass-card service-card aos aos-d1"><div class="ci"><div class="service-icon-wrap si-blue"><i class="bi bi-cloud-arrow-up"></i></div><h3 data-i18n="sap.card1.title">SAP BTP & Cloud</h3><p data-i18n="sap.card1.desc">Business Technology Platform: extensiones, integraciones y desarrollo de aplicaciones en la nube.</p><span class="badge badge-blue">Cloud</span></div></div>
-      <div class="glass-card service-card aos aos-d2"><div class="ci"><div class="service-icon-wrap si-blue"><i class="bi bi-arrow-repeat"></i></div><h3 data-i18n="sap.card2.title">Implementación S/4HANA</h3><p data-i18n="sap.card2.desc">Implementación y soporte de S/4HANA Cloud y On-Premise con metodología SAP Activate.</p><span class="badge badge-blue">S/4HANA</span></div></div>
-      <div class="glass-card service-card aos aos-d3"><div class="ci"><div class="service-icon-wrap si-blue"><i class="bi bi-code-slash"></i></div><h3 data-i18n="sap.card3.title">ABAP & FIORI</h3><p data-i18n="sap.card3.desc">Desarrollo ABAP en ECC y S/4HANA. Aplicaciones FIORI con experiencia de usuario moderna.</p><span class="badge badge-blue">Development</span></div></div>
-      <div class="glass-card service-card aos aos-d4"><div class="ci"><div class="service-icon-wrap si-blue"><i class="bi bi-diagram-3"></i></div><h3 data-i18n="sap.card4.title">Migración PI/PO a BTP IS</h3><p data-i18n="sap.card4.desc">Migración de interfaces PI/PO a SAP Integration Suite en BTP. Modernización de integraciones.</p><span class="badge badge-blue">Migration</span></div></div>
-      <div class="glass-card service-card aos aos-d5"><div class="ci"><div class="service-icon-wrap si-purple"><i class="bi bi-bar-chart-line"></i></div><h3 data-i18n="sap.card5.title">SAP CAP & RAP</h3><p data-i18n="sap.card5.desc">Desarrollo de extensiones cloud-native con Cloud Application Programming y RESTful ABAP Programming.</p><span class="badge badge-purple">Development</span></div></div>
-      <div class="glass-card service-card aos aos-d6"><div class="ci"><div class="service-icon-wrap si-green"><i class="bi bi-phone"></i></div><h3 data-i18n="sap.card6.title">Movilidad & IoT</h3><p data-i18n="sap.card6.desc">SAP Mobile Services, mantenimiento movil e Internet de las Cosas.</p><span class="badge badge-green">Mobile</span></div></div>
-      <div class="glass-card service-card aos aos-d7"><div class="ci"><div class="service-icon-wrap si-blue"><i class="bi bi-building-gear"></i></div><h3 data-i18n="sap.card7.title">Portal & Workflow</h3><p data-i18n="sap.card7.desc">SAP Portal para portales corporativos. Automatizacion con Workflow y formularios.</p><span class="badge badge-blue">Enterprise</span></div></div>
-      <div class="glass-card service-card aos aos-d8"><div class="ci"><div class="service-icon-wrap si-green"><i class="bi bi-headset"></i></div><h3 data-i18n="sap.card8.title">AMS & Soporte Continuo</h3><p data-i18n="sap.card8.desc">Application Management Services y mesa de ayuda SAP con SLA garantizados.</p><span class="badge badge-green" data-i18n="sap.card8.badge">Soporte 24/7</span></div></div>
+      <div class="glass-card service-card tilt-card aos aos-d1"><div class="ci"><div class="service-icon-wrap si-blue"><i class="bi bi-cloud-arrow-up"></i></div><h3 data-i18n="sap.card1.title">SAP BTP & Cloud</h3><p data-i18n="sap.card1.desc">Business Technology Platform: extensiones, integraciones y desarrollo de aplicaciones en la nube.</p><span class="badge badge-blue">Cloud</span></div></div>
+      <div class="glass-card service-card tilt-card aos aos-d2"><div class="ci"><div class="service-icon-wrap si-blue"><i class="bi bi-arrow-repeat"></i></div><h3 data-i18n="sap.card2.title">Implementación S/4HANA</h3><p data-i18n="sap.card2.desc">Implementación y soporte de S/4HANA Cloud y On-Premise con metodología SAP Activate.</p><span class="badge badge-blue">S/4HANA</span></div></div>
+      <div class="glass-card service-card tilt-card aos aos-d3"><div class="ci"><div class="service-icon-wrap si-blue"><i class="bi bi-code-slash"></i></div><h3 data-i18n="sap.card3.title">ABAP & FIORI</h3><p data-i18n="sap.card3.desc">Desarrollo ABAP en ECC y S/4HANA. Aplicaciones FIORI con experiencia de usuario moderna.</p><span class="badge badge-blue">Development</span></div></div>
+      <div class="glass-card service-card tilt-card aos aos-d4"><div class="ci"><div class="service-icon-wrap si-blue"><i class="bi bi-diagram-3"></i></div><h3 data-i18n="sap.card4.title">Migración PI/PO a BTP IS</h3><p data-i18n="sap.card4.desc">Migración de interfaces PI/PO a SAP Integration Suite en BTP. Modernización de integraciones.</p><span class="badge badge-blue">Migration</span></div></div>
+      <div class="glass-card service-card tilt-card aos aos-d5"><div class="ci"><div class="service-icon-wrap si-purple"><i class="bi bi-bar-chart-line"></i></div><h3 data-i18n="sap.card5.title">SAP CAP & RAP</h3><p data-i18n="sap.card5.desc">Desarrollo de extensiones cloud-native con Cloud Application Programming y RESTful ABAP Programming.</p><span class="badge badge-purple">Development</span></div></div>
+      <div class="glass-card service-card tilt-card aos aos-d6"><div class="ci"><div class="service-icon-wrap si-green"><i class="bi bi-phone"></i></div><h3 data-i18n="sap.card6.title">Movilidad & IoT</h3><p data-i18n="sap.card6.desc">SAP Mobile Services, mantenimiento móvil e Internet de las Cosas.</p><span class="badge badge-green">Mobile</span></div></div>
+      <div class="glass-card service-card tilt-card aos aos-d7"><div class="ci"><div class="service-icon-wrap si-blue"><i class="bi bi-building-gear"></i></div><h3 data-i18n="sap.card7.title">Portal & Workflow</h3><p data-i18n="sap.card7.desc">SAP Portal para portales corporativos. Automatización con Workflow y formularios.</p><span class="badge badge-blue">Enterprise</span></div></div>
+      <div class="glass-card service-card tilt-card aos aos-d8"><div class="ci"><div class="service-icon-wrap si-green"><i class="bi bi-headset"></i></div><h3 data-i18n="sap.card8.title">AMS & Soporte Continuo</h3><p data-i18n="sap.card8.desc">Application Management Services y mesa de ayuda SAP con SLA garantizados.</p><span class="badge badge-green" data-i18n="sap.card8.badge">Soporte 24/7</span></div></div>
     </div>
   </div>
 </section>
@@ -798,7 +904,7 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
 <!-- ============================================
      6. METODOLOGIAS — Mind Map Futurista
      ============================================ -->
-<section id="metodologias" style="background:var(--surface);overflow:hidden">
+<section id="metodologias" style="background:var(--surface)">
   <div class="floating-dots" id="fd4"></div>
   <div class="cx">
     <div class="section-header aos" style="text-align:center">
@@ -831,7 +937,7 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
         <div class="mm-orb-detail"><div class="mm-od-item">Design Thinking — Usuario al centro</div><div class="mm-od-item">Jobs to Be Done — Sin job, no se construye</div><div class="mm-od-item">Wardley Mapping — Build, buy o skip</div><div class="mm-od-item">BPMN 2.0 — Procesos antes de código</div></div>
       </div>
       <div class="mm-orbit-node" style="--angle:135deg;--dist:240px;--nc:#a855f7" onclick="toggleMeth2(this)" data-cat="ia">
-        <div class="mm-orb-inner"><span class="mm-orb-name">IA</span><span class="mm-orb-count">6</span></div>
+        <div class="mm-orb-inner"><span class="mm-orb-name" translate="no">IA</span><span class="mm-orb-count">6</span></div>
         <div class="mm-orb-detail"><div class="mm-od-item">Eval-Driven Dev — TDD para IA</div><div class="mm-od-item">Prompt Versioning — Changelog + rollback</div><div class="mm-od-item">Guardrails — Pre + post guard</div><div class="mm-od-item">Human-in-the-Loop — IA + humano</div><div class="mm-od-item">LLMOps — Observabilidad total</div><div class="mm-od-item">Retrieval Eng. — RAG optimizado</div></div>
       </div>
       <div class="mm-orbit-node" style="--angle:180deg;--dist:220px;--nc:#4a9eff" onclick="toggleMeth2(this)" data-cat="arq">
@@ -843,7 +949,7 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
         <div class="mm-orb-detail"><div class="mm-od-item">GitOps — Push = producción, rollback <15 min</div><div class="mm-od-item">SRE — SLOs, error budgets, 99.9% uptime</div></div>
       </div>
       <div class="mm-orbit-node" style="--angle:270deg;--dist:220px;--nc:#84cc16" onclick="toggleMeth2(this)" data-cat="qa">
-        <div class="mm-orb-inner"><span class="mm-orb-name">QA</span><span class="mm-orb-count">3</span></div>
+        <div class="mm-orb-inner"><span class="mm-orb-name" translate="no">QA</span><span class="mm-orb-count">3</span></div>
         <div class="mm-orb-detail"><div class="mm-od-item">Shift Left — Testear ANTES de implementar</div><div class="mm-od-item">Chaos Engineering — Romper a propósito</div><div class="mm-od-item">Exploratory — Testing sin script</div></div>
       </div>
       <div class="mm-orbit-node" style="--angle:315deg;--dist:240px;--nc:#00e5b0" onclick="toggleMeth2(this)" data-cat="innovacion">
@@ -884,9 +990,9 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
 
   <div class="cx">
     <div class="section-header aos">
-      <span class="section-label" data-i18n="tech.label">Stack tecnologico</span>
-      <h2 class="section-title" data-i18n="tech.title">Las herramientas detras de la <span class="hl">magia</span></h2>
-      <p class="section-desc" data-i18n="tech.desc">Elegimos cada tecnologia por merito, no por moda. Benchmarks reales, no marketing.</p>
+      <span class="section-label" data-i18n="tech.label">Stack tecnológico</span>
+      <h2 class="section-title" data-i18n="tech.title">Las herramientas detrás de <span class="hl">Smart Connection</span></h2>
+      <p class="section-desc" data-i18n="tech.desc">Elegimos cada tecnología por mérito, no por moda. Benchmarks reales, no marketing.</p>
     </div>
   </div>
 <style>
@@ -917,23 +1023,26 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
   .sv2-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
   .sv2-lbl{font-size:12px;color:#94a3b8;font-weight:500}
   #sv2-mobile-view{display:none;padding:24px 16px 60px;position:relative;z-index:5}
-  .sv2-mobile-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,180,216,0.12);border:1px solid rgba(0,180,216,0.3);border-radius:20px;padding:5px 14px;font-size:13px;font-weight:700;color:#00b4d8;margin-bottom:20px}
+  .sv2-mobile-badge{display:flex;align-items:center;justify-content:center;gap:10px;background:radial-gradient(ellipse at center,rgba(0,180,216,0.15),rgba(0,180,216,0.05));border:1.5px solid rgba(0,180,216,0.4);border-radius:24px;padding:14px 24px;font-size:16px;font-weight:800;color:#00e5b0;margin:0 auto 28px;max-width:220px;box-shadow:0 0 30px rgba(0,229,176,0.12),inset 0 0 20px rgba(0,180,216,0.06);animation:sv2BadgePulse 3s ease-in-out infinite}
+  @keyframes sv2BadgePulse{0%,100%{box-shadow:0 0 20px rgba(0,229,176,0.1),inset 0 0 15px rgba(0,180,216,0.05)}50%{box-shadow:0 0 40px rgba(0,229,176,0.2),0 0 60px rgba(0,180,216,0.08),inset 0 0 25px rgba(0,180,216,0.08)}}
   .sv2-badge-dot{width:8px;height:8px;border-radius:50%;background:#00b4d8;animation:sv2PulseDot 2s ease-in-out infinite}
   @keyframes sv2PulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
   .sv2-mtech-wrap{position:relative;padding:0 16px 32px 48px}
-  .sv2-mtech-vline{position:absolute;left:20px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,#a855f7 0%,#00e5b0 32%,#60a5fa 56%,#fbbf24 76%,#f472b6 100%);border-radius:2px}
-  .sv2-mtech-vline::before{content:'';position:absolute;inset:0;width:6px;left:-2px;background:inherit;filter:blur(5px);opacity:.4;border-radius:3px}
-  .sv2-mtech-traveler{position:absolute;left:-4px;width:10px;height:10px;border-radius:50%;background:radial-gradient(circle,#fff 30%,#a855f7 100%);box-shadow:0 0 8px 2px #a855f7;animation:sv2MtvTravel 4s linear infinite}
+  .sv2-mtech-vline{position:absolute;left:20px;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,#a855f7 0%,#00e5b0 32%,#60a5fa 56%,#fbbf24 76%,#f472b6 100%);border-radius:3px}
+  .sv2-mtech-vline::before{content:'';position:absolute;inset:0;width:10px;left:-3px;background:inherit;filter:blur(8px);opacity:.5;border-radius:5px}
+  .sv2-mtech-traveler{position:absolute;left:-5px;width:13px;height:13px;border-radius:50%;background:radial-gradient(circle,#fff 20%,#a855f7 80%);box-shadow:0 0 12px 4px #a855f7,0 0 24px 2px rgba(168,85,247,0.3);animation:sv2MtvTravel 4s linear infinite}
   .sv2-mtech-traveler.t2{animation-delay:-2s}
   @keyframes sv2MtvTravel{0%{top:0%;opacity:0}8%{opacity:1}92%{opacity:.8}100%{top:100%;opacity:0}}
   .sv2-mtech-cat{margin-bottom:28px;position:relative}
-  .sv2-mtech-node{position:absolute;left:-36px;top:4px;width:16px;height:16px;border-radius:50%;background:var(--nc);box-shadow:0 0 10px var(--nc);animation:sv2MtnPulse 2.5s ease-in-out infinite}
-  @keyframes sv2MtnPulse{0%,100%{box-shadow:0 0 4px var(--nc)}50%{box-shadow:0 0 14px var(--nc),0 0 24px color-mix(in srgb,var(--nc) 30%,transparent)}}
-  .sv2-mtech-node::after{content:'';position:absolute;top:6px;left:16px;width:20px;height:1px;background:linear-gradient(to right,var(--nc),transparent);box-shadow:0 0 4px var(--nc)}
-  .sv2-mtech-label{font-size:10px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--nc);margin-bottom:10px;padding-left:4px;display:flex;align-items:center;gap:8px}
-  .sv2-mtech-label::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--nc),transparent);opacity:.5}
-  .sv2-mtech-chips{display:flex;flex-wrap:wrap;gap:7px}
-  .sv2-mtech-chip{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;border:1px solid var(--nc);color:var(--nc);background:color-mix(in srgb,var(--nc) 10%,rgba(10,13,20,0.8));backdrop-filter:blur(8px);transition:all .15s;-webkit-tap-highlight-color:transparent;cursor:default}
+  .sv2-mtech-node{position:absolute;left:-37px;top:2px;width:20px;height:20px;border-radius:50%;background:var(--nc);box-shadow:0 0 12px var(--nc),0 0 24px color-mix(in srgb,var(--nc) 40%,transparent);animation:sv2MtnPulse 2.5s ease-in-out infinite}
+  @keyframes sv2MtnPulse{0%,100%{box-shadow:0 0 8px var(--nc),0 0 16px color-mix(in srgb,var(--nc) 30%,transparent)}50%{box-shadow:0 0 16px var(--nc),0 0 32px color-mix(in srgb,var(--nc) 40%,transparent),0 0 48px color-mix(in srgb,var(--nc) 15%,transparent)}}
+  .sv2-mtech-node::after{content:'';position:absolute;top:8px;left:20px;width:22px;height:2px;background:linear-gradient(to right,var(--nc),transparent);box-shadow:0 0 6px var(--nc)}
+  .sv2-mtech-label{font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--nc);margin-bottom:12px;padding-left:4px;display:flex;align-items:center;gap:8px;text-shadow:0 0 20px var(--nc)}
+  .sv2-mtech-count{font-size:10px;font-weight:600;color:color-mix(in srgb,var(--nc) 70%,#fff);background:color-mix(in srgb,var(--nc) 15%,transparent);border-radius:8px;padding:1px 6px}
+  .sv2-mtech-label::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--nc),transparent);opacity:.6}
+  .sv2-mtech-chips{display:flex;flex-wrap:wrap;gap:8px}
+  .sv2-mtech-chip{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;border:1px solid color-mix(in srgb,var(--nc) 60%,transparent);color:var(--nc);background:color-mix(in srgb,var(--nc) 8%,rgba(10,13,20,0.9));backdrop-filter:blur(8px);transition:all .2s;-webkit-tap-highlight-color:transparent;cursor:default;box-shadow:0 0 8px color-mix(in srgb,var(--nc) 10%,transparent)}
+  .sv2-mtech-chip:active{background:color-mix(in srgb,var(--nc) 20%,rgba(10,13,20,0.9));box-shadow:0 0 20px color-mix(in srgb,var(--nc) 30%,transparent);transform:scale(1.05)}
   @keyframes sv2FadeInUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
   @media(max-width:768px){#solar-wrapper{display:none!important}#sv2-mobile-view{display:block!important}}
   @media(min-width:769px){#sv2-mobile-view{display:none!important}#solar-wrapper{display:flex!important}}
@@ -951,15 +1060,15 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
       </svg>
       <div id="sun" style="left:450px;top:450px;">
         <div class="sun-logo">+SMART<br>CONNECTION</div>
-        <div class="sun-count">29</div>
+        <div class="sun-count">36</div>
         <div class="sun-sub">tecnologías</div>
       </div>
       <div id="sv2-legend">
         <div class="sv2-li" data-cat="ia"><div class="sv2-dot" style="background:#a855f7;box-shadow:0 0 6px #a855f7"></div><span class="sv2-lbl">IA</span></div>
         <div class="sv2-li" data-cat="dev"><div class="sv2-dot" style="background:#00e5b0;box-shadow:0 0 6px #00e5b0"></div><span class="sv2-lbl">Dev</span></div>
         <div class="sv2-li" data-cat="sap"><div class="sv2-dot" style="background:#60a5fa;box-shadow:0 0 6px #60a5fa"></div><span class="sv2-lbl">SAP</span></div>
-        <div class="sv2-li" data-cat="cloud"><div class="sv2-dot" style="background:#fbbf24;box-shadow:0 0 6px #fbbf24"></div><span class="sv2-lbl">Cloud</span></div>
-        <div class="sv2-li" data-cat="integ"><div class="sv2-dot" style="background:#f472b6;box-shadow:0 0 6px #f472b6"></div><span class="sv2-lbl">Integración</span></div>
+        <div class="sv2-li" data-cat="cloud"><div class="sv2-dot" style="background:#fbbf24;box-shadow:0 0 6px #fbbf24"></div><span class="sv2-lbl">Infraestructura</span></div>
+        <div class="sv2-li" data-cat="integ"><div class="sv2-dot" style="background:#f472b6;box-shadow:0 0 6px #f472b6"></div><span class="sv2-lbl">MCP - API</span></div>
       </div>
     </div>
   </div>
@@ -971,7 +1080,7 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
   </div>
   <!-- ══ SOLAR-V2: MOBILE TIMELINE ══ -->
   <div id="sv2-mobile-view">
-    <div class="sv2-mobile-badge"><div class="sv2-badge-dot"></div>29 tecnologías</div>
+    <div class="sv2-mobile-badge"><div class="sv2-badge-dot"></div><span style="font-size:28px;line-height:1">36</span> tecnologías</div>
     <div class="sv2-mtech-wrap">
       <div class="sv2-mtech-vline">
         <div class="sv2-mtech-traveler"></div>
@@ -983,7 +1092,7 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
 
 <script>
 (function(){
-  var CATS={ia:{label:'IA',color:'#a855f7'},dev:{label:'Dev',color:'#00e5b0'},sap:{label:'SAP',color:'#60a5fa'},cloud:{label:'Cloud',color:'#fbbf24'},integ:{label:'Integración',color:'#f472b6'}};
+  var CATS={ia:{label:'IA',color:'#a855f7'},dev:{label:'Dev',color:'#00e5b0'},sap:{label:'SAP',color:'#60a5fa'},cloud:{label:'Infraestructura',color:'#fbbf24'},integ:{label:'MCP - API',color:'#f472b6'}};
   var PC=[
     {name:'Claude',cat:'ia',ring:0,startAngle:0,icon:'CL',desc:'LLM principal de agentes SC'},
     {name:'OpenAI',cat:'ia',ring:0,startAngle:Math.PI*2/7,icon:'OAI',desc:'GPT-4o para tareas complejas'},
@@ -1000,10 +1109,12 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
     {name:'Radix UI',cat:'dev',ring:1,startAngle:Math.PI*10/7,icon:'RDX',desc:'Primitivas accesibles WAI-ARIA'},
     {name:'Python',cat:'dev',ring:1,startAngle:Math.PI*12/7,icon:'PY',desc:'Scripts, automatización y IA backend'},
     {name:'SAP BTP',cat:'sap',ring:2,startAngle:0,icon:'BTP',desc:'Plataforma cloud SAP'},
-    {name:'S/4HANA',cat:'sap',ring:2,startAngle:Math.PI*2/5,icon:'S/4',desc:'ERP core de clientes enterprise'},
-    {name:'ABAP',cat:'sap',ring:2,startAngle:Math.PI*4/5,icon:'ABP',desc:'Lógica de negocio SAP'},
-    {name:'SAP Fiori',cat:'sap',ring:2,startAngle:Math.PI*6/5,icon:'FIO',desc:'UX premium para SAP'},
-    {name:'Integ Suite',cat:'sap',ring:2,startAngle:Math.PI*8/5,icon:'CPI',desc:'Conectores SAP↔mundo'},
+    {name:'S/4HANA',cat:'sap',ring:2,startAngle:Math.PI*2/7,icon:'S/4',desc:'ERP core de clientes enterprise'},
+    {name:'ABAP',cat:'sap',ring:2,startAngle:Math.PI*4/7,icon:'ABP',desc:'Lógica de negocio SAP'},
+    {name:'SAP Fiori',cat:'sap',ring:2,startAngle:Math.PI*6/7,icon:'FIO',desc:'UX premium para SAP'},
+    {name:'Integ Suite',cat:'sap',ring:2,startAngle:Math.PI*8/7,icon:'CPI',desc:'Conectores SAP↔mundo'},
+    {name:'Joule IA',cat:'sap',ring:2,startAngle:Math.PI*10/7,icon:'JOU',desc:'Copiloto IA nativo de SAP'},
+    {name:'SAP MCP',cat:'sap',ring:2,startAngle:Math.PI*12/7,icon:'MCP',desc:'Model Context Protocol para SAP'},
     {name:'AWS',cat:'cloud',ring:3,startAngle:0,icon:'AWS',desc:'Infra principal: EC2, S3, CloudFront'},
     {name:'Supabase',cat:'cloud',ring:3,startAngle:Math.PI/3,icon:'SUP',desc:'DB PostgreSQL + Auth + Realtime'},
     {name:'Vercel',cat:'cloud',ring:3,startAngle:Math.PI*2/3,icon:'VCL',desc:'Deploy frontend en segundos'},
@@ -1011,11 +1122,16 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
     {name:'CloudFront',cat:'cloud',ring:3,startAngle:Math.PI*4/3,icon:'CDN',desc:'CDN global de contenido'},
     {name:'GCloud',cat:'cloud',ring:3,startAngle:Math.PI*5/3,icon:'GCP',desc:'IA APIs y servicios Google'},
     {name:'WhatsApp',cat:'integ',ring:4,startAngle:0,icon:'WA',desc:'Canal principal con clientes'},
-    {name:'Bsale',cat:'integ',ring:4,startAngle:Math.PI/2,icon:'BSL',desc:'ERP punto de venta chileno'},
-    {name:'Jumpseller',cat:'integ',ring:4,startAngle:Math.PI,icon:'JMP',desc:'E-commerce chileno'},
-    {name:'Resend',cat:'integ',ring:4,startAngle:Math.PI*3/2,icon:'RSN',desc:'Email transaccional moderno'}
+    {name:'LinkedIn',cat:'integ',ring:4,startAngle:Math.PI*2/9,icon:'LI',desc:'MCP API para publicaciones y leads'},
+    {name:'Instagram',cat:'integ',ring:4,startAngle:Math.PI*4/9,icon:'IG',desc:'MCP API para contenido y analytics'},
+    {name:'Bsale',cat:'integ',ring:4,startAngle:Math.PI*6/9,icon:'BSL',desc:'ERP punto de venta chileno'},
+    {name:'Jumpseller',cat:'integ',ring:4,startAngle:Math.PI*8/9,icon:'JMP',desc:'E-commerce chileno'},
+    {name:'Asana',cat:'integ',ring:4,startAngle:Math.PI*10/9,icon:'ASN',desc:'MCP para gestión de proyectos'},
+    {name:'PostHog',cat:'integ',ring:4,startAngle:Math.PI*12/9,icon:'PH',desc:'MCP analytics de producto'},
+    {name:'Calendar',cat:'integ',ring:4,startAngle:Math.PI*14/9,icon:'CAL',desc:'MCP Google Calendar y reuniones'},
+    {name:'Resend',cat:'integ',ring:4,startAngle:Math.PI*16/9,icon:'RSN',desc:'Email transaccional moderno'}
   ];
-  var RR=[110,185,255,320,385],RP=[38,55,72,90,110],CX=450,CY=450;
+  var RR=[110,185,255,320,410],RP=[38,55,72,90,95],CX=450,CY=450;
   var solC=document.getElementById('solar-container'),activeCat=null,planets=[];
   function initSolar(){
     if(!solC||window.innerWidth<=768)return;
@@ -1064,9 +1180,10 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
       var cfg=CATS[cat],items=PC.filter(function(p){return p.cat===cat});
       var div=document.createElement('div');div.className='sv2-mtech-cat';div.style.setProperty('--nc',cfg.color);
       var node=document.createElement('div');node.className='sv2-mtech-node';node.style.setProperty('--nc',cfg.color);
-      var lbl=document.createElement('div');lbl.className='sv2-mtech-label';lbl.style.setProperty('--nc',cfg.color);lbl.textContent=cfg.label;
+      var lbl=document.createElement('div');lbl.className='sv2-mtech-label';lbl.style.setProperty('--nc',cfg.color);
+      lbl.innerHTML=cfg.label+'<span class="sv2-mtech-count" style="--nc:'+cfg.color+'">'+items.length+'</span>';
       var chips=document.createElement('div');chips.className='sv2-mtech-chips';
-      items.forEach(function(item,i){var chip=document.createElement('span');chip.className='sv2-mtech-chip';chip.style.cssText='--nc:'+cfg.color+';animation:sv2FadeInUp .35s ease '+(i*.05)+'s both';chip.textContent=item.name;chips.appendChild(chip)});
+      items.forEach(function(item,i){var chip=document.createElement('span');chip.className='sv2-mtech-chip';chip.style.cssText='--nc:'+cfg.color+';animation:sv2FadeInUp .35s ease '+(i*.06)+'s both';chip.textContent=item.name;chips.appendChild(chip)});
       div.appendChild(node);div.appendChild(lbl);div.appendChild(chips);cont.appendChild(div);
     });
   }
@@ -1088,26 +1205,26 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
   <div class="floating-dots" id="fd6"></div>
   <div class="cx">
     <div class="section-header aos">
-      <span class="section-label" data-i18n="how.label">Como trabajamos</span>
-      <h2 class="section-title" data-i18n="how.title">IA real + <span class="hl">ingenieria seria</span></h2>
-      <p class="section-desc" data-i18n="how.desc">Combinamos infraestructura de inteligencia artificial en produccion con metodologias de ingenieria probadas. No improvisamos.</p>
+      <span class="section-label" data-i18n="how.label">Cómo trabajamos</span>
+      <h2 class="section-title" data-i18n="how.title">IA real + <span class="hl">ingeniería seria</span></h2>
+      <p class="section-desc" data-i18n="how.desc">Combinamos infraestructura de inteligencia artificial en producción con metodologías de ingeniería probadas. No improvisamos.</p>
     </div>
     <div class="aos"><span class="sub-label green"><i class="bi bi-cpu"></i> <span data-i18n="how.sublabel.ia">Inteligencia Artificial</span></span></div>
     <div class="how-grid" style="margin-bottom:32px">
       <div class="glass-card how-card aos aos-d1"><div class="ci"><div class="how-icon hi-green"><i class="bi bi-plug"></i></div><h3 data-i18n="how.ia1.title">Model Context Protocol</h3><p data-i18n="how.ia1.desc">Nuestros agentes de IA se conectan a herramientas reales y ejecutan acciones concretas. No solo responden texto: hacen cosas.</p><span class="how-ref" data-i18n="how.ia1.ref"><i class="bi bi-circle-fill" style="font-size:5px"></i> Protocolo abierto para conectar IA con el mundo real</span></div></div>
-      <div class="glass-card how-card aos aos-d2"><div class="ci"><div class="how-icon hi-green"><i class="bi bi-diagram-3"></i></div><h3 data-i18n="how.ia2.title">Orquestacion Multi-Agente</h3><p data-i18n="how.ia2.desc">Agentes especializados trabajan coordinados en paralelo para resolver tareas complejas que un solo modelo no puede.</p><span class="how-ref" data-i18n="how.ia2.ref"><i class="bi bi-circle-fill" style="font-size:5px"></i> Patron de microservicios aplicado a IA</span></div></div>
-      <div class="glass-card how-card aos aos-d3"><div class="ci"><div class="how-icon hi-green"><i class="bi bi-search"></i></div><h3 data-i18n="how.ia3.title">RAG + Vector Search</h3><p data-i18n="how.ia3.desc">La IA busca en tus documentos reales antes de responder. Embeddings vectoriales, busqueda hibrida y reranking.</p><span class="how-ref" data-i18n="how.ia3.ref"><i class="bi bi-circle-fill" style="font-size:5px"></i> Respuestas con citas, no con fe</span></div></div>
-      <div class="glass-card how-card aos aos-d4"><div class="ci"><div class="how-icon hi-green"><i class="bi bi-shield-lock"></i></div><h3 data-i18n="how.ia4.title">AI Guardrails</h3><p data-i18n="how.ia4.desc">Filtros automaticos antes y despues de cada respuesta de IA. Bloquean alucinaciones, datos sensibles e inyeccion de prompts.</p><span class="how-ref" data-i18n="how.ia4.ref"><i class="bi bi-circle-fill" style="font-size:5px"></i> Middleware de seguridad en cada llamada al modelo</span></div></div>
+      <div class="glass-card how-card aos aos-d2"><div class="ci"><div class="how-icon hi-green"><i class="bi bi-diagram-3"></i></div><h3 data-i18n="how.ia2.title">Orquestación Multi-Agente</h3><p data-i18n="how.ia2.desc">Agentes especializados trabajan coordinados en paralelo para resolver tareas complejas que un solo modelo no puede.</p><span class="how-ref" data-i18n="how.ia2.ref"><i class="bi bi-circle-fill" style="font-size:5px"></i> Patrón de microservicios aplicado a IA</span></div></div>
+      <div class="glass-card how-card aos aos-d3"><div class="ci"><div class="how-icon hi-green"><i class="bi bi-search"></i></div><h3 data-i18n="how.ia3.title">RAG + Vector Search</h3><p data-i18n="how.ia3.desc">La IA busca en tus documentos reales antes de responder. Embeddings vectoriales, búsqueda híbrida y reranking.</p><span class="how-ref" data-i18n="how.ia3.ref"><i class="bi bi-circle-fill" style="font-size:5px"></i> Respuestas con citas, no con fe</span></div></div>
+      <div class="glass-card how-card aos aos-d4"><div class="ci"><div class="how-icon hi-green"><i class="bi bi-shield-lock"></i></div><h3 data-i18n="how.ia4.title">AI Guardrails</h3><p data-i18n="how.ia4.desc">Filtros automáticos antes y después de cada respuesta de IA. Bloquean alucinaciones, datos sensibles e inyección de prompts.</p><span class="how-ref" data-i18n="how.ia4.ref"><i class="bi bi-circle-fill" style="font-size:5px"></i> Middleware de seguridad en cada llamada al modelo</span></div></div>
     </div>
-    <div class="aos"><span class="sub-label gold"><i class="bi bi-gear"></i> <span data-i18n="how.sublabel.meth">Metodologias & Arquitectura</span></span></div>
+    <div class="aos"><span class="sub-label gold"><i class="bi bi-gear"></i> <span data-i18n="how.sublabel.meth">Metodologías & Arquitectura</span></span></div>
     <div class="how-grid">
-      <div class="glass-card how-card gold-border aos aos-d1"><div class="ci"><div class="how-icon hi-gold"><i class="bi bi-clipboard-data"></i></div><h3 data-i18n="how.meth1.title">Eval-Driven Development</h3><p data-i18n="how.meth1.desc">Cada prompt pasa por un dataset de evaluacion con score minimo antes de produccion.</p><span class="how-ref gold" data-i18n="how.meth1.ref"><i class="bi bi-circle-fill" style="font-size:5px"></i> TDD adaptado a modelos de lenguaje</span></div></div>
-      <div class="glass-card how-card gold-border aos aos-d2"><div class="ci"><div class="how-icon hi-gold"><i class="bi bi-arrow-repeat"></i></div><h3 data-i18n="how.meth2.title">Kaizen — Mejora Continua</h3><p data-i18n="how.meth2.desc">Ciclo de auditoria periodica y automatizada: codigo, configuracion, contratos e integraciones.</p><span class="how-ref gold" data-i18n="how.meth2.ref"><i class="bi bi-circle-fill" style="font-size:5px"></i> Toyota Production System aplicado a software</span></div></div>
-      <div class="glass-card how-card gold-border aos aos-d3"><div class="ci"><div class="how-icon hi-gold"><i class="bi bi-building-gear"></i></div><h3 data-i18n="how.meth3.title">Governance System</h3><p data-i18n="how.meth3.desc">Documentos versionados, ownership explicito y trazabilidad de decisiones. Nada se improvisa.</p><span class="how-ref gold" data-i18n="how.meth3.ref"><i class="bi bi-circle-fill" style="font-size:5px"></i> Decisiones con dueno y registro auditable</span></div></div>
-      <div class="glass-card how-card gold-border aos aos-d4"><div class="ci"><div class="how-icon hi-gold"><i class="bi bi-eye"></i></div><h3 data-i18n="how.meth4.title">Maqueta-First</h3><p data-i18n="how.meth4.desc">Prototipo interactivo con datos reales, todos los estados y responsive antes de escribir una linea de codigo.</p><span class="how-ref gold" data-i18n="how.meth4.ref"><i class="bi bi-circle-fill" style="font-size:5px"></i> Design Sprint: validas antes de invertir</span></div></div>
+      <div class="glass-card how-card gold-border aos aos-d1"><div class="ci"><div class="how-icon hi-gold"><i class="bi bi-clipboard-data"></i></div><h3 data-i18n="how.meth1.title">Eval-Driven Development</h3><p data-i18n="how.meth1.desc">Cada prompt pasa por un dataset de evaluación con score mínimo antes de producción.</p><span class="how-ref gold" data-i18n="how.meth1.ref"><i class="bi bi-circle-fill" style="font-size:5px"></i> TDD adaptado a modelos de lenguaje</span></div></div>
+      <div class="glass-card how-card gold-border aos aos-d2"><div class="ci"><div class="how-icon hi-gold"><i class="bi bi-arrow-repeat"></i></div><h3 data-i18n="how.meth2.title">Kaizen — Mejora Continua</h3><p data-i18n="how.meth2.desc">Ciclo de auditoría periódica y automatizada: código, configuración, contratos e integraciones.</p><span class="how-ref gold" data-i18n="how.meth2.ref"><i class="bi bi-circle-fill" style="font-size:5px"></i> Toyota Production System aplicado a software</span></div></div>
+      <div class="glass-card how-card gold-border aos aos-d3"><div class="ci"><div class="how-icon hi-gold"><i class="bi bi-building-gear"></i></div><h3 data-i18n="how.meth3.title">Governance System</h3><p data-i18n="how.meth3.desc">Documentos versionados, ownership explícito y trazabilidad de decisiones. Nada se improvisa.</p><span class="how-ref gold" data-i18n="how.meth3.ref"><i class="bi bi-circle-fill" style="font-size:5px"></i> Decisiones con dueño y registro auditable</span></div></div>
+      <div class="glass-card how-card gold-border aos aos-d4"><div class="ci"><div class="how-icon hi-gold"><i class="bi bi-eye"></i></div><h3 data-i18n="how.meth4.title">Maqueta-First</h3><p data-i18n="how.meth4.desc">Prototipo interactivo con datos reales, todos los estados y responsive antes de escribir una línea de código.</p><span class="how-ref gold" data-i18n="how.meth4.ref"><i class="bi bi-circle-fill" style="font-size:5px"></i> Design Sprint: validas antes de invertir</span></div></div>
     </div>
     <div class="aos" style="margin-top:40px;text-align:center;padding:20px;border-radius:16px;background:rgba(10,13,20,0.5);border:1px solid var(--border)">
-      <p style="color:var(--text2);font-size:14px;max-width:700px;margin:0 auto;line-height:1.7" data-i18n="how.summary">Infraestructura de IA que ejecuta acciones reales, se protege con guardrails y se testea antes de produccion. Ingenieria que valida con prototipos, audita con datos y evoluciona sistematicamente.</p>
+      <p style="color:var(--text2);font-size:14px;max-width:700px;margin:0 auto;line-height:1.7" data-i18n="how.summary">Infraestructura de IA que ejecuta acciones reales, se protege con guardrails y se testea antes de producción. Ingeniería que valida con prototipos, audita con datos y evoluciona sistemáticamente.</p>
     </div>
   </div>
 </section>
@@ -1121,10 +1238,10 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
   <div class="cx">
     <div class="section-header aos">
       <span class="section-label" data-i18n="stats.label">Resultados</span>
-      <h2 class="section-title" data-i18n="stats.title">Numeros reales</h2>
+      <h2 class="section-title" data-i18n="stats.title">Números reales</h2>
     </div>
     <div class="stats-grid">
-      <div class="glass-card stat-card aos aos-d1"><div class="ci"><div class="stat-number"><span class="hl" data-count="7">0</span>+</div><div class="stat-label" data-i18n="stats.exp">Anos experiencia SAP</div></div></div>
+      <div class="glass-card stat-card aos aos-d1"><div class="ci"><div class="stat-number"><span class="hl" data-count="7">0</span>+</div><div class="stat-label" data-i18n="stats.exp">Años experiencia SAP</div></div></div>
       <div class="glass-card stat-card aos aos-d2"><div class="ci"><div class="stat-number"><span class="hl" data-count="50">0</span>+</div><div class="stat-label" data-i18n="stats.projects">Proyectos completados</div></div></div>
       <div class="glass-card stat-card aos aos-d3"><div class="ci"><div class="stat-number"><span class="hl" data-count="30">0</span>+</div><div class="stat-label" data-i18n="stats.clients">Clientes satisfechos</div></div></div>
       <div class="glass-card stat-card aos aos-d4"><div class="ci"><div class="stat-number"><span class="hl" data-count="99">0</span>%</div><div class="stat-label" data-i18n="stats.uptime">Uptime garantizado</div></div></div>
@@ -1143,20 +1260,20 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
       <div class="aos">
         <span class="section-label gold" data-i18n="pymes.label">Para PYMES y Negocios</span>
         <h2 class="section-title" style="margin-top:12px" data-i18n="pymes.title">Tienes un negocio y necesitas automatizar procesos?</h2>
-        <p style="color:var(--text2);line-height:1.7;margin-bottom:32px" data-i18n="pymes.desc">No necesitas ser una gran empresa para acceder a tecnologia de primer nivel. Creamos soluciones a tu medida.</p>
+        <p style="color:var(--text2);line-height:1.7;margin-bottom:32px" data-i18n="pymes.desc">No necesitas ser una gran empresa para acceder a tecnología de primer nivel. Creamos soluciones a tu medida.</p>
         <ul class="pymes-benefits">
           <li><span class="check">&#10003;</span> <span data-i18n="pymes.b1">Sin grandes inversiones iniciales</span></li>
-          <li><span class="check">&#10003;</span> <span data-i18n="pymes.b2">Implementacion rapida con IA</span></li>
+          <li><span class="check">&#10003;</span> <span data-i18n="pymes.b2">Implementación rápida con IA</span></li>
           <li><span class="check">&#10003;</span> <span data-i18n="pymes.b3">Soporte continuo incluido</span></li>
-          <li><span class="check">&#10003;</span> <span data-i18n="pymes.b4">Escalable segun tu crecimiento</span></li>
+          <li><span class="check">&#10003;</span> <span data-i18n="pymes.b4">Escalable según tu crecimiento</span></li>
         </ul>
-        <a href="#contacto" class="btn btn-gold" data-i18n="pymes.cta"><i class="bi bi-chat-dots"></i> Cuentanos tu proyecto</a>
+        <a href="#contacto" class="btn btn-gold" data-i18n="pymes.cta"><i class="bi bi-chat-dots"></i> Cuéntanos tu proyecto</a>
       </div>
       <div class="pymes-examples aos">
-        <div class="glass-card gold-border" style="padding:0"><div class="pyme-card" style="padding:20px"><div class="pyme-icon"><i class="bi bi-calculator"></i></div><div><h4 data-i18n="pymes.ex1.title">Cotizador Online</h4><p data-i18n="pymes.ex1.desc">Automatiza cotizaciones con precios y envio automatico.</p></div></div></div>
+        <div class="glass-card gold-border" style="padding:0"><div class="pyme-card" style="padding:20px"><div class="pyme-icon"><i class="bi bi-calculator"></i></div><div><h4 data-i18n="pymes.ex1.title">Cotizador Online</h4><p data-i18n="pymes.ex1.desc">Automatiza cotizaciones con precios y envío automático.</p></div></div></div>
         <div class="glass-card gold-border" style="padding:0"><div class="pyme-card" style="padding:20px"><div class="pyme-icon"><i class="bi bi-clipboard-data"></i></div><div><h4 data-i18n="pymes.ex2.title">CRM Simple</h4><p data-i18n="pymes.ex2.desc">Gestiona clientes y seguimiento de ventas en una plataforma.</p></div></div></div>
-        <div class="glass-card gold-border" style="padding:0"><div class="pyme-card" style="padding:20px"><div class="pyme-icon"><i class="bi bi-bar-chart-line"></i></div><div><h4 data-i18n="pymes.ex3.title">Reportes Automaticos</h4><p data-i18n="pymes.ex3.desc">Dashboards en tiempo real con tus metricas de negocio.</p></div></div></div>
-        <div class="glass-card gold-border" style="padding:0"><div class="pyme-card" style="padding:20px"><div class="pyme-icon"><i class="bi bi-robot"></i></div><div><h4 data-i18n="pymes.ex4.title">Asistente IA</h4><p data-i18n="pymes.ex4.desc">Chatbot inteligente para atencion al cliente 24/7.</p></div></div></div>
+        <div class="glass-card gold-border" style="padding:0"><div class="pyme-card" style="padding:20px"><div class="pyme-icon"><i class="bi bi-bar-chart-line"></i></div><div><h4 data-i18n="pymes.ex3.title">Reportes Automáticos</h4><p data-i18n="pymes.ex3.desc">Dashboards en tiempo real con tus métricas de negocio.</p></div></div></div>
+        <div class="glass-card gold-border" style="padding:0"><div class="pyme-card" style="padding:20px"><div class="pyme-icon"><i class="bi bi-robot"></i></div><div><h4 data-i18n="pymes.ex4.title">Asistente IA</h4><p data-i18n="pymes.ex4.desc">Chatbot inteligente para atención al cliente 24/7.</p></div></div></div>
       </div>
     </div>
   </div>
@@ -1171,7 +1288,7 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
   <div class="cx">
     <div class="section-header aos">
       <span class="section-label" data-i18n="team.label">Nuestro Equipo</span>
-      <h2 class="section-title" data-i18n="team.title">Las personas detras de Smart Connection</h2>
+      <h2 class="section-title" data-i18n="team.title">Las personas detrás de Smart Connection</h2>
       <p class="section-desc" data-i18n="team.desc">Consultores certificados SAP y especialistas en IA con experiencia real.</p>
     </div>
     <div class="team-grid">
@@ -1206,6 +1323,7 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
         <div class="team-info"><h3 data-i18n="team.ia.name">Equipo Apps + IA</h3><span class="role" data-i18n="team.ia.role">Desarrolladores Full-Stack</span><p data-i18n="team.ia.desc">MCP, Prompt Engineering, RAG, Agentes IA, LLMOps. Claude, Groq, Gemini, AWS Bedrock. Soluciones de IA en producción.</p><div class="social-links"><a href="https://github.com/guillermogonzalezleon-lgtm" target="_blank"><i class="bi bi-github"></i></a></div></div>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -1216,12 +1334,14 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
      ============================================ -->
 <section class="cta-section" style="padding:120px 24px">
   <div class="cta-beam"></div>
+  <div class="cta-blob" style="left:30%;top:40%"></div>
+  <div class="cta-blob" style="left:70%;top:60%;animation-delay:-5s;width:300px;height:300px"></div>
   <div class="cta-content aos">
     <span class="section-label" data-i18n="cta.label">Listo para empezar?</span>
     <h2 class="cta-title" data-i18n="cta.title">Tu proyecto merece un <span class="hl">equipo completo</span></h2>
-    <p style="font-size:18px;color:var(--text2);margin-bottom:40px;line-height:1.7" data-i18n="cta.desc">30 minutos. Sin compromiso. Diagnosticamos tu desafio y te decimos honestamente si podemos ayudarte.</p>
+    <p style="font-size:18px;color:var(--text2);margin-bottom:40px;line-height:1.7" data-i18n="cta.desc">30 minutos. Sin compromiso. Diagnosticamos tu desafío y te decimos honestamente si podemos ayudarte.</p>
     <div class="cta-buttons">
-      <a href="#contacto" class="btn btn-primary" style="font-size:16px;padding:18px 40px" data-i18n="cta.btn.meeting"><i class="bi bi-calendar-plus"></i> Agendar reunion gratuita</a>
+      <a href="#contacto" class="btn btn-primary" style="font-size:16px;padding:18px 40px" data-i18n="cta.btn.meeting"><i class="bi bi-calendar-plus"></i> Agendar reunión gratuita</a>
       <a href="https://wa.me/56955361419?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20Smart%20Connection" target="_blank" class="btn btn-ghost" style="font-size:16px;padding:18px 40px" data-i18n="cta.btn.wa"><i class="bi bi-whatsapp"></i> WhatsApp directo</a>
     </div>
     <p style="margin-top:24px;font-size:14px;color:var(--muted)">contacto@smconnection.cl  |  +56 9 5536 1419</p>
@@ -1238,15 +1358,15 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
     <div class="section-header aos">
       <span class="section-label" data-i18n="contact.label">Contacto</span>
       <h2 class="section-title" data-i18n="contact.title">Conversemos sobre tu proyecto</h2>
-      <p class="section-desc" data-i18n="contact.desc">Escribenos y te responderemos en menos de 24 horas.</p>
+      <p class="section-desc" data-i18n="contact.desc">Escríbenos y te responderemos en menos de 24 horas.</p>
     </div>
     <div class="contact-grid">
       <div class="aos">
         <h3 style="font-size:24px;font-weight:700;margin-bottom:32px">Smart Connection</h3>
         <div class="contact-item"><div class="contact-icon"><i class="bi bi-geo-alt"></i></div><div><h4 data-i18n="contact.office">Oficina Principal</h4><p>Barros Borgono 71, Providencia, Santiago</p></div></div>
-        <div class="contact-item"><div class="contact-icon"><i class="bi bi-telephone"></i></div><div><h4 data-i18n="contact.phone">Telefono</h4><a href="tel:+56955361419">+56 9 5536 1419</a><br><a href="tel:+56977008176">+56 9 7700 8176</a></div></div>
+        <div class="contact-item"><div class="contact-icon"><i class="bi bi-telephone"></i></div><div><h4 data-i18n="contact.phone">Teléfono</h4><a href="tel:+56955361419">+56 9 5536 1419</a><br><a href="tel:+56977008176">+56 9 7700 8176</a></div></div>
         <div class="contact-item"><div class="contact-icon"><i class="bi bi-envelope"></i></div><div><h4>Email</h4><a href="mailto:contacto@smconnection.cl">contacto@smconnection.cl</a></div></div>
-        <div class="contact-item"><div class="contact-icon"><i class="bi bi-linkedin"></i></div><div><h4>LinkedIn</h4><a href="https://www.linkedin.com/company/smconnection/" target="_blank" data-i18n="contact.linkedin">Siguenos en LinkedIn</a></div></div>
+        <div class="contact-item"><div class="contact-icon"><i class="bi bi-linkedin"></i></div><div><h4>LinkedIn</h4><a href="https://www.linkedin.com/company/smconnection/" target="_blank" data-i18n="contact.linkedin">Síguenos en LinkedIn</a></div></div>
       </div>
       <div class="glass-card aos" style="padding:0">
         <div class="ci" style="padding:32px">
@@ -1257,10 +1377,10 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
             </div>
             <div class="form-row">
               <div class="form-group"><label for="email">Email *</label><input type="email" id="email" name="email" required placeholder="tu@email.com"></div>
-              <div class="form-group"><label for="telefono" data-i18n="form.phone">Telefono</label><input type="tel" id="telefono" name="telefono" placeholder="+56 9 XXXX XXXX"></div>
+              <div class="form-group"><label for="telefono" data-i18n="form.phone">Teléfono</label><input type="tel" id="telefono" name="telefono" placeholder="+56 9 XXXX XXXX"></div>
             </div>
-            <div class="form-group"><label for="servicio" data-i18n="form.service">Tipo de Servicio *</label><select id="servicio" name="servicio" required><option value="" data-i18n="form.service.ph">Selecciona un servicio</option><option value="SAP" data-i18n="form.service.sap">Consultoria SAP</option><option value="App con IA" data-i18n="form.service.ia">Desarrollo de App con IA</option><option value="PYME" data-i18n="form.service.pyme">Solucion para PYME</option><option value="Otro" data-i18n="form.service.other">Otro</option></select></div>
-            <div class="form-group"><label for="mensaje" data-i18n="form.message">Mensaje *</label><textarea id="mensaje" name="mensaje" required placeholder="Cuentanos sobre tu proyecto..." data-i18n-placeholder="form.message.ph"></textarea></div>
+            <div class="form-group"><label for="servicio" data-i18n="form.service">Tipo de Servicio *</label><select id="servicio" name="servicio" required><option value="" data-i18n="form.service.ph">Selecciona un servicio</option><option value="SAP" data-i18n="form.service.sap">Consultoría SAP</option><option value="App con IA" data-i18n="form.service.ia">Desarrollo de App con IA</option><option value="PYME" data-i18n="form.service.pyme">Solución para PYME</option><option value="Otro" data-i18n="form.service.other">Otro</option></select></div>
+            <div class="form-group"><label for="mensaje" data-i18n="form.message">Mensaje *</label><textarea id="mensaje" name="mensaje" required placeholder="Cuéntanos sobre tu proyecto..." data-i18n-placeholder="form.message.ph"></textarea></div>
             <div class="hp-field"><label>No llenar</label><input type="text" name="website" tabindex="-1" autocomplete="off"></div>
             <button type="submit" class="form-submit" data-i18n="form.submit"><i class="bi bi-send"></i> Enviar Mensaje</button>
           </form>
@@ -1277,7 +1397,7 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
   <div class="cx" style="position:relative">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="#" class="logo" style="display:inline-block;margin-bottom:16px">Smart<span>Connection</span></a>
+        <a href="#" class="logo" style="display:inline-block;margin-bottom:16px" translate="no">Smart<span>Connection</span></a>
         <p data-i18n="footer.desc">Servicios profesionales SAP con consultores certificados. Desarrollo de apps con IA para empresas y PYMES en Chile.</p>
         <div class="footer-social">
           <a href="https://www.linkedin.com/company/smconnection/" target="_blank"><i class="bi bi-linkedin"></i></a>
@@ -1287,7 +1407,7 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
         </div>
       </div>
       <div class="footer-col"><h4 data-i18n="footer.sap">Servicios SAP</h4><ul><li><a href="#servicios-sap">SAP BTP</a></li><li><a href="#servicios-sap">S/4HANA</a></li><li><a href="#servicios-sap">ABAP & FIORI</a></li><li><a href="#servicios-sap">PI/PO a BTP IS</a></li><li><a href="#servicios-sap">AMS & Soporte</a></li></ul></div>
-      <div class="footer-col"><h4>SaaS Factory</h4><ul><li><a href="#factory">Concepto</a></li><li><a href="#metodologias">Metodologias</a></li><li><a href="#stack">Stack</a></li><li><a href="#equipo">Equipo</a></li></ul></div>
+      <div class="footer-col"><h4>SaaS Factory</h4><ul><li><a href="#factory">Concepto</a></li><li><a href="#metodologias">Metodologías</a></li><li><a href="#stack">Stack</a></li><li><a href="#equipo">Equipo</a></li></ul></div>
       <div class="footer-col"><h4 data-i18n="footer.contact">Contacto</h4><ul><li><a href="tel:+56955361419">+56 9 5536 1419</a></li><li><a href="tel:+56977008176">+56 9 7700 8176</a></li><li><a href="mailto:contacto@smconnection.cl">contacto@smconnection.cl</a></li><li><span style="color:var(--text2);font-size:14px">Barros Borgono 71, Providencia</span></li></ul></div>
     </div>
     <div class="footer-bottom">
@@ -1536,21 +1656,37 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
   document.getElementById('methModal').addEventListener('click', function(e) {
     if (e.target === this) closeMethModal();
   });
-  // Draw SVG lines from center to each node
+  // Draw SVG lines + traveling orbs from center to each node
   (function() {
     var wrap = document.querySelector('.mind-map-wrap');
     var svg = document.getElementById('methLines');
     if (!wrap || !svg) return;
     function drawLines() {
       var cx = wrap.offsetWidth / 2, cy = wrap.offsetHeight / 2;
+      var defs = '<defs>';
       var html = '';
+      var idx = 0;
       document.querySelectorAll('.mm-orbit-node').forEach(function(node) {
         var r = node.getBoundingClientRect(), wr = wrap.getBoundingClientRect();
         var nx = r.left - wr.left + r.width / 2, ny = r.top - wr.top + r.height / 2;
         var c = getComputedStyle(node).getPropertyValue('--nc').trim();
-        html += '<line x1="'+cx+'" y1="'+cy+'" x2="'+nx+'" y2="'+ny+'" stroke="'+c+'" stroke-width="0" opacity="0"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="3s" repeatCount="indefinite"/></line>';
+        var pid = 'methPath'+idx;
+        var dur = (3 + idx * 0.4) + 's';
+        // Gradient for line fade
+        var gid = 'lg'+idx;
+        defs += '<linearGradient id="'+gid+'" x1="'+cx+'" y1="'+cy+'" x2="'+nx+'" y2="'+ny+'" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="'+c+'" stop-opacity="0.6"/><stop offset="100%" stop-color="'+c+'" stop-opacity="0.15"/></linearGradient>';
+        // Line path
+        html += '<path id="'+pid+'" d="M'+cx+' '+cy+' L'+nx+' '+ny+'" stroke="url(#'+gid+')" stroke-width="1.5" fill="none" opacity="0.7"/>';
+        // Traveling orb
+        html += '<circle r="4" fill="'+c+'" opacity="0.9" filter="url(#glow)"><animateMotion dur="'+dur+'" repeatCount="indefinite" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"><mpath href="#'+pid+'"/></animateMotion></circle>';
+        // Second smaller orb offset
+        var dur2 = (4 + idx * 0.3) + 's';
+        html += '<circle r="2" fill="'+c+'" opacity="0.5"><animateMotion dur="'+dur2+'" repeatCount="indefinite" begin="-'+((idx*0.7)%3)+'s" keyPoints="1;0;1" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"><mpath href="#'+pid+'"/></animateMotion></circle>';
+        idx++;
       });
-      svg.innerHTML = html;
+      defs += '<filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
+      defs += '</defs>';
+      svg.innerHTML = defs + html;
     }
     setTimeout(drawLines, 500);
     window.addEventListener('resize', drawLines);
@@ -1633,16 +1769,16 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
   var popupData = {
     proyecto: { t: 'Tu Proyecto', d: 'El centro de todo. Cada proyecto pasa por nuestro pipeline completo con IA en cada etapa.' },
     estrategia: { t: 'Estrategia', d: 'PM define North Star, prioriza con RICE scoring y valida con datos reales.' },
-    diseno: { t: 'Diseno UX', d: 'Panchita mapea procesos BPMN, crea maquetas HTML y specs funcionales.' },
-    arquitectura: { t: 'Arquitectura', d: 'Arielito define estandares, API contracts y distribuye trabajo entre equipos.' },
+    diseno: { t: 'Diseño UX', d: 'Panchita mapea procesos BPMN, crea maquetas HTML y specs funcionales.' },
+    arquitectura: { t: 'Arquitectura', d: 'Arielito define estándares, API contracts y distribuye trabajo entre equipos.' },
     ia: { t: 'IA', d: 'Hoku implementa RAG, agentes, prompts versionados, guardrails y LLMOps.' },
     backend: { t: 'Backend', d: 'ABAP construye APIs, DB, RLS, webhooks con TypeScript strict.' },
     frontend: { t: 'Frontend', d: 'Fiori implementa pixel-perfect con Next.js, Tailwind, Radix UI. Lighthouse >90.' },
     integraciones: { t: 'Integraciones', d: 'Integrador gobierna +25 APIs y 10 providers IA con fallbacks.' },
-    deploy: { t: 'Deploy', d: 'Pipeline maneja CI/CD, S3, CloudFront, Amplify. Push = produccion.' },
+    deploy: { t: 'Deploy', d: 'Pipeline maneja CI/CD, S3, CloudFront, Amplify. Push = producción.' },
     qa: { t: 'QA', d: 'Camilita testea como 6 personas distintas. Si confunde, no sale a prod.' },
     soporte: { t: 'Soporte', d: 'ClienteX gestiona onboarding, SLAs y feedback loop.' },
-    innovacion: { t: 'Innovacion', d: 'Sergito aplica TRIZ, SCAMPER, Blue Ocean y First Principles.' }
+    innovacion: { t: 'Innovación', d: 'Sergito aplica TRIZ, SCAMPER, Blue Ocean y First Principles.' }
   };
   var popup = document.getElementById('mmPopup');
   var popupTitle = document.getElementById('mmPopupTitle');
@@ -1680,11 +1816,11 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
       // NAV
       'nav.factory': 'SaaS Factory',
       'nav.sap': 'SAP',
-      'nav.metodologias': 'Metodologias',
+      'nav.metodologias': 'Metodologías',
       'nav.equipo': 'Equipo',
       'nav.pymes': 'PYMES',
       'nav.contacto': 'Contacto',
-      'nav.cta': '<i class="bi bi-calendar-check"></i> Agendar Reunion',
+      'nav.cta': '<i class="bi bi-calendar-check"></i> Agendar Reunión',
       // HERO
       'hero.title': '<span class="hl">SAP</span> + <span style="color:var(--gold)">IA</span> = El futuro de tu empresa',
       'hero.subtitle': 'Consultoría SAP especializada y desarrollo de apps inteligentes con IA. Transformación digital para corporativos, empresas medianas y PYMES.',
@@ -1693,14 +1829,14 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
       'hero.btn.contact': '<i class="bi bi-calendar-check"></i> Agendar Reunión',
       // FACTORY
       'factory.label': 'Nuestro diferenciador',
-      'factory.title': 'Que es una <span class="hl">SaaS Factory con IA</span>?',
-      'factory.desc': 'No construimos software de la manera tradicional. Operamos como una fabrica inteligente donde cada especialidad tiene un responsable dedicado, potenciado por inteligencia artificial.',
+      'factory.title': 'Qué es una <span class="hl">SaaS Factory con IA</span>?',
+      'factory.desc': 'No construimos software de la manera tradicional. Operamos como una fábrica inteligente donde cada especialidad tiene un responsable dedicado, potenciado por inteligencia artificial.',
       'factory.card1.title': 'Velocidad x Paralelismo',
-      'factory.card1.desc': 'Backend, frontend e IA se desarrollan simultaneamente contra contratos de API predefinidos. Lo que otros hacen en 3 meses, lo entregamos en semanas.',
+      'factory.card1.desc': 'Backend, frontend e IA se desarrollan simultáneamente contra contratos de API predefinidos. Lo que otros hacen en 3 meses, lo entregamos en semanas.',
       'factory.card2.title': 'IA en cada capa',
-      'factory.card2.desc': 'No solo construimos CON IA. Usamos IA para disenar, desarrollar, testear, optimizar prompts, evaluar calidad y monitorear en produccion.',
+      'factory.card2.desc': 'No solo construimos CON IA. Usamos IA para diseñar, desarrollar, testear, optimizar prompts, evaluar calidad y monitorear en producción.',
       'factory.card3.title': 'Arquitectura Cross',
-      'factory.card3.desc': 'Un arquitecto define estandares, contratos y decisiones tecnicas que todos siguen. Nada se improvisa: cada pieza encaja por diseno.',
+      'factory.card3.desc': 'Un arquitecto define estándares, contratos y decisiones técnicas que todos siguen. Nada se improvisa: cada pieza encaja por diseño.',
       'factory.card4.title': 'MCP: IA que actúa',
       'factory.card4.desc': 'Model Context Protocol conecta nuestra IA con calendarios, analytics, Asana, documentación y más. No es un chatbot — es IA que opera sobre tus sistemas reales.',
       'factory.card5.title': 'Decisiones con datos',
@@ -1709,7 +1845,7 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
       'factory.card6.desc': 'SEO técnico, Google Ads, Meta Pixel, PostHog analytics y contenido generado con IA. Tu marca visible donde importa, optimizada con datos en tiempo real.',
       // SAP
       'sap.label': 'Expertise SAP',
-      'sap.title': 'Consultoria y Servicios SAP',
+      'sap.title': 'Consultoría y Servicios SAP',
       'sap.desc': 'Nuestros consultores certificados comprenden tus necesidades y entregan soluciones SAP a la medida.',
       'sap.card1.title': 'SAP BTP & Cloud',
       'sap.card1.desc': 'Business Technology Platform: extensiones, integraciones y desarrollo de aplicaciones en la nube.',
@@ -1722,9 +1858,9 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
       'sap.card5.title': 'SAP CAP & RAP',
       'sap.card5.desc': 'Desarrollo de extensiones cloud-native con Cloud Application Programming y RESTful ABAP Programming.',
       'sap.card6.title': 'Movilidad & IoT',
-      'sap.card6.desc': 'SAP Mobile Services, mantenimiento movil e Internet de las Cosas.',
+      'sap.card6.desc': 'SAP Mobile Services, mantenimiento móvil e Internet de las Cosas.',
       'sap.card7.title': 'Portal & Workflow',
-      'sap.card7.desc': 'SAP Portal para portales corporativos. Automatizacion con Workflow y formularios.',
+      'sap.card7.desc': 'SAP Portal para portales corporativos. Automatización con Workflow y formularios.',
       'sap.card8.title': 'AMS & Soporte Continuo',
       'sap.card8.desc': 'Application Management Services y mesa de ayuda SAP con SLA garantizados.',
       'sap.card8.badge': 'Soporte 24/7',
@@ -1733,67 +1869,67 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
       'meth.title': 'Cómo pensamos y <span class="hl">entregamos valor</span>',
       'meth.desc': 'Cada área del equipo opera con metodologías probadas. No improvisamos — ejecutamos con frameworks que garantizan resultados.',
       // TECH
-      'tech.label': 'Stack tecnologico',
-      'tech.title': 'Las herramientas detras de la <span class="hl">magia</span>',
-      'tech.desc': 'Elegimos cada tecnologia por merito, no por moda. Benchmarks reales, no marketing.',
+      'tech.label': 'Stack tecnológico',
+      'tech.title': 'Las herramientas detrás de <span class="hl">Smart Connection</span>',
+      'tech.desc': 'Elegimos cada tecnología por mérito, no por moda. Benchmarks reales, no marketing.',
       // HOW WE WORK
-      'how.label': 'Como trabajamos',
-      'how.title': 'IA real + <span class="hl">ingenieria seria</span>',
-      'how.desc': 'Combinamos infraestructura de inteligencia artificial en produccion con metodologias de ingenieria probadas. No improvisamos.',
+      'how.label': 'Cómo trabajamos',
+      'how.title': 'IA real + <span class="hl">ingeniería seria</span>',
+      'how.desc': 'Combinamos infraestructura de inteligencia artificial en producción con metodologías de ingeniería probadas. No improvisamos.',
       'how.sublabel.ia': 'Inteligencia Artificial',
-      'how.sublabel.meth': 'Metodologias & Arquitectura',
+      'how.sublabel.meth': 'Metodologías & Arquitectura',
       'how.ia1.title': 'Model Context Protocol',
       'how.ia1.desc': 'Nuestros agentes de IA se conectan a herramientas reales y ejecutan acciones concretas. No solo responden texto: hacen cosas.',
       'how.ia1.ref': '<i class="bi bi-circle-fill" style="font-size:5px"></i> Protocolo abierto para conectar IA con el mundo real',
-      'how.ia2.title': 'Orquestacion Multi-Agente',
+      'how.ia2.title': 'Orquestación Multi-Agente',
       'how.ia2.desc': 'Agentes especializados trabajan coordinados en paralelo para resolver tareas complejas que un solo modelo no puede.',
-      'how.ia2.ref': '<i class="bi bi-circle-fill" style="font-size:5px"></i> Patron de microservicios aplicado a IA',
+      'how.ia2.ref': '<i class="bi bi-circle-fill" style="font-size:5px"></i> Patrón de microservicios aplicado a IA',
       'how.ia3.title': 'RAG + Vector Search',
-      'how.ia3.desc': 'La IA busca en tus documentos reales antes de responder. Embeddings vectoriales, busqueda hibrida y reranking.',
+      'how.ia3.desc': 'La IA busca en tus documentos reales antes de responder. Embeddings vectoriales, búsqueda híbrida y reranking.',
       'how.ia3.ref': '<i class="bi bi-circle-fill" style="font-size:5px"></i> Respuestas con citas, no con fe',
       'how.ia4.title': 'AI Guardrails',
-      'how.ia4.desc': 'Filtros automaticos antes y despues de cada respuesta de IA. Bloquean alucinaciones, datos sensibles e inyeccion de prompts.',
+      'how.ia4.desc': 'Filtros automáticos antes y después de cada respuesta de IA. Bloquean alucinaciones, datos sensibles e inyección de prompts.',
       'how.ia4.ref': '<i class="bi bi-circle-fill" style="font-size:5px"></i> Middleware de seguridad en cada llamada al modelo',
       'how.meth1.title': 'Eval-Driven Development',
-      'how.meth1.desc': 'Cada prompt pasa por un dataset de evaluacion con score minimo antes de produccion.',
+      'how.meth1.desc': 'Cada prompt pasa por un dataset de evaluación con score mínimo antes de producción.',
       'how.meth1.ref': '<i class="bi bi-circle-fill" style="font-size:5px"></i> TDD adaptado a modelos de lenguaje',
       'how.meth2.title': 'Kaizen — Mejora Continua',
-      'how.meth2.desc': 'Ciclo de auditoria periodica y automatizada: codigo, configuracion, contratos e integraciones.',
+      'how.meth2.desc': 'Ciclo de auditoría periódica y automatizada: código, configuración, contratos e integraciones.',
       'how.meth2.ref': '<i class="bi bi-circle-fill" style="font-size:5px"></i> Toyota Production System aplicado a software',
       'how.meth3.title': 'Governance System',
-      'how.meth3.desc': 'Documentos versionados, ownership explicito y trazabilidad de decisiones. Nada se improvisa.',
-      'how.meth3.ref': '<i class="bi bi-circle-fill" style="font-size:5px"></i> Decisiones con dueno y registro auditable',
+      'how.meth3.desc': 'Documentos versionados, ownership explícito y trazabilidad de decisiones. Nada se improvisa.',
+      'how.meth3.ref': '<i class="bi bi-circle-fill" style="font-size:5px"></i> Decisiones con dueño y registro auditable',
       'how.meth4.title': 'Maqueta-First',
-      'how.meth4.desc': 'Prototipo interactivo con datos reales, todos los estados y responsive antes de escribir una linea de codigo.',
+      'how.meth4.desc': 'Prototipo interactivo con datos reales, todos los estados y responsive antes de escribir una línea de código.',
       'how.meth4.ref': '<i class="bi bi-circle-fill" style="font-size:5px"></i> Design Sprint: validas antes de invertir',
-      'how.summary': 'Infraestructura de IA que ejecuta acciones reales, se protege con guardrails y se testea antes de produccion. Ingenieria que valida con prototipos, audita con datos y evoluciona sistematicamente.',
+      'how.summary': 'Infraestructura de IA que ejecuta acciones reales, se protege con guardrails y se testea antes de producción. Ingeniería que valida con prototipos, audita con datos y evoluciona sistemáticamente.',
       // STATS
       'stats.label': 'Resultados',
-      'stats.title': 'Numeros reales',
-      'stats.exp': 'Anos experiencia SAP',
+      'stats.title': 'Números reales',
+      'stats.exp': 'Años experiencia SAP',
       'stats.projects': 'Proyectos completados',
       'stats.clients': 'Clientes satisfechos',
       'stats.uptime': 'Uptime garantizado',
       // PYMES
       'pymes.label': 'Para PYMES y Negocios',
       'pymes.title': 'Tienes un negocio y necesitas automatizar procesos?',
-      'pymes.desc': 'No necesitas ser una gran empresa para acceder a tecnologia de primer nivel. Creamos soluciones a tu medida.',
+      'pymes.desc': 'No necesitas ser una gran empresa para acceder a tecnología de primer nivel. Creamos soluciones a tu medida.',
       'pymes.b1': 'Sin grandes inversiones iniciales',
-      'pymes.b2': 'Implementacion rapida con IA',
+      'pymes.b2': 'Implementación rápida con IA',
       'pymes.b3': 'Soporte continuo incluido',
-      'pymes.b4': 'Escalable segun tu crecimiento',
-      'pymes.cta': '<i class="bi bi-chat-dots"></i> Cuentanos tu proyecto',
+      'pymes.b4': 'Escalable según tu crecimiento',
+      'pymes.cta': '<i class="bi bi-chat-dots"></i> Cuéntanos tu proyecto',
       'pymes.ex1.title': 'Cotizador Online',
-      'pymes.ex1.desc': 'Automatiza cotizaciones con precios y envio automatico.',
+      'pymes.ex1.desc': 'Automatiza cotizaciones con precios y envío automático.',
       'pymes.ex2.title': 'CRM Simple',
       'pymes.ex2.desc': 'Gestiona clientes y seguimiento de ventas en una plataforma.',
-      'pymes.ex3.title': 'Reportes Automaticos',
-      'pymes.ex3.desc': 'Dashboards en tiempo real con tus metricas de negocio.',
+      'pymes.ex3.title': 'Reportes Automáticos',
+      'pymes.ex3.desc': 'Dashboards en tiempo real con tus métricas de negocio.',
       'pymes.ex4.title': 'Asistente IA',
-      'pymes.ex4.desc': 'Chatbot inteligente para atencion al cliente 24/7.',
+      'pymes.ex4.desc': 'Chatbot inteligente para atención al cliente 24/7.',
       // TEAM
       'team.label': 'Nuestro Equipo',
-      'team.title': 'Las personas detras de Smart Connection',
+      'team.title': 'Las personas detrás de Smart Connection',
       'team.desc': 'Consultores certificados SAP y especialistas en IA con experiencia real.',
       'team.gg.role': 'Fundador & Director',
       'team.gg.desc': 'Consultor SAP certificado con +14 años de experiencia en SAP BTP, S/4HANA y desarrollo con IA.',
@@ -1806,30 +1942,30 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
       // CTA
       'cta.label': 'Listo para empezar?',
       'cta.title': 'Tu proyecto merece un <span class="hl">equipo completo</span>',
-      'cta.desc': '30 minutos. Sin compromiso. Diagnosticamos tu desafio y te decimos honestamente si podemos ayudarte.',
-      'cta.btn.meeting': '<i class="bi bi-calendar-plus"></i> Agendar reunion gratuita',
+      'cta.desc': '30 minutos. Sin compromiso. Diagnosticamos tu desafío y te decimos honestamente si podemos ayudarte.',
+      'cta.btn.meeting': '<i class="bi bi-calendar-plus"></i> Agendar reunión gratuita',
       'cta.btn.wa': '<i class="bi bi-whatsapp"></i> WhatsApp directo',
       // CONTACT
       'contact.label': 'Contacto',
       'contact.title': 'Conversemos sobre tu proyecto',
-      'contact.desc': 'Escribenos y te responderemos en menos de 24 horas.',
+      'contact.desc': 'Escríbenos y te responderemos en menos de 24 horas.',
       'contact.office': 'Oficina Principal',
-      'contact.phone': 'Telefono',
-      'contact.linkedin': 'Siguenos en LinkedIn',
+      'contact.phone': 'Teléfono',
+      'contact.linkedin': 'Síguenos en LinkedIn',
       // FORM
       'form.name': 'Nombre *',
       'form.name.ph': 'Tu nombre',
       'form.company': 'Empresa',
       'form.company.ph': 'Tu empresa',
-      'form.phone': 'Telefono',
+      'form.phone': 'Teléfono',
       'form.service': 'Tipo de Servicio *',
       'form.service.ph': 'Selecciona un servicio',
-      'form.service.sap': 'Consultoria SAP',
+      'form.service.sap': 'Consultoría SAP',
       'form.service.ia': 'Desarrollo de App con IA',
-      'form.service.pyme': 'Solucion para PYME',
+      'form.service.pyme': 'Solución para PYME',
       'form.service.other': 'Otro',
       'form.message': 'Mensaje *',
-      'form.message.ph': 'Cuentanos sobre tu proyecto...',
+      'form.message.ph': 'Cuéntanos sobre tu proyecto...',
       'form.submit': '<i class="bi bi-send"></i> Enviar Mensaje',
       // FOOTER
       'footer.desc': 'Servicios profesionales SAP con consultores certificados. Desarrollo de apps con IA para empresas y PYMES en Chile.',
@@ -1895,7 +2031,7 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
       'meth.desc': 'Each team area operates with proven methodologies. We don\'t improvise — we execute with frameworks that guarantee results.',
       // TECH
       'tech.label': 'Tech stack',
-      'tech.title': 'The tools behind the <span class="hl">magic</span>',
+      'tech.title': 'The tools behind <span class="hl">Smart Connection</span>',
       'tech.desc': 'We choose each technology on merit, not trends. Real benchmarks, not marketing.',
       // HOW WE WORK
       'how.label': 'How we work',
@@ -2011,6 +2147,7 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
     document.documentElement.lang = lang;
     localStorage.setItem('sc-lang', lang);
     document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      if (el.hasAttribute('data-no-i18n') || el.closest('[data-no-i18n]')) return;
       var key = el.getAttribute('data-i18n');
       if (translations[lang] && translations[lang][key]) {
         el.innerHTML = translations[lang][key];
@@ -2043,6 +2180,61 @@ html[lang="en"] .lang-toggle .lang-en { color: var(--accent); }
     line.style.setProperty('--ball-dur', (2 + i * 0.3) % 2 + 2 + 's');
     line.style.setProperty('--ball-delay', '-' + (i * 0.4) + 's');
   });
+
+  // EFECTO 2: Hover Tilt 3D — puro JS, cero libs
+  document.querySelectorAll('.tilt-card').forEach(function(card) {
+    var ci = card.querySelector('.ci');
+    if (!ci) return;
+    card.addEventListener('mousemove', function(e) {
+      var r = card.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - 0.5;
+      var y = (e.clientY - r.top) / r.height - 0.5;
+      ci.style.transform = 'perspective(800px) rotateY('+x*8+'deg) rotateX('+(-y*8)+'deg) scale(1.02)';
+    });
+    card.addEventListener('mouseleave', function() {
+      ci.style.transform = '';
+    });
+  });
+
+  // EFECTO 4: Parallax suave en Hero
+  (function() {
+    var hero = document.querySelector('.hero');
+    if (!hero || window.innerWidth < 769) return;
+    var content = hero.querySelector('.hero-content');
+    var dots = hero.querySelector('.floating-dots');
+    var ticking = false;
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        requestAnimationFrame(function() {
+          var s = window.scrollY;
+          if (s < window.innerHeight) {
+            if (content) content.style.transform = 'translateY('+s*0.15+'px)';
+            if (dots) dots.style.transform = 'translateY('+s*0.3+'px)';
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  })();
+
+  // EFECTO 6: Scroll Snap toggle (desktop)
+  if (window.innerWidth > 1024) {
+    document.documentElement.classList.add('snap-enabled');
+  }
+
+  // EFECTO 7: Stagger bounce — upgrade AOS elements
+  (function() {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.glow-border, .tilt-card').forEach(function(el) {
+      el.classList.add('aos-bounce');
+      obs.observe(el);
+    });
+  })();
 </script>
 </body>
 </html>

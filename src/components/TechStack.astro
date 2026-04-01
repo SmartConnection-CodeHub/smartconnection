@@ -1,0 +1,520 @@
+---
+import type { Lang } from '../i18n/translations';
+import { t } from '../i18n/translations';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const i = t(lang);
+---
+
+<section id="tecnologias" class="relative overflow-hidden" style="padding: 0 0 40px;">
+
+<style>
+  /* ══ TECH STACK SOLAR SYSTEM ══ */
+  #tecnologias .ts-header {
+    text-align: center;
+    padding: 80px 24px 0;
+    position: relative;
+    z-index: 10;
+  }
+  #tecnologias .ts-label {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #00b4d8;
+    border: 1px solid rgba(0,180,216,0.3);
+    border-radius: 20px;
+    padding: 4px 14px;
+    margin-bottom: 16px;
+  }
+  #tecnologias .ts-title {
+    font-size: clamp(22px, 4vw, 38px);
+    font-weight: 700;
+    line-height: 1.2;
+    color: #f1f5f9;
+    margin-bottom: 12px;
+  }
+  #tecnologias .ts-title span {
+    background: linear-gradient(135deg, #00b4d8, #00e5b0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  #tecnologias .ts-desc {
+    font-size: 15px;
+    color: #94a3b8;
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ── DESKTOP SOLAR ── */
+  #solar-wrapper {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0 60px;
+    overflow: hidden;
+  }
+  #solar-container {
+    position: relative;
+    width: 900px;
+    height: 900px;
+    flex-shrink: 0;
+  }
+  #rings-svg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+  }
+  #sun {
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 38%, #1a3a6b, #060c1f);
+    border: 2px solid rgba(0,180,216,0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+    transform: translate(-50%, -50%);
+    animation: sunGlow 3s ease-in-out infinite;
+    z-index: 20;
+  }
+  @keyframes sunGlow {
+    0%, 100% { box-shadow: 0 0 20px rgba(0,180,216,0.3), 0 0 40px rgba(0,180,216,0.15), 0 0 80px rgba(0,180,216,0.08); }
+    50%       { box-shadow: 0 0 30px rgba(0,180,216,0.5), 0 0 60px rgba(0,180,216,0.25), 0 0 100px rgba(0,180,216,0.12); }
+  }
+  #sun .sun-logo  { font-size: 9px; font-weight: 800; letter-spacing: 0.08em; color: #00b4d8; text-align: center; line-height: 1.3; text-transform: uppercase; }
+  #sun .sun-count { font-size: 22px; font-weight: 700; color: #f1f5f9; line-height: 1; }
+  #sun .sun-sub   { font-size: 8px; color: #94a3b8; margin-top: 2px; }
+
+  .planet {
+    position: absolute;
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    transition: box-shadow 0.2s, filter 0.3s, opacity 0.3s;
+    z-index: 15;
+  }
+  .planet::after {
+    content: attr(data-name);
+    position: absolute;
+    bottom: -20px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px; font-weight: 600;
+    color: #94a3b8;
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: 0.03em;
+  }
+  .planet:hover { z-index: 30; }
+  .planet.dimmed { opacity: 0.15; filter: grayscale(0.8); }
+  .planet.highlighted { opacity: 1; filter: none; }
+  .planet.highlighted::before {
+    content: '';
+    position: absolute;
+    inset: -6px; border-radius: 50%;
+    border: 2px solid currentColor;
+    animation: ringPulse 1.5s ease-in-out infinite;
+  }
+  @keyframes ringPulse {
+    0%, 100% { opacity: 0.8; transform: scale(1); }
+    50%       { opacity: 0.3; transform: scale(1.25); }
+  }
+
+  /* Tooltip */
+  #ts-tooltip {
+    position: fixed;
+    background: rgba(15,22,35,0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 12px 16px;
+    max-width: 220px;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.15s;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+  }
+  #ts-tooltip.visible { opacity: 1; }
+  #ts-tooltip .tt-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+  #ts-tooltip .tt-desc { font-size: 11px; color: #94a3b8; line-height: 1.5; }
+  #ts-tooltip .tt-cat  { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 6px; opacity: 0.7; }
+
+  /* Legend */
+  #ts-legend {
+    position: absolute;
+    bottom: 24px; left: 24px;
+    z-index: 20;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .ts-legend-item { display: flex; align-items: center; gap: 8px; cursor: pointer; transition: opacity 0.2s; }
+  .ts-legend-item:hover { opacity: 0.8; }
+  .ts-legend-dot  { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .ts-legend-lbl  { font-size: 12px; color: #94a3b8; font-weight: 500; }
+
+  /* ── MOBILE TIMELINE ── */
+  #ts-mobile-view {
+    display: none;
+    padding: 24px 16px 60px;
+    position: relative; z-index: 5;
+  }
+  .ts-mobile-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(0,180,216,0.12);
+    border: 1px solid rgba(0,180,216,0.3);
+    border-radius: 20px; padding: 5px 14px;
+    font-size: 13px; font-weight: 700; color: #00b4d8;
+    margin-bottom: 20px;
+  }
+  .ts-badge-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #00b4d8;
+    animation: tsPulseDot 2s ease-in-out infinite;
+  }
+  @keyframes tsPulseDot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.5; transform: scale(0.7); }
+  }
+  .ts-mtech-wrap { position: relative; padding: 0 16px 32px 48px; }
+  .ts-mtech-vline {
+    position: absolute; left: 20px; top: 0; bottom: 0; width: 2px;
+    background: linear-gradient(to bottom, #a855f7 0%, #00e5b0 32%, #60a5fa 56%, #fbbf24 76%, #f472b6 100%);
+    border-radius: 2px;
+  }
+  .ts-mtech-vline::before {
+    content: ''; position: absolute; inset: 0; width: 6px; left: -2px;
+    background: inherit; filter: blur(5px); opacity: 0.4; border-radius: 3px;
+  }
+  .ts-mtech-traveler {
+    position: absolute; left: -4px; width: 10px; height: 10px; border-radius: 50%;
+    background: radial-gradient(circle, #fff 30%, #a855f7 100%);
+    box-shadow: 0 0 8px 2px #a855f7;
+    animation: tsMtvTravel 4s linear infinite;
+  }
+  .ts-mtech-traveler.t2 { animation-delay: -2s; }
+  @keyframes tsMtvTravel {
+    0%   { top: 0%;   opacity: 0; }
+    8%   { opacity: 1; }
+    92%  { opacity: 0.8; }
+    100% { top: 100%; opacity: 0; }
+  }
+  .ts-mtech-cat   { margin-bottom: 28px; position: relative; }
+  .ts-mtech-node  {
+    position: absolute; left: -36px; top: 4px;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--nc); box-shadow: 0 0 10px var(--nc);
+    animation: tsMtnPulse 2.5s ease-in-out infinite;
+  }
+  @keyframes tsMtnPulse {
+    0%,100% { box-shadow: 0 0 4px var(--nc); }
+    50%     { box-shadow: 0 0 14px var(--nc), 0 0 24px color-mix(in srgb, var(--nc) 30%, transparent); }
+  }
+  .ts-mtech-node::after {
+    content: ''; position: absolute; top: 6px; left: 16px;
+    width: 20px; height: 1px;
+    background: linear-gradient(to right, var(--nc), transparent);
+    box-shadow: 0 0 4px var(--nc);
+  }
+  .ts-mtech-label {
+    font-size: 10px; font-weight: 800; letter-spacing: 2.5px;
+    text-transform: uppercase; color: var(--nc);
+    margin-bottom: 10px; padding-left: 4px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .ts-mtech-label::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(to right, var(--nc), transparent);
+    opacity: 0.5;
+  }
+  .ts-mtech-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+  .ts-mtech-chip {
+    padding: 5px 12px; border-radius: 20px;
+    font-size: 11px; font-weight: 700;
+    border: 1px solid var(--nc); color: var(--nc);
+    background: color-mix(in srgb, var(--nc) 10%, rgba(10,13,20,0.8));
+    backdrop-filter: blur(8px);
+    transition: all 0.15s;
+    -webkit-tap-highlight-color: transparent;
+    cursor: default;
+  }
+  .ts-mtech-chip:active { transform: scale(0.94); }
+
+  @keyframes tsFadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    #solar-wrapper   { display: none !important; }
+    #ts-mobile-view  { display: block !important; }
+    #tecnologias .ts-header { padding-top: 40px; }
+    #tecnologias .ts-title  { font-size: 22px; }
+  }
+  @media (min-width: 769px) {
+    #ts-mobile-view { display: none !important; }
+    #solar-wrapper  { display: flex !important; }
+  }
+</style>
+
+<!-- Header -->
+<div class="ts-header">
+  <div class="ts-label">{i.techLabel}</div>
+  <h2 class="ts-title">Las herramientas detrás de <span>SmartConnection</span></h2>
+  <p class="ts-desc">{i.techDesc}</p>
+</div>
+
+<!-- ══ DESKTOP: SOLAR SYSTEM ══ -->
+<div id="solar-wrapper">
+  <div id="solar-container">
+    <svg id="rings-svg" viewBox="0 0 900 900" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="450" cy="450" r="110" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <circle cx="450" cy="450" r="185" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <circle cx="450" cy="450" r="255" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <circle cx="450" cy="450" r="320" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <circle cx="450" cy="450" r="385" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+    </svg>
+    <div id="sun" style="left:450px;top:450px;">
+      <div class="sun-logo">+SMART<br>CONNECTION</div>
+      <div class="sun-count" id="ts-tech-count">29</div>
+      <div class="sun-sub">{lang === 'en' ? 'technologies' : 'tecnologías'}</div>
+    </div>
+    <div id="ts-legend">
+      <div class="ts-legend-item" data-cat="ia">
+        <div class="ts-legend-dot" style="background:#a855f7;box-shadow:0 0 6px #a855f7;"></div>
+        <span class="ts-legend-lbl">IA</span>
+      </div>
+      <div class="ts-legend-item" data-cat="dev">
+        <div class="ts-legend-dot" style="background:#00e5b0;box-shadow:0 0 6px #00e5b0;"></div>
+        <span class="ts-legend-lbl">Dev</span>
+      </div>
+      <div class="ts-legend-item" data-cat="sap">
+        <div class="ts-legend-dot" style="background:#60a5fa;box-shadow:0 0 6px #60a5fa;"></div>
+        <span class="ts-legend-lbl">SAP</span>
+      </div>
+      <div class="ts-legend-item" data-cat="cloud">
+        <div class="ts-legend-dot" style="background:#fbbf24;box-shadow:0 0 6px #fbbf24;"></div>
+        <span class="ts-legend-lbl">Cloud</span>
+      </div>
+      <div class="ts-legend-item" data-cat="integ">
+        <div class="ts-legend-dot" style="background:#f472b6;box-shadow:0 0 6px #f472b6;"></div>
+        <span class="ts-legend-lbl">{lang === 'en' ? 'Integration' : 'Integración'}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tooltip -->
+<div id="ts-tooltip">
+  <div class="tt-name" id="ts-tt-name"></div>
+  <div class="tt-desc" id="ts-tt-desc"></div>
+  <div class="tt-cat"  id="ts-tt-cat"></div>
+</div>
+
+<!-- ══ MOBILE: TIMELINE ══ -->
+<div id="ts-mobile-view">
+  <div class="ts-mobile-badge">
+    <div class="ts-badge-dot"></div>
+    {i.techCount}
+  </div>
+  <div class="ts-mtech-wrap">
+    <div class="ts-mtech-vline">
+      <div class="ts-mtech-traveler"></div>
+      <div class="ts-mtech-traveler t2"></div>
+    </div>
+    <div id="ts-mobile-timeline"></div>
+  </div>
+</div>
+
+<script is:inline>
+(function() {
+  var CATS = {
+    ia:    { label: 'IA',           color: '#a855f7' },
+    dev:   { label: 'Dev',          color: '#00e5b0' },
+    sap:   { label: 'SAP',          color: '#60a5fa' },
+    cloud: { label: 'Cloud',        color: '#fbbf24' },
+    integ: { label: 'Integración',  color: '#f472b6' },
+  };
+
+  var PLANET_CONFIG = [
+    // Ring 0 — IA
+    { name:'Claude',      cat:'ia',    ring:0, startAngle:0,                    icon:'CL',  desc:'LLM principal de agentes SC' },
+    { name:'OpenAI',      cat:'ia',    ring:0, startAngle:Math.PI*2/7,          icon:'OAI', desc:'GPT-4o para tareas complejas' },
+    { name:'Gemini',      cat:'ia',    ring:0, startAngle:Math.PI*4/7,          icon:'GEM', desc:'Multimodal y documentos' },
+    { name:'DeepSeek',    cat:'ia',    ring:0, startAngle:Math.PI*6/7,          icon:'DS',  desc:'Open source costo-eficiente' },
+    { name:'OpenRouter',  cat:'ia',    ring:0, startAngle:Math.PI*8/7,          icon:'OR',  desc:'Gateway unificado para LLMs' },
+    { name:'Ollama',      cat:'ia',    ring:0, startAngle:Math.PI*10/7,         icon:'OLL', desc:'LLMs locales sin dependencia cloud' },
+    { name:'Aider',       cat:'ia',    ring:0, startAngle:Math.PI*12/7,         icon:'AID', desc:'AI pair programming en terminal' },
+    // Ring 1 — Dev
+    { name:'Next.js',     cat:'dev',   ring:1, startAngle:0,                    icon:'NXT', desc:'Framework full-stack principal' },
+    { name:'React',       cat:'dev',   ring:1, startAngle:Math.PI*2/7,          icon:'RCT', desc:'UI components y estado' },
+    { name:'TypeScript',  cat:'dev',   ring:1, startAngle:Math.PI*4/7,          icon:'TS',  desc:'Tipado estricto en todo el stack' },
+    { name:'Tailwind',    cat:'dev',   ring:1, startAngle:Math.PI*6/7,          icon:'TW',  desc:'Utility CSS con design system' },
+    { name:'Astro',       cat:'dev',   ring:1, startAngle:Math.PI*8/7,          icon:'AST', desc:'Sites de marketing ultra rápidos' },
+    { name:'Radix UI',    cat:'dev',   ring:1, startAngle:Math.PI*10/7,         icon:'RDX', desc:'Primitivas accesibles WAI-ARIA' },
+    { name:'Python',      cat:'dev',   ring:1, startAngle:Math.PI*12/7,         icon:'PY',  desc:'Scripts, automatización y IA backend' },
+    // Ring 2 — SAP
+    { name:'SAP BTP',     cat:'sap',   ring:2, startAngle:0,                    icon:'BTP', desc:'Plataforma cloud SAP' },
+    { name:'S/4HANA',     cat:'sap',   ring:2, startAngle:Math.PI*2/5,          icon:'S/4', desc:'ERP core de clientes enterprise' },
+    { name:'ABAP',        cat:'sap',   ring:2, startAngle:Math.PI*4/5,          icon:'ABP', desc:'Lógica de negocio SAP' },
+    { name:'SAP Fiori',   cat:'sap',   ring:2, startAngle:Math.PI*6/5,          icon:'FIO', desc:'UX premium para SAP' },
+    { name:'Integ Suite', cat:'sap',   ring:2, startAngle:Math.PI*8/5,          icon:'CPI', desc:'Conectores SAP↔mundo' },
+    // Ring 3 — Cloud
+    { name:'AWS',         cat:'cloud', ring:3, startAngle:0,                    icon:'AWS', desc:'Infra principal: EC2, S3, CloudFront' },
+    { name:'Supabase',    cat:'cloud', ring:3, startAngle:Math.PI/3,            icon:'SUP', desc:'DB PostgreSQL + Auth + Realtime' },
+    { name:'Vercel',      cat:'cloud', ring:3, startAngle:Math.PI*2/3,          icon:'VCL', desc:'Deploy frontend en segundos' },
+    { name:'GitHub',      cat:'cloud', ring:3, startAngle:Math.PI,              icon:'GH',  desc:'Control de versiones y CI/CD' },
+    { name:'CloudFront',  cat:'cloud', ring:3, startAngle:Math.PI*4/3,          icon:'CDN', desc:'CDN global de contenido' },
+    { name:'GCloud',      cat:'cloud', ring:3, startAngle:Math.PI*5/3,          icon:'GCP', desc:'IA APIs y servicios Google' },
+    // Ring 4 — Integración
+    { name:'WhatsApp',    cat:'integ', ring:4, startAngle:0,                    icon:'WA',  desc:'Canal principal con clientes' },
+    { name:'Bsale',       cat:'integ', ring:4, startAngle:Math.PI/2,            icon:'BSL', desc:'ERP punto de venta chileno' },
+    { name:'Jumpseller',  cat:'integ', ring:4, startAngle:Math.PI,              icon:'JMP', desc:'E-commerce chileno' },
+    { name:'Resend',      cat:'integ', ring:4, startAngle:Math.PI*3/2,          icon:'RSN', desc:'Email transaccional moderno' },
+  ];
+
+  var RING_RADII   = [110, 185, 255, 320, 385];
+  var RING_PERIODS = [38,  55,  72,  90,  110];
+  var CX = 450, CY = 450;
+
+  // ── SOLAR SYSTEM ──
+  var solContainer = document.getElementById('solar-container');
+  var activeCat = null;
+  var planets = [];
+
+  function initSolar() {
+    if (!solContainer || window.innerWidth <= 768) return;
+
+    PLANET_CONFIG.forEach(function(cfg, i) {
+      var el = document.createElement('div');
+      el.className = 'planet';
+      el.setAttribute('data-name', cfg.name);
+      el.setAttribute('data-cat', cfg.cat);
+      var color = CATS[cfg.cat].color;
+      el.style.cssText = 'background:radial-gradient(circle at 35% 35%,'+color+'22,'+color+'08);border:1.5px solid '+color+'66;box-shadow:0 0 10px '+color+'33;color:'+color+';';
+      el.innerHTML = '<span style="font-size:9px;font-weight:800;letter-spacing:0.5px;pointer-events:none;user-select:none;font-family:\'JetBrains Mono\',monospace">'+cfg.icon+'</span>';
+      solContainer.appendChild(el);
+      cfg.el = el;
+      cfg.period = RING_PERIODS[cfg.ring];
+      cfg.radius = RING_RADII[cfg.ring];
+      planets.push(cfg);
+      el.addEventListener('mouseenter', function(e) { showTip(e, cfg); });
+      el.addEventListener('mouseleave', hideTip);
+      el.addEventListener('mousemove',  moveTip);
+      el.addEventListener('click', function() { toggleCat(cfg.cat); });
+    });
+
+    document.querySelectorAll('#ts-legend .ts-legend-item').forEach(function(item) {
+      item.addEventListener('click', function() { toggleCat(item.dataset.cat); });
+    });
+
+    animateSolar();
+  }
+
+  function animateSolar() {
+    var t = performance.now() / 1000;
+    planets.forEach(function(p) {
+      var angle = p.startAngle + (t / p.period) * Math.PI * 2;
+      p.el.style.left = (CX + Math.cos(angle) * p.radius) + 'px';
+      p.el.style.top  = (CY + Math.sin(angle) * p.radius) + 'px';
+    });
+    requestAnimationFrame(animateSolar);
+  }
+
+  // Tooltip
+  var tip     = document.getElementById('ts-tooltip');
+  var tipName = document.getElementById('ts-tt-name');
+  var tipDesc = document.getElementById('ts-tt-desc');
+  var tipCat  = document.getElementById('ts-tt-cat');
+
+  function showTip(e, cfg) {
+    tipName.textContent = cfg.name;
+    tipDesc.textContent = cfg.desc;
+    tipCat.textContent  = CATS[cfg.cat].label;
+    tipName.style.color = CATS[cfg.cat].color;
+    tipCat.style.color  = CATS[cfg.cat].color;
+    tip.classList.add('visible');
+    moveTipTo(e.clientX, e.clientY);
+  }
+  function hideTip() { tip.classList.remove('visible'); }
+  function moveTip(e) { moveTipTo(e.clientX, e.clientY); }
+  function moveTipTo(x, y) {
+    var tw = 220, th = 80;
+    var lx = x + 16, ly = y + 16;
+    if (lx + tw > window.innerWidth  - 8) lx = x - tw - 12;
+    if (ly + th > window.innerHeight - 8) ly = y - th - 12;
+    tip.style.left = lx + 'px';
+    tip.style.top  = ly + 'px';
+  }
+
+  function toggleCat(cat) {
+    if (activeCat === cat) {
+      activeCat = null;
+      planets.forEach(function(p) { p.el.classList.remove('dimmed','highlighted'); });
+    } else {
+      activeCat = cat;
+      planets.forEach(function(p) {
+        if (p.cat === cat) { p.el.classList.add('highlighted'); p.el.classList.remove('dimmed'); }
+        else               { p.el.classList.add('dimmed'); p.el.classList.remove('highlighted'); }
+      });
+    }
+  }
+
+  // ── MOBILE TIMELINE ──
+  function initMobile() {
+    if (window.innerWidth > 768) return;
+    var container = document.getElementById('ts-mobile-timeline');
+    if (!container) return;
+    var CAT_ORDER = ['ia','dev','sap','cloud','integ'];
+    CAT_ORDER.forEach(function(cat, ci) {
+      var cfg   = CATS[cat];
+      var items = PLANET_CONFIG.filter(function(p) { return p.cat === cat; });
+      var div   = document.createElement('div');
+      div.className = 'ts-mtech-cat';
+      div.style.setProperty('--nc', cfg.color);
+      var node = document.createElement('div');
+      node.className = 'ts-mtech-node';
+      node.style.setProperty('--nc', cfg.color);
+      var label = document.createElement('div');
+      label.className = 'ts-mtech-label';
+      label.style.setProperty('--nc', cfg.color);
+      label.textContent = cfg.label;
+      var chips = document.createElement('div');
+      chips.className = 'ts-mtech-chips';
+      items.forEach(function(item, i) {
+        var chip = document.createElement('span');
+        chip.className = 'ts-mtech-chip';
+        chip.style.cssText = '--nc:'+cfg.color+';animation:tsFadeInUp 0.35s ease '+(i*0.05)+'s both';
+        chip.textContent = item.name;
+        chips.appendChild(chip);
+      });
+      div.appendChild(node);
+      div.appendChild(label);
+      div.appendChild(chips);
+      container.appendChild(div);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { initSolar(); initMobile(); });
+  } else {
+    initSolar();
+    initMobile();
+  }
+})();
+</script>
+
+</section>

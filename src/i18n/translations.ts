@@ -241,6 +241,10 @@ export const translations = {
     howMaquetaDesc: 'Prototipo interactivo con datos reales, todos los estados y responsive — antes de escribir una linea de codigo. Apruebas lo que ves, no lo que imaginas.',
     howMaquetaRef: 'Design Sprint — validas antes de invertir en desarrollo',
     howBottom: 'Infraestructura de IA que ejecuta acciones reales, se protege con guardrails y se testea antes de produccion. Ingenieria que valida con prototipos, audita con datos y evoluciona cada entrega de forma sistematica.',
+    techLabel: 'Stack tecnológico',
+    techTitle: 'Las herramientas detrás de SmartConnection',
+    techDesc: 'Elegimos cada tecnología por mérito, no por moda. Benchmarks reales, no marketing.',
+    techCount: '29 tecnologías',
   },
 
   en: {
@@ -481,6 +485,10 @@ export const translations = {
     howMaquetaDesc: 'Interactive prototype with real data, all states, and responsive — before writing a single line of code. You approve what you see, not what you imagine.',
     howMaquetaRef: 'Design Sprint — validate before investing in development',
     howBottom: 'AI infrastructure that executes real actions, is protected by guardrails, and is tested before production. Engineering that validates with prototypes, audits with data, and evolves every delivery systematically.',
+    techLabel: 'Tech Stack',
+    techTitle: 'The technology behind SmartConnection',
+    techDesc: 'We choose every technology on merit, not trends. Real benchmarks, not marketing.',
+    techCount: '29 technologies',
   },
 } as const;
 

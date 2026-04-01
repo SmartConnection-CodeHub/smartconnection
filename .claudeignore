@@ -1,15 +1,7 @@
-# Dependencias y build
-node_modules/
-.next/
-dist/
-.vercel/
-
-# Git y lockfiles
+# Git
 .git/
-package-lock.json
-tsconfig.tsbuildinfo
 
-# Media pesada (no es código)
+# Media pesada
 *.mp4
 *.mp3
 *.wav
@@ -20,7 +12,7 @@ tsconfig.tsbuildinfo
 *.tar.gz
 *.dmg
 
-# Imágenes (leer solo si se piden explícitamente)
+# Imagenes (leer solo si se piden)
 *.jpg
 *.jpeg
 *.png
@@ -36,11 +28,8 @@ tsconfig.tsbuildinfo
 *.ttf
 *.eot
 
-# Mapas y sourcemaps
+# Sourcemaps
 *.map
 
-# Maquetas HTML (pueden ser muy grandes)
-public/poc/
-
-# Sentry
-.sentryclirc
+# Dependencias
+node_modules/

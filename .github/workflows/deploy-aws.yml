@@ -1,38 +1,58 @@
- name: Deploy AWS                                                                                                      
-                                                                                                                        
-  on:
-    push:                                                                                                               
-      branches: [main]                                                                                                  
-    workflow_dispatch:                                                                                                  
-                                                                                                                        
-  jobs:                                                                                                                 
-    deploy:                                                    
-      name: Build & Deploy AWS S3/CloudFront                                                                            
-      runs-on: ubuntu-latest                                                                                            
-      steps:                                                                                                            
-        - uses: actions/checkout@v4                                                                                     
-                                                                                                                        
-        - uses: pnpm/action-setup@v4                                                                                    
-          with:                                                                                                         
-            version: 10                                                                                                 
-                                                                                                                        
-        - uses: actions/setup-node@v4                                                                                   
-          with:                                                                                                         
-            node-version: 22                                                                                            
-            cache: pnpm                                                                                                 
-                                                                                                                        
-        - run: pnpm install --frozen-lockfile                                                                           
-                                                                                                                        
-        - run: npx astro build                                                                                          
-                                                               
-        - uses: aws-actions/configure-aws-credentials@v4                                                                
-          with:                                                
-            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}                                                         
-            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}                                                 
-            aws-region: us-east-1                                                                                       
-                                                                                                                        
-        - name: Sync to S3                                                                                              
-          run: aws s3 sync dist/client/ s3://${{ secrets.AWS_S3_BUCKET }} --delete                                      
-                                                                                                                        
-        - name: Invalidate CloudFront                                                                                   
-          run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID }} --paths "/*" 
+name: Deploy AWS
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy S3 + CloudFront
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate index.html
+        run: |
+          if [ ! -f index.html ]; then
+            echo "ERROR: index.html no existe"
+            exit 1
+          fi
+          SIZE=$(stat -c%s index.html)
+          if [ "$SIZE" -lt 51200 ]; then
+            echo "ERROR: index.html muy pequeno ($SIZE bytes)"
+            exit 1
+          fi
+          echo "index.html OK ($SIZE bytes)"
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Upload index.html
+        run: |
+          aws s3 cp index.html s3://${{ secrets.AWS_S3_BUCKET }}/index.html \
+            --content-type "text/html; charset=utf-8" \
+            --cache-control "public, max-age=300, s-maxage=3600"
+
+      - name: Upload en/index.html (if exists)
+        run: |
+          if [ -f en/index.html ]; then
+            aws s3 cp en/index.html s3://${{ secrets.AWS_S3_BUCKET }}/en/index.html \
+              --content-type "text/html; charset=utf-8" \
+              --cache-control "public, max-age=300, s-maxage=3600"
+          fi
+
+      - name: Sync assets
+        run: |
+          aws s3 sync public/ s3://${{ secrets.AWS_S3_BUCKET }}/ \
+            --exclude ".DS_Store" \
+            --cache-control "public, max-age=86400, s-maxage=604800"
+
+      - name: Invalidate CloudFront
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID }} \
+            --paths "/*"

@@ -15,6 +15,7 @@
 /* =============================================
    TOKENS CSS — SMART CONNECTION V3
    ============================================= */
+/* ── SPACE (dark) — default ── */
 :root {
   --bg: #060912;
   --surface: #0a0d14;
@@ -36,7 +37,48 @@
   --radius: 16px;
   --radius-sm: 10px;
   --radius-xl: 24px;
+  --theme-icon: '🌌';
+  --nav-bg: rgba(6,9,18,0.85);
+  --scrollbar-track: #060912;
 }
+/* ── WHITE (light) ── */
+:root[data-theme="white"] {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --elevated: #f1f5f9;
+  --glass: rgba(255,255,255,0.88);
+  --glass-light: rgba(255,255,255,0.6);
+  --border: rgba(0,0,0,0.07);
+  --border-hover: rgba(0,0,0,0.18);
+  --text: #0f172a;
+  --text2: #475569;
+  --muted: #94a3b8;
+  --accent-glow: rgba(0,180,216,0.08);
+  --theme-icon: '☀️';
+  --nav-bg: rgba(248,250,252,0.92);
+  --scrollbar-track: #f8fafc;
+  color-scheme: light;
+}
+:root[data-theme="white"] body { color: var(--text); }
+:root[data-theme="white"] ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+:root[data-theme="white"] .gradient-text { background: linear-gradient(135deg,#0090b0,#00b4d8); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+:root[data-theme="white"] .glass-card { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+:root[data-theme="white"] nav { background: var(--nav-bg); border-bottom: 1px solid var(--border); }
+:root[data-theme="white"] #agendar-box { background: #ffffff; }
+/* Toggle button */
+#theme-toggle {
+  position: fixed; bottom: 24px; left: 24px; z-index: 8000;
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 14px; border-radius: 100px;
+  background: var(--glass); border: 1px solid var(--border-hover);
+  backdrop-filter: blur(12px); cursor: pointer;
+  font-size: 12px; font-weight: 600; color: var(--text2);
+  font-family: var(--font); transition: all .2s;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+#theme-toggle:hover { color: var(--text); border-color: var(--accent); }
+#theme-toggle .tg-icon { font-size: 15px; line-height: 1; }
+#theme-toggle .tg-label { letter-spacing: .03em; }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; overflow-x: hidden; }
@@ -1930,6 +1972,12 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
   </div>
 </div>
 
+<!-- Theme Toggle -->
+<button id="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema">
+  <span class="tg-icon" id="tg-icon">🌌</span>
+  <span class="tg-label" id="tg-label">Space</span>
+</button>
+
 <!-- WhatsApp Float -->
 <a href="https://wa.me/56955361419?text=Hola%20Smart%20Connection%2C%20me%20gustaria%20saber%20mas%20sobre%20sus%20servicios." target="_blank" class="wa-float" aria-label="WhatsApp">
   <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -2372,6 +2420,41 @@ function closeProductModal(e) {
   document.body.style.overflow = '';
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeProductModal(); closeAgendarModal(); } });
+
+// ── TEMA AUTOMÁTICO (hora del día) + toggle manual ───────────
+(function initTheme() {
+  var saved = localStorage.getItem('smc-theme');
+  var theme;
+  if (saved) {
+    theme = saved; // usuario eligió manualmente
+  } else {
+    var h = new Date().getHours();
+    theme = (h >= 7 && h < 19) ? 'white' : 'space'; // 7am-7pm → blanco
+  }
+  applyTheme(theme, false);
+})();
+
+function applyTheme(theme, save) {
+  var isWhite = theme === 'white';
+  document.documentElement.setAttribute('data-theme', isWhite ? 'white' : 'space');
+  document.getElementById('tg-icon').textContent  = isWhite ? '☀️' : '🌌';
+  document.getElementById('tg-label').textContent = isWhite ? 'White' : 'Space';
+  if (save) localStorage.setItem('smc-theme', theme);
+}
+
+function toggleTheme() {
+  var current = document.documentElement.getAttribute('data-theme');
+  applyTheme(current === 'white' ? 'space' : 'white', true);
+}
+
+// Auto-cambio al pasar la hora (comprueba cada minuto)
+setInterval(function() {
+  if (localStorage.getItem('smc-theme')) return; // no auto si eligió manual
+  var h = new Date().getHours();
+  var auto = (h >= 7 && h < 19) ? 'white' : 'space';
+  var current = document.documentElement.getAttribute('data-theme');
+  if (auto !== current) applyTheme(auto, false);
+}, 60000);
 
 // ── MODAL AGENDAR — Google Calendar ──────────────────────────
 function openAgendarModal() {

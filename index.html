@@ -2425,14 +2425,12 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeProdu
 var IS_MOBILE = window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
 
 (function initTheme() {
-  var theme;
-  if (!IS_MOBILE) {
-    theme = 'space'; // desktop siempre Space
-  } else {
-    var saved = localStorage.getItem('smc-theme-mobile');
-    theme = saved || ((new Date().getHours() >= 7 && new Date().getHours() < 19) ? 'white' : 'space');
-  }
-  applyTheme(theme, false);
+  if (!IS_MOBILE) { applyTheme('space', false); return; } // desktop: siempre Space
+  var saved = localStorage.getItem('smc-theme-mobile');
+  if (saved) { applyTheme(saved, false); return; }         // respeta elección manual
+  // sin preferencia guardada → seguir sistema operativo
+  var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  applyTheme(prefersDark ? 'space' : 'white', false);
 })();
 
 function applyTheme(theme, save) {
@@ -2450,13 +2448,13 @@ function toggleTheme() {
   applyTheme(current === 'white' ? 'space' : 'white', true);
 }
 
-// Auto-cambio por hora — solo mobile y solo si no eligió manual
-setInterval(function() {
-  if (!IS_MOBILE || localStorage.getItem('smc-theme-mobile')) return;
-  var h = new Date().getHours();
-  var auto = (h >= 7 && h < 19) ? 'white' : 'space';
-  if (auto !== document.documentElement.getAttribute('data-theme')) applyTheme(auto, false);
-}, 60000);
+// Escuchar cambios del sistema (ej: modo automático del celular)
+if (IS_MOBILE && window.matchMedia) {
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+    if (localStorage.getItem('smc-theme-mobile')) return; // no sobreescribir si eligió manual
+    applyTheme(e.matches ? 'space' : 'white', false);
+  });
+}
 
 // Ocultar toggle en desktop
 if (!IS_MOBILE) {

@@ -8,6 +8,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="icon" href="/smart.ico" type="image/x-icon">
+<link rel="shortcut icon" href="/smart.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="/img/logo_smart.svg">
 <style>
 /* =============================================
    TOKENS CSS — SMART CONNECTION V3
@@ -1493,7 +1496,7 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
   <div class="container">
     <div class="section-header aos">
       <div class="label">Stack Tecnologico</div>
-      <h2 class="section-title" style="font-size:clamp(32px, 5vw, 52px);">29 tecnologias.<br><span class="gradient-text">Un ecosistema integrado.</span></h2>
+      <h2 class="section-title" style="font-size:clamp(32px, 5vw, 52px);">37 tecnologias.<br><span class="gradient-text">Un ecosistema integrado.</span></h2>
       <p class="section-subtitle">Desde modelos IA de vanguardia hasta ERPs enterprise. Usamos la herramienta correcta para cada problema.</p>
     </div>
   </div>
@@ -1509,7 +1512,7 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
         </svg>
         <div id="sun-tech" style="position:absolute;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle at 38% 38%,#1a3a6b,#060c1f);border:2px solid rgba(0,180,216,0.4);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;transform:translate(-50%,-50%);animation:sunGlow 3s ease-in-out infinite;z-index:20;left:450px;top:450px;">
           <div style="font-size:9px;font-weight:800;letter-spacing:.08em;color:#00b4d8;text-align:center;line-height:1.3;text-transform:uppercase;">+SMART<br>CONNECTION</div>
-          <div style="font-size:22px;font-weight:700;color:#f1f5f9;line-height:1;">29</div>
+          <div style="font-size:22px;font-weight:700;color:#f1f5f9;line-height:1;">37</div>
           <div style="font-size:8px;color:#94a3b8;margin-top:2px;">tecnologias</div>
         </div>
         <div id="sv2-legend-tech" style="position:absolute;bottom:24px;left:24px;z-index:20;display:flex;flex-direction:column;gap:8px;">
@@ -1527,7 +1530,7 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
       <div style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-top:6px;opacity:.7;" id="sv2-tt-cat-tech"></div>
     </div>
     <div id="sv2-mobile-tech" style="display:none;padding:24px 16px 40px;width:100%;max-width:600px;">
-      <div class="sv2-mobile-badge"><div class="sv2-badge-dot"></div>29 tecnologias</div>
+      <div class="sv2-mobile-badge"><div class="sv2-badge-dot"></div>37 tecnologias</div>
       <div class="sv2-mtech-wrap">
         <div class="sv2-mtech-vline"><div class="sv2-mtech-traveler"></div><div class="sv2-mtech-traveler t2"></div></div>
         <div id="sv2-mobile-timeline-tech"></div>
@@ -2322,34 +2325,41 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeProduct
   var CATS={ia:{label:'IA',color:'#a855f7'},dev:{label:'Dev',color:'#00e5b0'},sap:{label:'SAP',color:'#60a5fa'},cloud:{label:'Cloud',color:'#fbbf24'},integ:{label:'Integracion',color:'#f472b6'}};
   var PC=[
     {name:'Claude',cat:'ia',ring:0,startAngle:0,icon:'CL',desc:'LLM principal de agentes SmartConnection'},
-    {name:'OpenAI',cat:'ia',ring:0,startAngle:Math.PI*2/7,icon:'OAI',desc:'GPT-4o para tareas complejas'},
-    {name:'Gemini',cat:'ia',ring:0,startAngle:Math.PI*4/7,icon:'GEM',desc:'Multimodal y documentos'},
-    {name:'DeepSeek',cat:'ia',ring:0,startAngle:Math.PI*6/7,icon:'DS',desc:'Open source costo-eficiente'},
-    {name:'OpenRouter',cat:'ia',ring:0,startAngle:Math.PI*8/7,icon:'OR',desc:'Gateway unificado para LLMs'},
-    {name:'Ollama',cat:'ia',ring:0,startAngle:Math.PI*10/7,icon:'OLL',desc:'LLMs locales sin dependencia cloud'},
-    {name:'Aider',cat:'ia',ring:0,startAngle:Math.PI*12/7,icon:'AID',desc:'AI pair programming en terminal'},
+    {name:'OpenAI',cat:'ia',ring:0,startAngle:Math.PI*2/9,icon:'OAI',desc:'GPT-4o para tareas complejas'},
+    {name:'Gemini',cat:'ia',ring:0,startAngle:Math.PI*4/9,icon:'GEM',desc:'Multimodal y documentos'},
+    {name:'DeepSeek',cat:'ia',ring:0,startAngle:Math.PI*6/9,icon:'DS',desc:'Open source costo-eficiente'},
+    {name:'Groq',cat:'ia',ring:0,startAngle:Math.PI*8/9,icon:'GRQ',desc:'Inferencia ultrarapida de LLMs'},
+    {name:'OpenRouter',cat:'ia',ring:0,startAngle:Math.PI*10/9,icon:'OR',desc:'Gateway unificado para LLMs'},
+    {name:'Ollama',cat:'ia',ring:0,startAngle:Math.PI*12/9,icon:'OLL',desc:'LLMs locales sin dependencia cloud'},
+    {name:'Mistral',cat:'ia',ring:0,startAngle:Math.PI*14/9,icon:'MST',desc:'LLM europeo open source'},
+    {name:'Aider',cat:'ia',ring:0,startAngle:Math.PI*16/9,icon:'AID',desc:'AI pair programming en terminal'},
     {name:'Next.js',cat:'dev',ring:1,startAngle:0,icon:'NXT',desc:'Framework full-stack principal'},
-    {name:'React',cat:'dev',ring:1,startAngle:Math.PI*2/7,icon:'RCT',desc:'UI components y estado'},
-    {name:'TypeScript',cat:'dev',ring:1,startAngle:Math.PI*4/7,icon:'TS',desc:'Tipado estricto en todo el stack'},
-    {name:'Tailwind',cat:'dev',ring:1,startAngle:Math.PI*6/7,icon:'TW',desc:'Utility CSS con design system'},
-    {name:'Astro',cat:'dev',ring:1,startAngle:Math.PI*8/7,icon:'AST',desc:'Sites de marketing ultra rapidos'},
-    {name:'Radix UI',cat:'dev',ring:1,startAngle:Math.PI*10/7,icon:'RDX',desc:'Primitivas accesibles WAI-ARIA'},
-    {name:'Python',cat:'dev',ring:1,startAngle:Math.PI*12/7,icon:'PY',desc:'Scripts, automatizacion y IA backend'},
+    {name:'React',cat:'dev',ring:1,startAngle:Math.PI*2/9,icon:'RCT',desc:'UI components y estado'},
+    {name:'TypeScript',cat:'dev',ring:1,startAngle:Math.PI*4/9,icon:'TS',desc:'Tipado estricto en todo el stack'},
+    {name:'Tailwind',cat:'dev',ring:1,startAngle:Math.PI*6/9,icon:'TW',desc:'Utility CSS con design system'},
+    {name:'Node.js',cat:'dev',ring:1,startAngle:Math.PI*8/9,icon:'NOD',desc:'Runtime JS para APIs y automatizacion'},
+    {name:'Astro',cat:'dev',ring:1,startAngle:Math.PI*10/9,icon:'AST',desc:'Sites de marketing ultra rapidos'},
+    {name:'Radix UI',cat:'dev',ring:1,startAngle:Math.PI*12/9,icon:'RDX',desc:'Primitivas accesibles WAI-ARIA'},
+    {name:'Python',cat:'dev',ring:1,startAngle:Math.PI*14/9,icon:'PY',desc:'Scripts, automatizacion y IA backend'},
+    {name:'n8n',cat:'dev',ring:1,startAngle:Math.PI*16/9,icon:'N8N',desc:'Automatizacion de workflows sin codigo'},
     {name:'SAP BTP',cat:'sap',ring:2,startAngle:0,icon:'BTP',desc:'Plataforma cloud SAP'},
     {name:'S/4HANA',cat:'sap',ring:2,startAngle:Math.PI*2/5,icon:'S/4',desc:'ERP core de clientes enterprise'},
     {name:'ABAP',cat:'sap',ring:2,startAngle:Math.PI*4/5,icon:'ABP',desc:'Logica de negocio SAP'},
     {name:'SAP Fiori',cat:'sap',ring:2,startAngle:Math.PI*6/5,icon:'FIO',desc:'UX premium para SAP'},
     {name:'Integ Suite',cat:'sap',ring:2,startAngle:Math.PI*8/5,icon:'CPI',desc:'Conectores SAP mundo'},
     {name:'AWS',cat:'cloud',ring:3,startAngle:0,icon:'AWS',desc:'Infra principal: EC2, S3, CloudFront'},
-    {name:'Supabase',cat:'cloud',ring:3,startAngle:Math.PI/3,icon:'SUP',desc:'DB PostgreSQL + Auth + Realtime'},
-    {name:'Vercel',cat:'cloud',ring:3,startAngle:Math.PI*2/3,icon:'VCL',desc:'Deploy frontend en segundos'},
-    {name:'GitHub',cat:'cloud',ring:3,startAngle:Math.PI,icon:'GH',desc:'Control de versiones y CI/CD'},
-    {name:'CloudFront',cat:'cloud',ring:3,startAngle:Math.PI*4/3,icon:'CDN',desc:'CDN global de contenido'},
-    {name:'GCloud',cat:'cloud',ring:3,startAngle:Math.PI*5/3,icon:'GCP',desc:'IA APIs y servicios Google'},
+    {name:'Supabase',cat:'cloud',ring:3,startAngle:Math.PI*2/7,icon:'SUP',desc:'DB PostgreSQL + Auth + Realtime'},
+    {name:'Vercel',cat:'cloud',ring:3,startAngle:Math.PI*4/7,icon:'VCL',desc:'Deploy frontend en segundos'},
+    {name:'GitHub',cat:'cloud',ring:3,startAngle:Math.PI*6/7,icon:'GH',desc:'Control de versiones y CI/CD'},
+    {name:'CloudFront',cat:'cloud',ring:3,startAngle:Math.PI*8/7,icon:'CDN',desc:'CDN global de contenido'},
+    {name:'GCloud',cat:'cloud',ring:3,startAngle:Math.PI*10/7,icon:'GCP',desc:'IA APIs y servicios Google'},
+    {name:'Docker',cat:'cloud',ring:3,startAngle:Math.PI*12/7,icon:'DCK',desc:'Contenedores para deploy reproducible'},
     {name:'WhatsApp',cat:'integ',ring:4,startAngle:0,icon:'WA',desc:'Canal principal con clientes'},
-    {name:'Bsale',cat:'integ',ring:4,startAngle:Math.PI/2,icon:'BSL',desc:'ERP punto de venta chileno'},
-    {name:'Jumpseller',cat:'integ',ring:4,startAngle:Math.PI,icon:'JMP',desc:'E-commerce chileno'},
-    {name:'Resend',cat:'integ',ring:4,startAngle:Math.PI*3/2,icon:'RSN',desc:'Email transaccional moderno'}
+    {name:'Bsale',cat:'integ',ring:4,startAngle:Math.PI*2/6,icon:'BSL',desc:'ERP punto de venta chileno'},
+    {name:'Jumpseller',cat:'integ',ring:4,startAngle:Math.PI*4/6,icon:'JMP',desc:'E-commerce chileno'},
+    {name:'MercadoLibre',cat:'integ',ring:4,startAngle:Math.PI*6/6,icon:'ML',desc:'Marketplace lider en Latam'},
+    {name:'Airtable',cat:'integ',ring:4,startAngle:Math.PI*8/6,icon:'AIR',desc:'Base de datos flexible y colaborativa'},
+    {name:'Resend',cat:'integ',ring:4,startAngle:Math.PI*10/6,icon:'RSN',desc:'Email transaccional moderno'}
   ];
   var RR=[110,185,255,320,385],RP=[38,55,72,90,110],CX=450,CY=450;
 

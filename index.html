@@ -1885,8 +1885,14 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
       <h3 style="font-size:22px;font-weight:800;color:#f1f5f9;margin-bottom:4px;">30 min · Google Meet</h3>
       <p style="font-size:13px;color:#94a3b8;margin-bottom:24px;">Sin compromiso. Analizamos tus procesos y te decimos si hay ROI real.</p>
       <div id="agendar-form">
-        <div style="margin-bottom:16px;">
-          <input id="ag-nombre" type="text" placeholder="Tu nombre o empresa" style="width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);color:#f1f5f9;font-size:14px;font-family:inherit;outline:none;box-sizing:border-box;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(0,180,216,0.5)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+        <div style="margin-bottom:12px;">
+          <input id="ag-nombre" type="text" placeholder="Nombre o empresa" style="width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);color:#f1f5f9;font-size:14px;font-family:inherit;outline:none;box-sizing:border-box;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(0,180,216,0.5)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+        </div>
+        <div style="margin-bottom:12px;">
+          <input id="ag-email" type="email" placeholder="Correo electrónico" style="width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);color:#f1f5f9;font-size:14px;font-family:inherit;outline:none;box-sizing:border-box;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(0,180,216,0.5)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+        </div>
+        <div style="margin-bottom:12px;">
+          <input id="ag-telefono" type="tel" placeholder="Teléfono o WhatsApp" style="width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);color:#f1f5f9;font-size:14px;font-family:inherit;outline:none;box-sizing:border-box;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(0,180,216,0.5)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
         </div>
         <div style="margin-bottom:16px;">
           <input id="ag-fecha" type="date" style="width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);color:#f1f5f9;font-size:14px;font-family:inherit;outline:none;box-sizing:border-box;transition:border-color .2s;color-scheme:dark;" onfocus="this.style.borderColor='rgba(0,180,216,0.5)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
@@ -2387,11 +2393,14 @@ function selectHora(el) {
   el.classList.add('selected');
 }
 function confirmarAgendar() {
-  var nombre = document.getElementById('ag-nombre').value.trim();
-  var fecha  = document.getElementById('ag-fecha').value;
-  var horaEl = document.querySelector('.ag-hora.selected');
-  var shake  = el => { el.classList.add('ag-shake'); setTimeout(()=>el.classList.remove('ag-shake'),400); };
+  var nombre   = document.getElementById('ag-nombre').value.trim();
+  var email    = document.getElementById('ag-email').value.trim();
+  var telefono = document.getElementById('ag-telefono').value.trim();
+  var fecha    = document.getElementById('ag-fecha').value;
+  var horaEl   = document.querySelector('.ag-hora.selected');
+  var shake    = function(el){ el.classList.add('ag-shake'); setTimeout(function(){el.classList.remove('ag-shake');},400); };
   if (!nombre) { shake(document.getElementById('ag-nombre')); return; }
+  if (!email)  { shake(document.getElementById('ag-email'));  return; }
   if (!fecha)  { shake(document.getElementById('ag-fecha'));  return; }
   if (!horaEl) { shake(document.getElementById('ag-horas'));  return; }
   var hora = horaEl.dataset.h;
@@ -2399,11 +2408,16 @@ function confirmarAgendar() {
   var h = hora.replace(':','');
   var endH = String(parseInt(hora.split(':')[0])+1).padStart(2,'0');
   var start = d+'T'+h+'00', end = d+'T'+endH+hora.split(':')[1]+'00';
-  var details = 'Discovery Sprint con Smart Connection. Contacto: '+encodeURIComponent(nombre)+'. Analizamos tus procesos y encontramos automatizaciones con ROI positivo.';
+  var details = 'Discovery Sprint — Smart Connection'
+    +'\n\nContacto: '+nombre
+    +'\nCorreo: '+email
+    +(telefono ? '\nTeléfono: '+telefono : '')
+    +'\n\nAnalizamos tus procesos y encontramos automatizaciones con ROI positivo.';
   var url = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
     +'&text=Discovery+Sprint+%E2%80%94+Smart+Connection'
-    +'&details='+details
-    +'&add=contacto%40smconnection.cl'
+    +'&details='+encodeURIComponent(details)
+    +'&add=guillermo.gonzalez%40smconnection.cl'
+    +(email ? '&add='+encodeURIComponent(email) : '')
     +'&dates='+start+'/'+end;
   window.open(url, '_blank');
 }

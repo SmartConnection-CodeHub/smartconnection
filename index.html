@@ -2422,14 +2422,15 @@ function closeProductModal(e) {
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeProductModal(); closeAgendarModal(); } });
 
 // ── TEMA AUTOMÁTICO (hora del día) + toggle manual ───────────
+var IS_MOBILE = window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+
 (function initTheme() {
-  var saved = localStorage.getItem('smc-theme');
   var theme;
-  if (saved) {
-    theme = saved; // usuario eligió manualmente
+  if (!IS_MOBILE) {
+    theme = 'space'; // desktop siempre Space
   } else {
-    var h = new Date().getHours();
-    theme = (h >= 7 && h < 19) ? 'white' : 'space'; // 7am-7pm → blanco
+    var saved = localStorage.getItem('smc-theme-mobile');
+    theme = saved || ((new Date().getHours() >= 7 && new Date().getHours() < 19) ? 'white' : 'space');
   }
   applyTheme(theme, false);
 })();
@@ -2437,9 +2438,11 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeProdu
 function applyTheme(theme, save) {
   var isWhite = theme === 'white';
   document.documentElement.setAttribute('data-theme', isWhite ? 'white' : 'space');
-  document.getElementById('tg-icon').textContent  = isWhite ? '☀️' : '🌌';
-  document.getElementById('tg-label').textContent = isWhite ? 'White' : 'Space';
-  if (save) localStorage.setItem('smc-theme', theme);
+  var icon  = document.getElementById('tg-icon');
+  var label = document.getElementById('tg-label');
+  if (icon)  icon.textContent  = isWhite ? '☀️' : '🌌';
+  if (label) label.textContent = isWhite ? 'White' : 'Space';
+  if (save && IS_MOBILE) localStorage.setItem('smc-theme-mobile', theme);
 }
 
 function toggleTheme() {
@@ -2447,14 +2450,21 @@ function toggleTheme() {
   applyTheme(current === 'white' ? 'space' : 'white', true);
 }
 
-// Auto-cambio al pasar la hora (comprueba cada minuto)
+// Auto-cambio por hora — solo mobile y solo si no eligió manual
 setInterval(function() {
-  if (localStorage.getItem('smc-theme')) return; // no auto si eligió manual
+  if (!IS_MOBILE || localStorage.getItem('smc-theme-mobile')) return;
   var h = new Date().getHours();
   var auto = (h >= 7 && h < 19) ? 'white' : 'space';
-  var current = document.documentElement.getAttribute('data-theme');
-  if (auto !== current) applyTheme(auto, false);
+  if (auto !== document.documentElement.getAttribute('data-theme')) applyTheme(auto, false);
 }, 60000);
+
+// Ocultar toggle en desktop
+if (!IS_MOBILE) {
+  document.addEventListener('DOMContentLoaded', function() {
+    var t = document.getElementById('theme-toggle');
+    if (t) t.style.display = 'none';
+  });
+}
 
 // ── MODAL AGENDAR — Google Calendar ──────────────────────────
 function openAgendarModal() {

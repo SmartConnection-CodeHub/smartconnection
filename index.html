@@ -70,12 +70,14 @@ body::before {
 
 #cursor-glow {
   position: fixed;
+  left: 0;
+  top: 0;
   width: 600px;
   height: 600px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(0,180,216,0.06) 0%, transparent 70%);
   pointer-events: none;
-  transform: translate(-50%, -50%);
+  will-change: transform;
   z-index: 0;
   transition: opacity 0.3s;
 }
@@ -193,8 +195,9 @@ h1, h2, h3, h4, h5 { line-height: 1.2; letter-spacing: -0.02em; }
   box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,180,216,0.1);
 }
 
-.aos { opacity: 0; transform: translateY(40px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.aos { opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease-out, transform 0.5s ease-out; will-change: transform, opacity; }
 .aos.visible { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) { .aos { transition: opacity 0.3s ease; transform: none; } }
 .aos-delay-1 { transition-delay: 0.1s; }
 .aos-delay-2 { transition-delay: 0.2s; }
 .aos-delay-3 { transition-delay: 0.3s; }
@@ -268,7 +271,7 @@ nav.scrolled {
 #sun .sun-logo{font-size:9px;font-weight:800;letter-spacing:.08em;color:#00b4d8;text-align:center;line-height:1.3;text-transform:uppercase}
 #sun .sun-count{font-size:22px;font-weight:700;color:#f1f5f9;line-height:1}
 #sun .sun-sub{font-size:8px;color:#94a3b8;margin-top:2px}
-.sv2-planet{position:absolute;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transform:translate(-50%,-50%);transition:box-shadow .2s,filter .3s,opacity .3s;z-index:15}
+.sv2-planet{position:absolute;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:box-shadow .2s,filter .3s,opacity .3s;will-change:transform;z-index:15}
 .sv2-planet::after{content:attr(data-name);position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:600;color:#94a3b8;white-space:nowrap;pointer-events:none;letter-spacing:.03em}
 .sv2-planet:hover{z-index:30}
 .sv2-planet.dimmed{opacity:.15;filter:grayscale(.8)}
@@ -958,24 +961,13 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
   animation-play-state: running;
 }
 
-/* 3. Hover Cascade — bullets stagger al entrar hover */
-@keyframes bulletIn {
-  from { opacity: 0.4; transform: translateX(-6px); color: var(--text2); }
-  to   { opacity: 1;   transform: translateX(0);    color: var(--text); }
-}
+/* 3. Hover — bullets color transition suave (sin salto) */
 .pricing-card .pricing-features li {
-  transition: color 0.3s;
+  transition: color 0.3s ease, opacity 0.3s ease;
 }
 .pricing-card:hover .pricing-features li {
-  animation: bulletIn 0.35s ease forwards;
+  color: var(--text);
 }
-.pricing-card:hover .pricing-features li:nth-child(1) { animation-delay: 0.00s; }
-.pricing-card:hover .pricing-features li:nth-child(2) { animation-delay: 0.05s; }
-.pricing-card:hover .pricing-features li:nth-child(3) { animation-delay: 0.10s; }
-.pricing-card:hover .pricing-features li:nth-child(4) { animation-delay: 0.15s; }
-.pricing-card:hover .pricing-features li:nth-child(5) { animation-delay: 0.20s; }
-.pricing-card:hover .pricing-features li:nth-child(6) { animation-delay: 0.25s; }
-.pricing-card:hover .pricing-features li:nth-child(7) { animation-delay: 0.30s; }
 
 /* 4. Hover Cascade — CTA se ilumina cuando el card se activa */
 .pricing-card .pricing-cta {
@@ -1748,7 +1740,7 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
             <div class="big accent" id="paybackMonths">-</div>
             <div class="small" style="display:flex;align-items:center;justify-content:center;gap:4px;">
               meses para recuperar
-              <span class="roi-tip" data-tip="Basado en el Discovery Sprint (desde $1.000.000 CLP). En ese tiempo, el ahorro en horas manuales cubre la inversión.">ⓘ</span>
+              <span class="roi-tip" data-tip="Basado en el Discovery Sprint (desde 19 UF). En ese tiempo, el ahorro en horas manuales cubre la inversión.">ⓘ</span>
             </div>
           </div>
         </div>
@@ -1796,7 +1788,7 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
       <div class="glass-card pricing-card aos aos-delay-2" style="--pc:rgba(249,115,22,0.2);--pc2:#f97316;--psh:0.4s;">
         <div class="pc-glow"></div>
         <div class="pricing-tag pricing-tag-gold">Empezar aqui</div>
-        <div><p class="pricing-name">Discovery & Design Sprint</p><p class="pricing-price" style="font-size:22px;">Desde $750K <span>CLP</span></p></div>
+        <div><p class="pricing-name">Discovery & Design Sprint</p><p class="pricing-price" style="font-size:22px;">Desde 19 <span>UF</span></p></div>
         <p class="pricing-desc">Pagas por claridad, no por codigo. Una semana para saber exactamente que construir y cuanto invertir — antes de gastar en desarrollo.</p>
         <ul class="pricing-features">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Mapa completo de tus procesos actuales</span></li>
@@ -1812,7 +1804,7 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
         <div class="pricing-tag pricing-tag-blue">Tu eres el dueno</div>
         <div>
           <p class="pricing-name">Build Premium</p>
-          <p class="pricing-price" style="font-size:22px;">$2M – $30M <span>CLP</span></p>
+          <p class="pricing-price" style="font-size:22px;">50 – 750 <span>UF</span></p>
           <p style="font-size:11px;color:var(--muted);margin-top:4px;">Precio segun alcance del proyecto</p>
         </div>
         <p class="pricing-desc">El Discovery te entrega el mapa. Build Premium construye el producto real: software funcionando, codigo tuyo, sin dependencia de SMC para operar.</p>
@@ -1861,7 +1853,7 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
       <span class="pricing-dot" onclick="scrollPricingTo(2)"></span>
       <span class="pricing-dot" onclick="scrollPricingTo(3)"></span>
     </div>
-    <div class="pricing-footer aos">No sabes cual elegir? &rarr; <a href="#cta-final">Agenda un Discovery Sprint</a> y lo resolvemos ahi (desde $1M CLP). Sin compromiso de build.</div>
+    <div class="pricing-footer aos">No sabes cual elegir? &rarr; <a href="#cta-final">Agenda un Discovery Sprint</a> y lo resolvemos ahi (desde 19 UF). Sin compromiso de build.</div>
   </div>
 </section>
 
@@ -1880,7 +1872,7 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
           <span class="faq-q-text">Cuanto cuesta empezar?</span>
           <div class="faq-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
         </div>
-        <div class="faq-a"><div class="faq-a-inner"><p>Depende del alcance y tamano de tu empresa. Antes de hablar de numeros, te recomendamos <a href="#roi" style="color:var(--accent);font-weight:600;" onclick="document.getElementById('roi').scrollIntoView({behavior:'smooth'});return false;">calcular cuanto pierdes en trabajo manual</a> — eso te da el contexto real. Luego en los <a href="#pricing" style="color:var(--accent);font-weight:600;" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'});return false;">planes</a> ves las opciones. El Discovery Sprint parte desde $750.000 CLP y es el primer paso recomendado si aun no tienes claro que construir.</p></div></div>
+        <div class="faq-a"><div class="faq-a-inner"><p>Depende del alcance y tamano de tu empresa. Antes de hablar de numeros, te recomendamos <a href="#roi" style="color:var(--accent);font-weight:600;" onclick="document.getElementById('roi').scrollIntoView({behavior:'smooth'});return false;">calcular cuanto pierdes en trabajo manual</a> — eso te da el contexto real. Luego en los <a href="#pricing" style="color:var(--accent);font-weight:600;" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'});return false;">planes</a> ves las opciones. El Discovery Sprint parte desde 19 UF y es el primer paso recomendado si aun no tienes claro que construir.</p></div></div>
       </div>
       <div class="faq-item aos">
         <div class="faq-q" onclick="toggleFaq(this)">
@@ -2050,7 +2042,7 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
 <script>
 // Cursor glow
 const cursorGlow = document.getElementById('cursor-glow');
-document.addEventListener('mousemove', e => { cursorGlow.style.left = e.clientX + 'px'; cursorGlow.style.top = e.clientY + 'px'; });
+document.addEventListener('mousemove', e => { cursorGlow.style.transform = 'translate(calc(' + e.clientX + 'px - 300px), calc(' + e.clientY + 'px - 300px))'; });
 
 // Navbar scroll
 const navbar = document.getElementById('navbar');
@@ -2715,7 +2707,7 @@ function confirmarAgendar() {
     document.querySelectorAll('#sv2-legend .sv2-li').forEach(function(item){item.addEventListener('click',function(){toggleCat(item.dataset.cat)})});
     animateSolar();
   }
-  function animateSolar(){var t=performance.now()/1000;planets.forEach(function(p){var a=p.startAngle+(t/p.period)*Math.PI*2;p.el.style.left=(CX+Math.cos(a)*p.radius)+'px';p.el.style.top=(CY+Math.sin(a)*p.radius)+'px';});requestAnimationFrame(animateSolar);}
+  function animateSolar(){var t=performance.now()/1000;planets.forEach(function(p){var a=p.startAngle+(t/p.period)*Math.PI*2;var x=CX+Math.cos(a)*p.radius;var y=CY+Math.sin(a)*p.radius;p.el.style.transform='translate(calc('+x+'px - 50%), calc('+y+'px - 50%))';});requestAnimationFrame(animateSolar);}
   var tip=document.getElementById('sv2-tooltip'),tipN=document.getElementById('sv2-tt-name'),tipD=document.getElementById('sv2-tt-desc'),tipC=document.getElementById('sv2-tt-cat');
   function showTip(e,cfg){tipN.textContent=cfg.name;tipD.textContent=cfg.desc;tipC.textContent=CATS[cfg.cat].label;tipN.style.color=CATS[cfg.cat].color;tipC.style.color=CATS[cfg.cat].color;tip.classList.add('visible');moveTipTo(e.clientX,e.clientY)}
   function hideTip(){tip.classList.remove('visible')}
@@ -2746,12 +2738,12 @@ function confirmarAgendar() {
   function drawConnLines(){
     if(!connCtx||!hoveredPlanetTech){return;}
     connCtx.clearRect(0,0,900,900);
-    var hx=parseFloat(hoveredPlanetTech.el.style.left),hy=parseFloat(hoveredPlanetTech.el.style.top);
+    var hx=hoveredPlanetTech.cx||0,hy=hoveredPlanetTech.cy||0;
     var catColor=CATS[hoveredPlanetTech.cat].color;
     var t=performance.now()/1000;
     planetsTech.forEach(function(p){
       if(p===hoveredPlanetTech||p.cat!==hoveredPlanetTech.cat)return;
-      var px=parseFloat(p.el.style.left),py=parseFloat(p.el.style.top);
+      var px=p.cx||0,py=p.cy||0;
       // Base glowing line
       connCtx.beginPath();connCtx.moveTo(hx,hy);connCtx.lineTo(px,py);
       connCtx.strokeStyle=catColor+'50';connCtx.lineWidth=1.2;
@@ -2826,7 +2818,7 @@ function confirmarAgendar() {
     }
     animateSolarTech();
   }
-  function animateSolarTech(){var t=performance.now()/1000;planetsTech.forEach(function(p){var a=p.startAngle+(t/p.period)*Math.PI*2;p.el.style.left=(CX+Math.cos(a)*p.radius)+'px';p.el.style.top=(CY+Math.sin(a)*p.radius)+'px';});requestAnimationFrame(animateSolarTech);}
+  function animateSolarTech(){var t=performance.now()/1000;planetsTech.forEach(function(p){var a=p.startAngle+(t/p.period)*Math.PI*2;var x=CX+Math.cos(a)*p.radius;var y=CY+Math.sin(a)*p.radius;p.cx=x;p.cy=y;p.el.style.transform='translate(calc('+x+'px - 50%), calc('+y+'px - 50%))';});requestAnimationFrame(animateSolarTech);}
   var tipT=document.getElementById('sv2-tooltip-tech'),tipTN=document.getElementById('sv2-tt-name-tech'),tipTD=document.getElementById('sv2-tt-desc-tech'),tipTC=document.getElementById('sv2-tt-cat-tech');
   function showTipTech(e,cfg){tipTN.textContent=cfg.name;tipTD.textContent=cfg.desc;tipTC.textContent=CATS[cfg.cat].label;tipTN.style.color=CATS[cfg.cat].color;tipTC.style.color=CATS[cfg.cat].color;tipT.style.opacity='1';moveTipTechTo(e.clientX,e.clientY)}
   function hideTipTech(){tipT.style.opacity='0'}

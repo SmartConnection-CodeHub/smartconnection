@@ -6,7 +6,8 @@ URLS=(
   "https://www.smconnection.cl|Marketing"
   "https://intranet.smconnection.cl|Intranet"
   "https://voy-app-3.vercel.app|VOY"
-  "https://develop.d2qam7xccab5t8.amplifyapp.com|Intranet QAS"
+  "https://qas.smconnection.cl|Intranet QAS"
+  "https://marketplace.smconnection.cl|Marketplace"
 )
 
 LOG="$HOME/smartconnection/logs/uptime.log"

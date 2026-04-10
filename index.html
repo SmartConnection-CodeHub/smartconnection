@@ -42,49 +42,12 @@
   --scrollbar-track: #060912;
 }
 /* ── WHITE (light) ── */
-:root[data-theme="white"] {
-  --bg: #f8fafc;
-  --surface: #ffffff;
-  --elevated: #f1f5f9;
-  --glass: rgba(255,255,255,0.88);
-  --glass-light: rgba(255,255,255,0.6);
-  --border: rgba(0,0,0,0.07);
-  --border-hover: rgba(0,0,0,0.18);
-  --text: #0f172a;
-  --text2: #475569;
-  --muted: #94a3b8;
-  --accent-glow: rgba(0,180,216,0.08);
-  --theme-icon: '☀️';
-  --nav-bg: rgba(248,250,252,0.92);
-  --scrollbar-track: #f8fafc;
-  color-scheme: light;
-}
-:root[data-theme="white"] body { color: var(--text); }
-:root[data-theme="white"] ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
-:root[data-theme="white"] .gradient-text { background: linear-gradient(135deg,#0090b0,#00b4d8); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-:root[data-theme="white"] .glass-card { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
-:root[data-theme="white"] nav { background: var(--nav-bg); border-bottom: 1px solid var(--border); }
-:root[data-theme="white"] #agendar-box { background: #ffffff; }
-/* Toggle button */
-#theme-toggle {
-  position: fixed; bottom: 24px; left: 24px; z-index: 8000;
-  display: flex; align-items: center; gap: 8px;
-  padding: 8px 14px; border-radius: 100px;
-  background: var(--glass); border: 1px solid var(--border-hover);
-  backdrop-filter: blur(12px); cursor: pointer;
-  font-size: 12px; font-weight: 600; color: var(--text2);
-  font-family: var(--font); transition: all .2s;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-}
-#theme-toggle:hover { color: var(--text); border-color: var(--accent); }
-#theme-toggle .tg-icon { font-size: 15px; line-height: 1; }
-#theme-toggle .tg-label { letter-spacing: .03em; }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; overflow-x: hidden; }
+html { scroll-behavior: smooth; overflow-x: hidden; background: #060912; }
 body {
   font-family: var(--font);
-  background: var(--bg);
+  background: transparent;
   color: var(--text);
   line-height: 1.6;
   overflow-x: hidden;
@@ -118,9 +81,9 @@ body::before {
 }
 
 #hero-canvas {
-  position: absolute;
+  position: fixed;
   top: 0; left: 0;
-  width: 100%; height: 100%;
+  width: 100vw; height: 100vh;
   pointer-events: none;
   z-index: 0;
 }
@@ -301,7 +264,7 @@ nav.scrolled {
 #solar-container{position:relative;width:900px;height:900px;flex-shrink:0}
 #rings-svg{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none}
 #sun{position:absolute;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle at 38% 38%,#1a3a6b,#060c1f);border:2px solid rgba(0,180,216,0.4);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;transform:translate(-50%,-50%);animation:sunGlow 3s ease-in-out infinite;z-index:20}
-@keyframes sunGlow{0%,100%{box-shadow:0 0 20px rgba(0,180,216,0.3),0 0 40px rgba(0,180,216,0.15),0 0 80px rgba(0,180,216,0.08)}50%{box-shadow:0 0 30px rgba(0,180,216,0.5),0 0 60px rgba(0,180,216,0.25),0 0 100px rgba(0,180,216,0.12)}}
+@keyframes sunGlow{0%,100%{box-shadow:0 0 30px rgba(0,180,216,0.55),0 0 60px rgba(0,180,216,0.3),0 0 110px rgba(0,180,216,0.15),0 0 180px rgba(0,180,216,0.06)}50%{box-shadow:0 0 55px rgba(0,180,216,0.9),0 0 100px rgba(0,180,216,0.5),0 0 160px rgba(0,180,216,0.28),0 0 240px rgba(0,180,216,0.1)}}
 #sun .sun-logo{font-size:9px;font-weight:800;letter-spacing:.08em;color:#00b4d8;text-align:center;line-height:1.3;text-transform:uppercase}
 #sun .sun-count{font-size:22px;font-weight:700;color:#f1f5f9;line-height:1}
 #sun .sun-sub{font-size:8px;color:#94a3b8;margin-top:2px}
@@ -320,6 +283,12 @@ nav.scrolled {
 #sv2-legend{position:absolute;bottom:24px;left:24px;z-index:20;display:flex;flex-direction:column;gap:8px}
 .sv2-li{display:flex;align-items:center;gap:8px;cursor:pointer;transition:opacity .2s}
 .sv2-li:hover{opacity:.8}
+/* Pills del filtro de tecnologías */
+.sv2-pill{display:inline-flex;align-items:center;gap:8px;cursor:pointer;padding:9px 18px;border-radius:100px;font-size:13px;font-weight:700;color:var(--text2);background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.1);transition:all 0.2s;user-select:none}
+.sv2-pill:hover{background:color-mix(in srgb,var(--pc) 12%,transparent);border-color:color-mix(in srgb,var(--pc) 50%,transparent);color:var(--text);transform:translateY(-1px)}
+.sv2-pill.active{background:color-mix(in srgb,var(--pc) 18%,transparent);border-color:var(--pc);color:#fff;box-shadow:0 0 16px color-mix(in srgb,var(--pc) 35%,transparent);transform:translateY(-2px)}
+.sv2-pill:active{transform:scale(0.96) translateY(0)}
+.sv2-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .sv2-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 .sv2-lbl{font-size:12px;color:#94a3b8;font-weight:500}
 #sv2-mobile-view{display:none;padding:24px 16px 60px;position:relative;z-index:5}
@@ -559,7 +528,7 @@ nav.scrolled {
 /* =============================================
    PROBLEMA
    ============================================= */
-#problema { background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%); }
+#problema { background: transparent; }
 .problema-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin: 48px 0 32px; }
 .pain-card { padding: 32px; display: flex; flex-direction: column; gap: 16px; position: relative; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; cursor: default; }
 .pain-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--gold), #fbbf24); opacity: 0.7; border-radius: var(--radius) var(--radius) 0 0; transition: opacity 0.3s; }
@@ -575,7 +544,7 @@ nav.scrolled {
 /* =============================================
    PROCESO — 4 STEPS REDESIGNED
    ============================================= */
-#proceso { background: var(--surface); }
+#proceso { background: transparent; }
 .steps-flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 48px; position: relative; }
 /* Dashed connector BETWEEN cards, not overlapping */
 .steps-flow::before {
@@ -656,9 +625,9 @@ nav.scrolled {
 /* =============================================
    SOLUCIONES — 12 PRODUCTS WITH UI PREVIEW
    ============================================= */
-#soluciones { background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%); }
+#soluciones { background: transparent; }
 /* VALUE PROPS */
-#valores { background: var(--bg); }
+#valores { background: transparent; }
 .valores-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 48px; }
 
 .valor-card {
@@ -761,6 +730,10 @@ nav.scrolled {
 
 /* Netflix Carousel */
 .sol-carousel-wrap { position: relative; margin-top: 48px; }
+.sol-filters { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 32px; }
+.sol-pill { padding: 8px 20px; border-radius: 100px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: var(--glass); color: var(--text2); transition: all 0.25s ease; }
+.sol-pill:hover { border-color: rgba(0,180,216,0.4); color: var(--text); }
+.sol-pill.active { background: rgba(0,180,216,0.12); border-color: rgba(0,180,216,0.6); color: #00b4d8; box-shadow: 0 0 14px rgba(0,180,216,0.2); }
 .sol-track-outer { overflow: hidden; border-radius: var(--radius); }
 .sol-track { display: flex; gap: 20px; transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94); will-change: transform; }
 .sol-card-wrap { min-width: calc(33.333% - 14px); flex-shrink: 0; }
@@ -816,12 +789,12 @@ nav.scrolled {
 /* =============================================
    TECNOLOGIAS
    ============================================= */
-#tecnologias { background: var(--surface); overflow: hidden; }
+#tecnologias { background: transparent; overflow: hidden; }
 
 /* =============================================
    AUTOMATIZACIONES
    ============================================= */
-#automatizaciones { background: linear-gradient(180deg, var(--surface) 0%, var(--bg) 100%); }
+#automatizaciones { background: transparent; }
 .autos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
 .auto-card { padding: 28px; display: flex; flex-direction: column; gap: 12px; position: relative; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; cursor: default; }
 .auto-card::before { content: ''; position: absolute; inset: 0; border-radius: var(--radius); background: linear-gradient(135deg, var(--auto-c, rgba(0,180,216,0.04)), transparent 65%); opacity: 0; transition: opacity 0.4s; pointer-events: none; }
@@ -841,7 +814,7 @@ nav.scrolled {
 /* =============================================
    ROI CALCULATOR
    ============================================= */
-#roi { background: var(--surface); }
+#roi { background: transparent; }
 .roi-inner { max-width: 720px; margin: 0 auto; padding: 48px; border-radius: var(--radius-xl); background: var(--glass); border: 1px solid rgba(0,180,216,0.15); box-shadow: 0 0 80px rgba(0,180,216,0.05); }
 .roi-title-area { text-align: center; margin-bottom: 40px; }
 .roi-title-area h2 { font-size: 32px; font-weight: 800; margin-bottom: 12px; }
@@ -868,7 +841,7 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
 /* =============================================
    TESTIMONIOS
    ============================================= */
-#testimonios { background: var(--bg); }
+#testimonios { background: transparent; }
 .testimonios-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin: 48px 0 40px; }
 .testimonio-card { padding: 32px; }
 .stars { color: #fbbf24; font-size: 16px; letter-spacing: 2px; margin-bottom: 16px; }
@@ -886,7 +859,7 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
 /* =============================================
    POR QUE
    ============================================= */
-#por-que { background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%); }
+#por-que { background: transparent; }
 .diffs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 48px; }
 .diff-card { padding: 32px 24px; text-align: center; }
 .diff-icon { width: 64px; height: 64px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 28px; margin: 0 auto 20px; }
@@ -896,7 +869,7 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
 /* =============================================
    PRICING
    ============================================= */
-#pricing { background: var(--bg); }
+#pricing { background: transparent; }
 .pricing-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin: 48px 0 32px; padding-top: 20px; }
 .pricing-card { padding: 32px 24px; display: flex; flex-direction: column; gap: 16px; position: relative; overflow: visible; transition: border-color 0.4s, transform 0.4s, box-shadow 0.4s; transform-style: preserve-3d; will-change: transform; }
 .pricing-card:hover { border-color: var(--pc2,rgba(0,180,216,0.4)); box-shadow: 0 0 60px var(--pc,rgba(0,180,216,0.12)), 0 20px 60px rgba(0,0,0,0.4), inset 0 0 80px var(--pc,rgba(0,180,216,0.06)); }
@@ -922,11 +895,121 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
 .pricing-footer { text-align: center; padding: 20px 32px; background: var(--glass); border: 1px solid var(--border); border-radius: var(--radius); font-size: 15px; color: var(--text2); }
 .pricing-footer a { color: var(--accent); font-weight: 600; text-decoration: none; }
 .pricing-footer a:hover { text-decoration: underline; }
+@keyframes btnPulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(0,180,216,0.45); }
+  50%      { box-shadow: 0 0 0 8px rgba(0,180,216,0); }
+}
+
+/* ══════════════════════════════════════════
+   PREMIUM EFFECTS ARSENAL — Panchita Catalog
+   ══════════════════════════════════════════ */
+
+/* @property para animar conic-gradient */
+@property --conic-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes conicSpin { to { --conic-angle: 360deg; } }
+
+/* 1. Gradient animado — botones CTA principales */
+@keyframes gradShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold), #ff8c42, #f59e0b, var(--gold));
+  background-size: 300% auto;
+  animation: gradShift 4s ease infinite;
+}
+.btn-accent {
+  background: linear-gradient(135deg, var(--accent), #00d4ff, #0090b0, var(--accent));
+  background-size: 300% auto;
+  animation: gradShift 4s ease infinite 0.8s;
+}
+
+/* 2. Conic border glow — pricing cards en hover */
+.pricing-card {
+  isolation: isolate;
+}
+.pricing-card::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: calc(var(--radius) + 1px);
+  background: conic-gradient(from var(--conic-angle) at 50% 50%,
+    transparent 0deg,
+    var(--pc2, rgba(0,180,216,0.9)) 50deg,
+    transparent 110deg
+  );
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: -1;
+  padding: 1px;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: conicSpin 3.5s linear infinite paused;
+  pointer-events: none;
+}
+.pricing-card:hover::after {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+/* 3. Hover Cascade — bullets stagger al entrar hover */
+@keyframes bulletIn {
+  from { opacity: 0.4; transform: translateX(-6px); color: var(--text2); }
+  to   { opacity: 1;   transform: translateX(0);    color: var(--text); }
+}
+.pricing-card .pricing-features li {
+  transition: color 0.3s;
+}
+.pricing-card:hover .pricing-features li {
+  animation: bulletIn 0.35s ease forwards;
+}
+.pricing-card:hover .pricing-features li:nth-child(1) { animation-delay: 0.00s; }
+.pricing-card:hover .pricing-features li:nth-child(2) { animation-delay: 0.05s; }
+.pricing-card:hover .pricing-features li:nth-child(3) { animation-delay: 0.10s; }
+.pricing-card:hover .pricing-features li:nth-child(4) { animation-delay: 0.15s; }
+.pricing-card:hover .pricing-features li:nth-child(5) { animation-delay: 0.20s; }
+.pricing-card:hover .pricing-features li:nth-child(6) { animation-delay: 0.25s; }
+.pricing-card:hover .pricing-features li:nth-child(7) { animation-delay: 0.30s; }
+
+/* 4. Hover Cascade — CTA se ilumina cuando el card se activa */
+.pricing-card .pricing-cta {
+  transition: filter 0.5s ease, transform 0.4s ease, box-shadow 0.4s ease !important;
+}
+.pricing-card:hover .pricing-cta {
+  filter: brightness(1.18) saturate(1.25);
+}
+
+/* 5. Filter pills — glow animado cuando activos */
+.sv2-pill { position: relative; }
+@keyframes pillGlow {
+  0%,100% { box-shadow: 0 0 10px color-mix(in srgb, var(--pc) 45%, transparent), 0 0 0 1px color-mix(in srgb, var(--pc) 60%, transparent); }
+  50%      { box-shadow: 0 0 22px color-mix(in srgb, var(--pc) 75%, transparent), 0 0 40px color-mix(in srgb, var(--pc) 25%, transparent), 0 0 0 1.5px var(--pc); }
+}
+.sv2-pill.active {
+  animation: pillGlow 2s ease-in-out infinite;
+}
+/* Fase 1 — Entrada stagger de nodos destacados */
+@keyframes sv2NodeIn {
+  0%   { opacity: 0; transform: translate(-50%,-50%) scale(0.5); }
+  65%  { transform: translate(-50%,-50%) scale(1.18); }
+  100% { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+}
+/* Fase 1 — Ripple del hub central */
+@keyframes hubRipple {
+  0%   { transform: translate(-50%,-50%) scale(1); opacity: 0.75; }
+  100% { transform: translate(-50%,-50%) scale(3.8); opacity: 0; }
+}
 
 /* =============================================
    FAQ — Premium Visual Effects
    ============================================= */
-#faq { background: var(--bg); position: relative; overflow: hidden; }
+#faq { background: transparent; position: relative; overflow: hidden; }
 #faq::before {
   content: '';
   position: absolute;
@@ -1078,13 +1161,53 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
   .hero-subtitle { font-size: 16px; }
   .hero-stats { gap: 20px; flex-wrap: wrap; }
   .stat-number { font-size: 22px; }
-  .problema-grid { grid-template-columns: 1fr; }
-  .steps-flow { grid-template-columns: 1fr; }
-  .pricing-grid { grid-template-columns: 1fr; }
-  .autos-grid { grid-template-columns: 1fr; }
-  .testimonios-grid { grid-template-columns: 1fr; }
-  .diffs-grid { grid-template-columns: 1fr; }
-  .products-grid { grid-template-columns: 1fr; }
+  /* ── Todas las grids → scroll horizontal en mobile ── */
+  .problema-grid,
+  .steps-flow,
+  .pricing-grid,
+  .valores-grid,
+  .autos-grid,
+  .testimonios-grid,
+  .diffs-grid,
+  .products-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    gap: 16px !important;
+    padding: 16px 20px 28px !important;
+    margin-left: -20px !important;
+    margin-right: -20px !important;
+  }
+  .problema-grid::-webkit-scrollbar,
+  .steps-flow::-webkit-scrollbar,
+  .pricing-grid::-webkit-scrollbar,
+  .valores-grid::-webkit-scrollbar,
+  .autos-grid::-webkit-scrollbar,
+  .testimonios-grid::-webkit-scrollbar,
+  .diffs-grid::-webkit-scrollbar,
+  .products-grid::-webkit-scrollbar { display: none; }
+
+  .problema-grid > *,
+  .steps-flow > *,
+  .valores-grid > *,
+  .autos-grid > *,
+  .testimonios-grid > *,
+  .diffs-grid > *,
+  .products-grid > * {
+    min-width: 82vw !important;
+    max-width: 82vw !important;
+    scroll-snap-align: center !important;
+    flex-shrink: 0 !important;
+  }
+  /* Pricing mantiene sus propios overrides */
+  .pricing-grid { padding: 20px 16px 32px !important; margin: 24px -16px 8px !important; }
+  .pricing-card { min-width: 82vw !important; max-width: 82vw !important; scroll-snap-align: center !important; flex-shrink: 0 !important; }
+  .pricing-dots { display: flex; justify-content: center; gap: 6px; margin: 8px 0 24px; }
+  .pricing-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); border: 1px solid var(--text2); transition: background 0.3s, transform 0.3s; cursor: pointer; }
+  .pricing-dot.active { background: var(--accent); transform: scale(1.3); border-color: var(--accent); }
   .metrics-band { flex-direction: column; gap: 24px; padding: 24px; }
   .roi-inner { padding: 32px 20px; }
   .roi-numbers { grid-template-columns: 1fr; gap: 16px; }
@@ -1108,7 +1231,6 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
     <div class="nav-inner">
       <a href="#" class="nav-logo">Smart <span class="gradient-text">Connection</span></a>
       <ul class="nav-links">
-        <li><a href="#proceso">Proceso</a></li>
         <li><a href="#soluciones">Soluciones</a></li>
         <li><a href="#tecnologias">Tecnologias</a></li>
         <li><a href="#pricing">Precios</a></li>
@@ -1117,7 +1239,6 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
       <div class="nav-ctas">
         <a href="https://wa.me/56955361419?text=Hola,%20quiero%20ver%20un%20demo" class="btn btn-ghost" style="padding:10px 18px;font-size:14px;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-          Demo
         </a>
         <a href="#cta-final" class="btn btn-accent" style="padding:10px 18px;font-size:14px;">Hablar con el equipo</a>
       </div>
@@ -1129,12 +1250,11 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#proceso" onclick="closeMobileMenu()">Proceso</a>
   <a href="#soluciones" onclick="closeMobileMenu()">Soluciones</a>
   <a href="#tecnologias" onclick="closeMobileMenu()">Tecnologias</a>
   <a href="#pricing" onclick="closeMobileMenu()">Precios</a>
   <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
-  <a href="https://wa.me/56955361419" class="btn btn-ghost" onclick="closeMobileMenu()">Demo</a>
+  <a href="https://wa.me/56955361419" class="btn btn-ghost" onclick="closeMobileMenu()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a>
   <a href="#cta-final" class="btn btn-gold" onclick="closeMobileMenu()">Hablar con el equipo</a>
 </div>
 
@@ -1165,9 +1285,9 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
         <div class="hero-ctas aos aos-delay-3">
           <a href="#cta-final" class="btn btn-gold btn-lg">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            Agenda un Discovery
+            Agenda tu diagnóstico gratis
           </a>
-          <a href="#proceso" class="btn btn-ghost btn-lg">
+          <a href="#soluciones" class="btn btn-ghost btn-lg">
             Ver como funciona
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
           </a>
@@ -1293,8 +1413,7 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
       <div class="logo-badge"><svg width="16" height="16" viewBox="0 0 100 100"><rect width="100" height="100" rx="10" fill="white"/><path d="M10 25 L50 55 L90 25 L90 75 L10 75 Z" fill="#EA4335"/><path d="M10 25 L50 55 L90 25" stroke="white" stroke-width="4" fill="none"/></svg>Gmail</div>
       <div class="logo-connector"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       <div class="logo-badge"><svg width="16" height="16" viewBox="0 0 100 100"><rect width="100" height="100" rx="12" fill="#96BF48"/><path d="M65 25 C65 25 60 26 55 27 C54 23 51 18 46 18 C45 19 44 19 43 20 C41 17 39 16 37 16 C28 16 23 30 21 38 L33 41 C34 36 36 33 38 33 C40 33 41 35 42 38 L50 40 L50 75 L70 71 L75 28 Z" fill="white"/></svg>Shopify</div>
-      <div class="logo-connector"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-      <div class="logo-badge"><svg width="16" height="16" viewBox="0 0 100 100" fill="none"><ellipse cx="50" cy="50" rx="50" ry="50" fill="#FFE600"/><path d="M50 25 C35 25 22 35 20 50 L80 50 C78 35 65 25 50 25Z" fill="#333"/><circle cx="35" cy="62" r="8" fill="#333"/><circle cx="65" cy="62" r="8" fill="#333"/></svg>MercadoLibre</div>
+      
       <div class="logo-connector"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       <div class="logo-badge"><svg width="16" height="16" viewBox="0 0 200 200" fill="none"><rect width="200" height="200" rx="30" fill="#2D7BEA"/><rect x="30" y="70" width="140" height="30" rx="6" fill="white" opacity="0.9"/><rect x="30" y="110" width="90" height="22" rx="4" fill="white" opacity="0.6"/></svg>Airtable</div>
       <div class="logo-connector"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
@@ -1329,8 +1448,7 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
       <div class="logo-badge"><svg width="16" height="16" viewBox="0 0 100 100"><rect width="100" height="100" rx="10" fill="white"/><path d="M10 25 L50 55 L90 25 L90 75 L10 75 Z" fill="#EA4335"/><path d="M10 25 L50 55 L90 25" stroke="white" stroke-width="4" fill="none"/></svg>Gmail</div>
       <div class="logo-connector"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       <div class="logo-badge"><svg width="16" height="16" viewBox="0 0 100 100"><rect width="100" height="100" rx="12" fill="#96BF48"/><path d="M65 25 C65 25 60 26 55 27 C54 23 51 18 46 18 C45 19 44 19 43 20 C41 17 39 16 37 16 C28 16 23 30 21 38 L33 41 C34 36 36 33 38 33 C40 33 41 35 42 38 L50 40 L50 75 L70 71 L75 28 Z" fill="white"/></svg>Shopify</div>
-      <div class="logo-connector"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-      <div class="logo-badge"><svg width="16" height="16" viewBox="0 0 100 100" fill="none"><ellipse cx="50" cy="50" rx="50" ry="50" fill="#FFE600"/><path d="M50 25 C35 25 22 35 20 50 L80 50 C78 35 65 25 50 25Z" fill="#333"/><circle cx="35" cy="62" r="8" fill="#333"/><circle cx="65" cy="62" r="8" fill="#333"/></svg>MercadoLibre</div>
+      
       <div class="logo-connector"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       <div class="logo-badge"><svg width="16" height="16" viewBox="0 0 200 200" fill="none"><rect width="200" height="200" rx="30" fill="#2D7BEA"/><rect x="30" y="70" width="140" height="30" rx="6" fill="white" opacity="0.9"/><rect x="30" y="110" width="90" height="22" rx="4" fill="white" opacity="0.6"/></svg>Airtable</div>
       <div class="logo-connector"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
@@ -1416,11 +1534,11 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
         <div class="valor-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2.2"><rect x="2" y="2" width="6" height="5" rx="1.5"/><rect x="9" y="9.5" width="6" height="5" rx="1.5"/><rect x="16" y="17" width="6" height="5" rx="1.5"/><polyline points="8 4.5 12 4.5 12 9.5"/><polyline points="15 12 19 12 19 17"/></svg>
         </div>
-        <div class="valor-concept">Proceso</div>
-        <div class="valor-copy">No es suerte. Es proceso. Te ayudamos a mapearlo y estructurarlo.</div>
+        <div class="valor-concept">Sistema</div>
+        <div class="valor-copy">No improvisas. Tienes un sistema que trabaja aunque tú no estés mirando.</div>
         <div class="valor-metric">
-          <div class="valor-metric-val">100%</div>
-          <div class="valor-metric-label">de tus procesos documentados y ejecutables</div>
+          <div class="valor-metric-val">24/7</div>
+          <div class="valor-metric-label">operacion activa sin intervención manual</div>
         </div>
       </div>
 
@@ -1429,10 +1547,10 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00b4d8" stroke-width="2.2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
         </div>
         <div class="valor-concept">Control</div>
-        <div class="valor-copy">Un solo lugar. Todos tus sistemas. Visibilidad 360° de tu operacion.</div>
+        <div class="valor-copy">Sabes qué pasó, qué está pasando y qué viene. Sin depender de nadie para el reporte.</div>
         <div class="valor-metric">
-          <div class="valor-metric-val">360°</div>
-          <div class="valor-metric-label">visibilidad de tu operacion en tiempo real</div>
+          <div class="valor-metric-val">-80%</div>
+          <div class="valor-metric-label">tiempo en reportes y seguimiento manual</div>
         </div>
       </div>
 
@@ -1441,62 +1559,6 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
 </section>
 
 
-<!-- PROCESO — 4 Steps -->
-<section id="proceso" class="section">
-  <div class="container">
-    <div class="section-header aos">
-      <div class="label">Metodologia</div>
-      <h2 class="section-title">De proceso manual<br>a <span class="gradient-text">pipeline automatizado</span></h2>
-      <p class="section-subtitle">Cuatro pasos claros. Sin sorpresas. Con codigo que es tuyo desde el dia uno.</p>
-    </div>
-    <div class="steps-flow">
-      <div class="glass-card step-card-v3 aos aos-delay-1" style="--step-c1:#00b4d8;--step-c2:#4a9eff;">
-        <div class="step-badge">01</div>
-        <h3 class="step-title-v3">Discovery Sprint</h3>
-        <p class="step-desc-v3">Mapeamos tus procesos, identificamos los 3 quick wins con mayor ROI y entregamos el plan completo. Sin compromiso de build.</p>
-        <div class="step-tags">
-          <span class="step-pill">⏱ 1 semana</span>
-          <span class="step-pill">$ $560K–$1.5M CLP</span>
-        </div>
-        <div class="step-footnote">Entregable: BPMN + specs + presupuesto</div>
-        <div class="step-big-num">01</div>
-      </div>
-      <div class="glass-card step-card-v3 aos aos-delay-2" style="--step-c1:#a855f7;--step-c2:#00b4d8;">
-        <div class="step-badge" style="background:rgba(168,85,247,0.08);border-color:rgba(168,85,247,0.25);color:#a855f7;">02</div>
-        <h3 class="step-title-v3">Diseno Tecnico</h3>
-        <p class="step-desc-v3">Arquitectura, contratos API, modelo de datos y plan de hitos acordado contigo. Sabes exactamente que se construye antes de iniciar.</p>
-        <div class="step-tags">
-          <span class="step-pill" style="color:#a855f7;border-color:rgba(168,85,247,0.2);background:rgba(168,85,247,0.07);">&lt;/&gt; Arquitectura</span>
-          <span class="step-pill" style="color:#a855f7;border-color:rgba(168,85,247,0.2);background:rgba(168,85,247,0.07);">📄 Documentado</span>
-        </div>
-        <div class="step-footnote">Segun Discovery → plan de hitos</div>
-        <div class="step-big-num">02</div>
-      </div>
-      <div class="glass-card step-card-v3 aos aos-delay-3" style="--step-c1:#f97316;--step-c2:#a855f7;">
-        <div class="step-badge" style="background:rgba(249,115,22,0.08);border-color:rgba(249,115,22,0.25);color:#f97316;">03</div>
-        <h3 class="step-title-v3">Build & Connect</h3>
-        <p class="step-desc-v3">Construimos la integracion o automatizacion. Codigo tuyo. Documentacion incluida. Hitos semanales con entregables concretos.</p>
-        <div class="step-tags">
-          <span class="step-pill" style="color:#f97316;border-color:rgba(249,115,22,0.2);background:rgba(249,115,22,0.07);">&lt;/&gt; Codigo tuyo</span>
-          <span class="step-pill" style="color:#f97316;border-color:rgba(249,115,22,0.2);background:rgba(249,115,22,0.07);">✓ Documentado</span>
-        </div>
-        <div class="step-footnote">Segun Discovery → plan de hitos</div>
-        <div class="step-big-num">03</div>
-      </div>
-      <div class="glass-card step-card-v3 aos aos-delay-4" style="--step-c1:#22c55e;--step-c2:#00b4d8;">
-        <div class="step-badge" style="background:rgba(34,197,94,0.08);border-color:rgba(34,197,94,0.25);color:#22c55e;">04</div>
-        <h3 class="step-title-v3">Care & Improve</h3>
-        <p class="step-desc-v3">Monitoreamos, ajustamos y mejoramos tu sistema mes a mes. Como tener un developer en el equipo, sin el costo fijo de contratarlo.</p>
-        <div class="step-tags">
-          <span class="step-pill" style="color:#22c55e;border-color:rgba(34,197,94,0.2);background:rgba(34,197,94,0.07);">📈 Mejoras continuas</span>
-          <span class="step-pill" style="color:#22c55e;border-color:rgba(34,197,94,0.2);background:rgba(34,197,94,0.07);">★ Opcional</span>
-        </div>
-        <div class="step-footnote">$300K–$1.5M CLP/mes segun cobertura</div>
-        <div class="step-big-num">04</div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- SOLUCIONES — 12 Products Netflix Carousel -->
 <section id="soluciones" class="section" style="background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%);">
@@ -1505,6 +1567,13 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
       <div class="label">Soluciones</div>
       <h2 class="section-title">12 soluciones listas para <span class="gradient-text">activar hoy</span></h2>
       <p class="section-subtitle">Cada una resuelve un problema real. Con interfaz propia y conectada a tus sistemas.</p>
+    </div>
+    <div class="sol-filters">
+      <button class="sol-pill active" onclick="solFilterBy('todos',this)">Todos</button>
+      <button class="sol-pill" onclick="solFilterBy('ventas',this)">Ventas</button>
+      <button class="sol-pill" onclick="solFilterBy('ia',this)">IA</button>
+      <button class="sol-pill" onclick="solFilterBy('operacion',this)">Operación</button>
+      <button class="sol-pill" onclick="solFilterBy('gestion',this)">Gestión</button>
     </div>
     <div class="sol-carousel-wrap">
       <div class="sol-track-outer">
@@ -1538,33 +1607,37 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
   <div class="container">
     <div class="section-header aos">
       <div class="label">Stack Tecnologico</div>
-      <h2 class="section-title" style="font-size:clamp(32px, 5vw, 52px);">37 tecnologias.<br><span class="gradient-text">Un ecosistema integrado.</span></h2>
+      <h2 class="section-title" style="font-size:clamp(32px, 5vw, 52px);">34 tecnologias.<br><span class="gradient-text">Un ecosistema integrado.</span></h2>
       <p class="section-subtitle">Desde modelos IA de vanguardia hasta ERPs enterprise. Usamos la herramienta correcta para cada problema.</p>
     </div>
   </div>
   <div style="position:relative;margin-top:20px;display:flex;flex-direction:column;align-items:center;">
     <div id="solar-wrapper-tech" style="position:relative;z-index:5;display:flex;justify-content:center;align-items:center;overflow:hidden;transform:scale(0.78);transform-origin:center center;margin:-80px 0;width:100%;">
       <div id="solar-container-tech" style="position:relative;width:900px;height:900px;flex-shrink:0;">
+        <canvas id="tech-conn-canvas" width="900" height="900" style="position:absolute;top:0;left:0;width:900px;height:900px;pointer-events:none;z-index:16;"></canvas>
         <svg viewBox="0 0 900 900" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none">
-          <circle cx="450" cy="450" r="110" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-          <circle cx="450" cy="450" r="185" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-          <circle cx="450" cy="450" r="255" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-          <circle cx="450" cy="450" r="320" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-          <circle cx="450" cy="450" r="385" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+          <circle cx="450" cy="450" r="110" fill="none" stroke="rgba(100,200,255,0.22)" stroke-width="1.5"/>
+          <circle cx="450" cy="450" r="185" fill="none" stroke="rgba(100,200,255,0.22)" stroke-width="1.5"/>
+          <circle cx="450" cy="450" r="255" fill="none" stroke="rgba(100,200,255,0.22)" stroke-width="1.5"/>
+          <circle cx="450" cy="450" r="320" fill="none" stroke="rgba(100,200,255,0.22)" stroke-width="1.5"/>
+          <circle cx="450" cy="450" r="385" fill="none" stroke="rgba(100,200,255,0.22)" stroke-width="1.5"/>
         </svg>
         <div id="sun-tech" style="position:absolute;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle at 38% 38%,#1a3a6b,#060c1f);border:2px solid rgba(0,180,216,0.4);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;transform:translate(-50%,-50%);animation:sunGlow 3s ease-in-out infinite;z-index:20;left:450px;top:450px;">
           <div style="font-size:9px;font-weight:800;letter-spacing:.08em;color:#00b4d8;text-align:center;line-height:1.3;text-transform:uppercase;">+SMART<br>CONNECTION</div>
-          <div style="font-size:22px;font-weight:700;color:#f1f5f9;line-height:1;">37</div>
-          <div style="font-size:8px;color:#94a3b8;margin-top:2px;">tecnologias</div>
+          <div id="hub-tech-count" style="font-size:22px;font-weight:700;color:#f1f5f9;line-height:1;transition:color 0.3s;">34</div>
+          <div id="hub-tech-label" style="font-size:8px;color:#94a3b8;margin-top:2px;">tecnologias</div>
         </div>
-        <div id="sv2-legend-tech" style="position:absolute;bottom:24px;left:24px;z-index:20;display:flex;flex-direction:column;gap:8px;">
-          <div class="sv2-li" data-cat-tech="ia"><div class="sv2-dot" style="background:#a855f7;box-shadow:0 0 6px #a855f7"></div><span class="sv2-lbl">IA</span></div>
-          <div class="sv2-li" data-cat-tech="dev"><div class="sv2-dot" style="background:#00e5b0;box-shadow:0 0 6px #00e5b0"></div><span class="sv2-lbl">Dev</span></div>
-          <div class="sv2-li" data-cat-tech="sap"><div class="sv2-dot" style="background:#60a5fa;box-shadow:0 0 6px #60a5fa"></div><span class="sv2-lbl">SAP</span></div>
-          <div class="sv2-li" data-cat-tech="cloud"><div class="sv2-dot" style="background:#fbbf24;box-shadow:0 0 6px #fbbf24"></div><span class="sv2-lbl">Cloud</span></div>
-          <div class="sv2-li" data-cat-tech="integ"><div class="sv2-dot" style="background:#f472b6;box-shadow:0 0 6px #f472b6"></div><span class="sv2-lbl">Integracion</span></div>
-        </div>
+
       </div>
+    </div>
+    <!-- Filtros explícitos debajo del diagrama -->
+    <div id="sv2-legend-tech" style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:-40px auto 32px;max-width:660px;padding:0 24px;position:relative;z-index:10;">
+      <div class="sv2-pill" data-cat-tech="ia" style="--pc:#a855f7"><div class="sv2-dot" style="background:#a855f7;box-shadow:0 0 6px #a855f7"></div><span>Modelos IA</span></div>
+      <div class="sv2-pill" data-cat-tech="dev" style="--pc:#00e5b0"><div class="sv2-dot" style="background:#00e5b0;box-shadow:0 0 6px #00e5b0"></div><span>Dev UX</span></div>
+      <div class="sv2-pill" data-cat-tech="sap" style="--pc:#60a5fa"><div class="sv2-dot" style="background:#60a5fa;box-shadow:0 0 6px #60a5fa"></div><span>SAP</span></div>
+      <div class="sv2-pill" data-cat-tech="cloud" style="--pc:#fbbf24"><div class="sv2-dot" style="background:#fbbf24;box-shadow:0 0 6px #fbbf24"></div><span>Infraestructura</span></div>
+      <div class="sv2-pill" data-cat-tech="integ" style="--pc:#f472b6"><div class="sv2-dot" style="background:#f472b6;box-shadow:0 0 6px #f472b6"></div><span>MCP-API</span></div>
+      <div style="width:100%;text-align:center;font-size:11px;color:#475569;margin-top:4px;letter-spacing:0.04em;">↑ Toca una categoría para filtrar el universo</div>
     </div>
     <div id="sv2-tooltip-tech" style="position:fixed;background:rgba(15,22,35,0.92);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px 16px;max-width:220px;pointer-events:none;z-index:9999;opacity:0;transition:opacity .15s;box-shadow:0 8px 32px rgba(0,0,0,0.6);">
       <div style="font-size:13px;font-weight:700;margin-bottom:4px;" id="sv2-tt-name-tech"></div>
@@ -1572,7 +1645,7 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
       <div style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-top:6px;opacity:.7;" id="sv2-tt-cat-tech"></div>
     </div>
     <div id="sv2-mobile-tech" style="display:none;padding:24px 16px 40px;width:100%;max-width:600px;">
-      <div class="sv2-mobile-badge"><div class="sv2-badge-dot"></div>37 tecnologias</div>
+      <div class="sv2-mobile-badge"><div class="sv2-badge-dot"></div>34 tecnologias</div>
       <div class="sv2-mtech-wrap">
         <div class="sv2-mtech-vline"><div class="sv2-mtech-traveler"></div><div class="sv2-mtech-traveler t2"></div></div>
         <div id="sv2-mobile-timeline-tech"></div>
@@ -1602,31 +1675,7 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
           <span class="auto-live"><span class="auto-live-dot"></span>activo</span>
         </div>
       </div>
-      <div class="glass-card auto-card aos aos-delay-2" style="--auto-c:rgba(34,197,94,0.06);--auto-c2:rgba(34,197,94,0.22);--auto-glow:rgba(34,197,94,0.3);--auto-col:#22c55e;">
-        <div class="auto-icon-v3" style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-        </div>
-        <div class="auto-title">Sync tienda &harr; ERP</div>
-        <div class="auto-desc">Stock, precios y pedidos sincronizados en tiempo real. Cero discrepancias entre canales.</div>
-        <div class="auto-metric">
-          <span class="auto-metric-val">&lt;2 min</span>
-          <span class="auto-metric-label">latencia de sincronizacion</span>
-          <span class="auto-live"><span class="auto-live-dot"></span>en vivo</span>
-        </div>
-      </div>
-      <div class="glass-card auto-card aos aos-delay-3" style="--auto-c:rgba(74,158,255,0.06);--auto-c2:rgba(74,158,255,0.22);--auto-glow:rgba(74,158,255,0.3);--auto-col:#4a9eff;">
-        <div class="auto-icon-v3" style="background:rgba(74,158,255,0.1);border:1px solid rgba(74,158,255,0.2);">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
-        </div>
-        <div class="auto-title">Reportes automaticos</div>
-        <div class="auto-desc">El Excel que se rellena solo cada lunes. Ventas, margenes y KPIs sin tocar un archivo.</div>
-        <div class="auto-metric">
-          <span class="auto-metric-val">8h</span>
-          <span class="auto-metric-label">ahorradas cada semana</span>
-          <span class="auto-live"><span class="auto-live-dot"></span>lunes</span>
-        </div>
-      </div>
-      <div class="glass-card auto-card aos aos-delay-1" style="--auto-c:rgba(168,85,247,0.06);--auto-c2:rgba(168,85,247,0.22);--auto-glow:rgba(168,85,247,0.3);--auto-col:#a855f7;">
+      <div class="glass-card auto-card aos aos-delay-2" style="--auto-c:rgba(168,85,247,0.06);--auto-c2:rgba(168,85,247,0.22);--auto-glow:rgba(168,85,247,0.3);--auto-col:#a855f7;">
         <div class="auto-icon-v3" style="background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.2);">
           <svg viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 1v3"/><path d="M15 1v3"/><path d="M9 20v3"/><path d="M15 20v3"/><path d="M20 9h3"/><path d="M20 14h3"/><path d="M1 9h3"/><path d="M1 14h3"/></svg>
         </div>
@@ -1638,7 +1687,7 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
           <span class="auto-live"><span class="auto-live-dot"></span>IA</span>
         </div>
       </div>
-      <div class="glass-card auto-card aos aos-delay-2" style="--auto-c:rgba(0,180,216,0.06);--auto-c2:rgba(0,180,216,0.22);--auto-glow:rgba(0,180,216,0.3);--auto-col:#00b4d8;">
+      <div class="glass-card auto-card aos aos-delay-3" style="--auto-c:rgba(0,180,216,0.06);--auto-c2:rgba(0,180,216,0.22);--auto-glow:rgba(0,180,216,0.3);--auto-col:#00b4d8;">
         <div class="auto-icon-v3" style="background:rgba(0,180,216,0.1);border:1px solid rgba(0,180,216,0.2);">
           <svg viewBox="0 0 24 24" fill="none" stroke="#00b4d8" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
         </div>
@@ -1648,18 +1697,6 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
           <span class="auto-metric-val">0</span>
           <span class="auto-metric-label">discrepancias de stock en produccion</span>
           <span class="auto-live"><span class="auto-live-dot"></span>24/7</span>
-        </div>
-      </div>
-      <div class="glass-card auto-card aos aos-delay-3" style="--auto-c:rgba(249,115,22,0.06);--auto-c2:rgba(249,115,22,0.22);--auto-glow:rgba(249,115,22,0.3);--auto-col:#f97316;">
-        <div class="auto-icon-v3" style="background:rgba(249,115,22,0.1);border:1px solid rgba(249,115,22,0.2);">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-        </div>
-        <div class="auto-title">Alertas inteligentes</div>
-        <div class="auto-desc">Notificacion automatica cuando algo cambia: quiebre de stock, vencimiento de contrato, pago pendiente.</div>
-        <div class="auto-metric">
-          <span class="auto-metric-val">4.2 min</span>
-          <span class="auto-metric-label">tiempo promedio de deteccion</span>
-          <span class="auto-live"><span class="auto-live-dot"></span>monitor</span>
         </div>
       </div>
     </div>
@@ -1672,33 +1709,46 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
     <div class="roi-inner aos">
       <div class="roi-title-area">
         <div class="label" style="justify-content:center;">Cuanto te cuesta NO automatizar?</div>
-        <h2>Calcula tu costo real<br>en 30 segundos</h2>
-        <p style="color:var(--text2);margin-top:12px;">Mueve los sliders y ve en tiempo real cuanto estas perdiendo cada mes.</p>
+        <h2>Calcula cuanto pierdes<br>en trabajo manual</h2>
+        <p style="color:var(--text2);margin-top:12px;">Ajusta los valores de tu equipo y ve el costo real que estas pagando cada mes — y cada año.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:16px;">
+          <button onclick="setScenario(10,900,4)" style="background:rgba(0,180,216,0.08);border:1px solid rgba(0,180,216,0.25);color:var(--text2);padding:6px 14px;border-radius:100px;font-size:12px;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='rgba(0,180,216,0.25)';this.style.color='var(--text2)'">📦 Distribuidora — coordinadores de pedidos</button>
+          <button onclick="setScenario(15,1200,3)" style="background:rgba(0,180,216,0.08);border:1px solid rgba(0,180,216,0.25);color:var(--text2);padding:6px 14px;border-radius:100px;font-size:12px;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='rgba(0,180,216,0.25)';this.style.color='var(--text2)'">🏭 Manufactura — control de producción</button>
+          <button onclick="setScenario(20,1800,5)" style="background:rgba(0,180,216,0.08);border:1px solid rgba(0,180,216,0.25);color:var(--text2);padding:6px 14px;border-radius:100px;font-size:12px;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='rgba(0,180,216,0.25)';this.style.color='var(--text2)'">🏢 Empresa grande — equipo de operaciones</button>
+        </div>
       </div>
       <div class="roi-sliders">
         <div class="slider-group">
-          <div class="slider-label"><span>Horas/semana en procesos manuales</span><span class="slider-value" id="hoursDisplay">12 horas</span></div>
+          <div class="slider-label"><span>Horas/semana en procesos manuales <span style="color:var(--muted);font-size:12px;">(por persona)</span></span><span class="slider-value" id="hoursDisplay">12 horas</span></div>
           <input type="range" id="hoursSlider" min="1" max="40" value="12" step="1">
         </div>
         <div class="slider-group">
-          <div class="slider-label"><span>Sueldo promedio del equipo involucrado</span><span class="slider-value" id="rateDisplay">$1.500.000 CLP/mes</span></div>
+          <div class="slider-label"><span>Sueldo líquido promedio del equipo</span><span class="slider-value" id="rateDisplay">$1.500.000 CLP/mes</span></div>
           <input type="range" id="rateSlider" min="600" max="4000" value="1500" step="100">
+        </div>
+        <div class="slider-group">
+          <div class="slider-label"><span>Personas que hacen este proceso</span><span class="slider-value" id="peopleDisplay">3 personas</span></div>
+          <input type="range" id="peopleSlider" min="1" max="20" value="3" step="1">
         </div>
       </div>
       <div class="roi-output">
-        <div class="roi-numbers" style="grid-template-columns:1fr 1fr;">
+        <div class="roi-numbers">
           <div class="roi-num">
             <div class="big red" id="costMonthly">-</div>
             <div class="small" style="display:flex;align-items:center;justify-content:center;gap:4px;">
               CLP perdidos/mes
-              <span class="roi-tip" data-tip="Calculado como: horas manuales/semana × 4.33 semanas × costo hora (sueldo ÷ 176h laborales). Es el costo real de no automatizar.">ⓘ</span>
+              <span class="roi-tip" data-tip="Sueldo líquido ÷ 176h × horas manuales/mes × personas. Es lo que pagas en tiempo que debería estar automatizado.">ⓘ</span>
             </div>
+          </div>
+          <div class="roi-num">
+            <div class="big" id="costAnnual" style="color:#f97316;">-</div>
+            <div class="small">CLP perdidos/año</div>
           </div>
           <div class="roi-num">
             <div class="big accent" id="paybackMonths">-</div>
             <div class="small" style="display:flex;align-items:center;justify-content:center;gap:4px;">
-              meses para recuperar inversion
-              <span class="roi-tip" data-tip="Basado en un Discovery Sprint de $1.000.000 CLP. El ahorro mensual cubre la inversión en este tiempo.">ⓘ</span>
+              meses para recuperar
+              <span class="roi-tip" data-tip="Basado en el Discovery Sprint (desde $1.000.000 CLP). En ese tiempo, el ahorro en horas manuales cubre la inversión.">ⓘ</span>
             </div>
           </div>
         </div>
@@ -1707,7 +1757,7 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
       <div class="roi-cta-area">
         <a href="#" onclick="openAgendarModal();return false;" class="btn btn-gold" style="width:100%;justify-content:center;font-size:16px;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          Quiero recuperar esas horas - Agendar Discovery
+          Agendar Discovery
         </a>
       </div>
     </div>
@@ -1724,30 +1774,35 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
     </div>
     <div class="pricing-grid">
       <!-- 1. SaaS Start — Plan mensual primero -->
-      <div class="glass-card pricing-card featured aos aos-delay-1" style="--pc:rgba(0,180,216,0.2);--pc2:#00b4d8;--psh:0s;">
+      <div class="glass-card pricing-card featured aos aos-delay-1" style="--pc:rgba(0,180,216,0.2);--pc2:#00b4d8;--psh:0s;overflow:hidden;">
         <div class="pc-glow"></div>
+        <div style="position:absolute;top:22px;right:-32px;background:linear-gradient(90deg,#f97316,#fb923c);color:white;font-size:10px;font-weight:800;padding:6px 44px;transform:rotate(35deg);letter-spacing:0.1em;z-index:10;box-shadow:0 2px 8px rgba(249,115,22,0.4);">PRÓXIMAMENTE</div>
         <div class="pricing-tag pricing-tag-accent">Mas popular</div>
-        <div><p class="pricing-name">SaaS Start</p><p class="pricing-price" style="font-size:22px;">Desde $100K <span>CLP/mes</span></p></div>
-        <p class="pricing-desc">Plataforma lista, te conectamos en dias. Sin inversion inicial. Ideal para empezar a automatizar.</p>
+        <div>
+          <p class="pricing-name">SaaS Start</p>
+          <p class="pricing-price" style="font-size:22px;color:var(--muted);">Precio próximamente</p>
+        </div>
+        <p class="pricing-desc">Ya sabes lo que necesitas y quieres resultados esta semana. Plataforma lista, activamos en dias, sin desarrollo.</p>
         <ul class="pricing-features">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Onboarding en dias, no meses</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Sin inversion inicial</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Soporte incluido</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Escalar cuando quieras</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Quick wins visibles en la primera semana</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Sin inversion inicial ni desarrollo</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Soporte y actualizaciones incluidos</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Escala a Build Premium cuando quieras</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Integraciones con tus sistemas actuales</span></li>
         </ul>
-        <a href="#cta-final" class="btn btn-accent pricing-cta">Ver que incluye</a>
+        <a href="#cta-final" class="btn btn-accent pricing-cta" style="position:relative;overflow:hidden;box-shadow:0 0 0 0 rgba(0,180,216,0.5);animation:btnPulse 2.2s ease-in-out infinite;">Ver qué incluye <span style="margin-left:6px;font-size:16px;">→</span></a>
       </div>
       <!-- 2. Discovery -->
       <div class="glass-card pricing-card aos aos-delay-2" style="--pc:rgba(249,115,22,0.2);--pc2:#f97316;--psh:0.4s;">
         <div class="pc-glow"></div>
         <div class="pricing-tag pricing-tag-gold">Empezar aqui</div>
-        <div><p class="pricing-name">Discovery & Design Sprint</p><p class="pricing-price" style="font-size:22px;">Desde $500K <span>CLP</span></p></div>
-        <p class="pricing-desc">La mejor inversion antes de construir. Mapeamos tus procesos y entregamos el plan completo.</p>
+        <div><p class="pricing-name">Discovery & Design Sprint</p><p class="pricing-price" style="font-size:22px;">Desde $750K <span>CLP</span></p></div>
+        <p class="pricing-desc">Pagas por claridad, no por codigo. Una semana para saber exactamente que construir y cuanto invertir — antes de gastar en desarrollo.</p>
         <ul class="pricing-features">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Mapeo completo de tus procesos</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Top 3 quick wins con retorno estimado</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>BPMN + specs + presupuesto</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Plan de accion en 1 semana</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Mapa completo de tus procesos actuales</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Diagnostico de 3 cuellos de botella con impacto estimado en CLP</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Plan de solucion con alternativas (SaaS, Build o hibrido) y presupuesto real</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Entregables concretos en 1 semana — sin compromiso de build</span></li>
         </ul>
         <a href="#" onclick="openAgendarModal();return false;" class="btn btn-gold pricing-cta">Agendar Discovery</a>
       </div>
@@ -1755,15 +1810,20 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
       <div class="glass-card pricing-card aos aos-delay-3" style="--pc:rgba(74,158,255,0.2);--pc2:#4a9eff;--psh:0.8s;">
         <div class="pc-glow"></div>
         <div class="pricing-tag pricing-tag-blue">Tu eres el dueno</div>
-        <div><p class="pricing-name">Build Premium</p><p class="pricing-price" style="font-size:22px;">Desde $2M <span>CLP</span></p></div>
-        <p class="pricing-desc">Desarrollo a medida. El codigo es tuyo. Tu equipo tecnico puede operar y mantener.</p>
+        <div>
+          <p class="pricing-name">Build Premium</p>
+          <p class="pricing-price" style="font-size:22px;">$2M – $30M <span>CLP</span></p>
+          <p style="font-size:11px;color:var(--muted);margin-top:4px;">Precio segun alcance del proyecto</p>
+        </div>
+        <p class="pricing-desc">El Discovery te entrega el mapa. Build Premium construye el producto real: software funcionando, codigo tuyo, sin dependencia de SMC para operar.</p>
         <ul class="pricing-features">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Repositorio y codigo completo</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Documentacion tecnica incluida</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Entrega por hitos acordados</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Sin dependencia post-entrega</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Software funcionando — no una maqueta</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Repositorio y codigo 100% tuyo</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Entrega por hitos con precio fijo acordado</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Sin dependencia de SMC para operar</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Capacitación a tu equipo al entregar</span></li>
         </ul>
-        <a href="#cta-final" class="btn btn-ghost pricing-cta">Cotizar proyecto</a>
+        <a href="#cta-final" class="btn pricing-cta" style="background:rgba(74,158,255,0.12);border:1px solid rgba(74,158,255,0.4);color:#4a9eff;font-weight:700;" onmouseover="this.style.background='rgba(74,158,255,0.25)';this.style.boxShadow='0 0 20px rgba(74,158,255,0.3)'" onmouseout="this.style.background='rgba(74,158,255,0.12)';this.style.boxShadow='none'">Cotizar proyecto <span style="font-size:16px;">↗</span></a>
       </div>
       <!-- 4. Project + Support — TODO INCLUIDO featured -->
       <div class="glass-card pricing-card pricing-card-premium aos aos-delay-4" style="--pc:rgba(167,139,250,0.25);--pc2:#a78bfa;--psh:1.2s;border-color:rgba(167,139,250,0.4);background:linear-gradient(135deg,rgba(167,139,250,0.07),rgba(99,102,241,0.04));position:relative;">
@@ -1790,12 +1850,18 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
           <li><svg viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span style="color:#e8e0ff;">Monitoreo activo 24/7</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span style="color:#e8e0ff;">Ajustes y mejoras continuas</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span style="color:#e8e0ff;">Contrato SLA con tiempos de respuesta</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span style="color:#e8e0ff;">Reportes mensuales de operacion</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span style="color:#e8e0ff;">Acceso directo al equipo via canal dedicado</span></li>
         </ul>
         <a href="#cta-final" class="btn pricing-cta" style="background:linear-gradient(135deg,#7c3aed,#a78bfa);color:white;border:none;font-weight:700;box-shadow:0 4px 24px rgba(124,58,237,0.4);">Quiero soporte total</a>
       </div>
     </div>
-    <div class="pricing-footer aos">No sabes cual elegir? &rarr; <a href="#cta-final">Agenda un Discovery Sprint</a> y lo resolvemos ahi ($500K–$1.5M CLP). Sin compromiso de build.</div>
+    <div class="pricing-dots" id="pricing-dots" style="display:none;">
+      <span class="pricing-dot active" onclick="scrollPricingTo(0)"></span>
+      <span class="pricing-dot" onclick="scrollPricingTo(1)"></span>
+      <span class="pricing-dot" onclick="scrollPricingTo(2)"></span>
+      <span class="pricing-dot" onclick="scrollPricingTo(3)"></span>
+    </div>
+    <div class="pricing-footer aos">No sabes cual elegir? &rarr; <a href="#cta-final">Agenda un Discovery Sprint</a> y lo resolvemos ahi (desde $1M CLP). Sin compromiso de build.</div>
   </div>
 </section>
 
@@ -1814,7 +1880,7 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
           <span class="faq-q-text">Cuanto cuesta empezar?</span>
           <div class="faq-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
         </div>
-        <div class="faq-a"><div class="faq-a-inner"><p>El Discovery Sprint parte desde $560.000 CLP (~USD 600). En 1 semana mapeamos tus procesos, identificamos los quick wins y entregamos el plan de accion completo con presupuesto. Sin sorpresas y sin compromiso de build.</p></div></div>
+        <div class="faq-a"><div class="faq-a-inner"><p>Depende del alcance y tamano de tu empresa. Antes de hablar de numeros, te recomendamos <a href="#roi" style="color:var(--accent);font-weight:600;" onclick="document.getElementById('roi').scrollIntoView({behavior:'smooth'});return false;">calcular cuanto pierdes en trabajo manual</a> — eso te da el contexto real. Luego en los <a href="#pricing" style="color:var(--accent);font-weight:600;" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'});return false;">planes</a> ves las opciones. El Discovery Sprint parte desde $750.000 CLP y es el primer paso recomendado si aun no tienes claro que construir.</p></div></div>
       </div>
       <div class="faq-item aos">
         <div class="faq-q" onclick="toggleFaq(this)">
@@ -1902,7 +1968,7 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
           <a href="https://www.instagram.com/smconnection.cl/" class="social-link" target="_blank" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
         </div>
       </div>
-      <div class="footer-col"><h4>Servicios</h4><ul><li><a href="#proceso">Discovery Sprint</a></li><li><a href="#pricing">SaaS Start</a></li><li><a href="#pricing">Build Premium</a></li><li><a href="#pricing">Project + Support</a></li></ul></div>
+      <div class="footer-col"><h4>Servicios</h4><ul><li><a href="#pricing">Discovery Sprint</a></li><li><a href="#pricing">SaaS Start</a></li><li><a href="#pricing">Build Premium</a></li><li><a href="#pricing">Project + Support</a></li></ul></div>
       <div class="footer-col"><h4>Empresa</h4><ul><li><a href="#automatizaciones">Casos de uso</a></li><li><a href="#soluciones">Soluciones</a></li><li><a href="#tecnologias">Tecnologias</a></li><li><a href="#faq">FAQ</a></li></ul></div>
       <div class="footer-col"><h4>Contacto</h4><ul><li><a href="mailto:contacto@smconnection.cl">contacto@smconnection.cl</a></li><li><a href="tel:+56955361419">+56 9 5536 1419</a></li><li><a href="https://wa.me/56955361419">WhatsApp</a></li><li><a href="https://smconnection.cl">smconnection.cl</a></li></ul></div>
     </div>
@@ -1972,11 +2038,6 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
   </div>
 </div>
 
-<!-- Theme Toggle -->
-<button id="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema">
-  <span class="tg-icon" id="tg-icon">🌌</span>
-  <span class="tg-label" id="tg-label">Space</span>
-</button>
 
 <!-- WhatsApp Float -->
 <a href="https://wa.me/56955361419?text=Hola%20Smart%20Connection%2C%20me%20gustaria%20saber%20mas%20sobre%20sus%20servicios." target="_blank" class="wa-float" aria-label="WhatsApp">
@@ -2005,20 +2066,116 @@ function closeMobileMenu() { hamburger.classList.remove('active'); mobileMenu.cl
 const aosObs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.aos').forEach(el => aosObs.observe(el));
 
-// Canvas particles
+// Canvas sinapsis — azul + blanco, full page fixed
 (function() {
-  const canvas = document.getElementById('hero-canvas'), ctx = canvas.getContext('2d'); let particles = [];
-  function resize() { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; } resize(); window.addEventListener('resize', resize);
-  class P { constructor() { this.reset(); } reset() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.s = Math.random() * 1.5 + 0.3; this.o = Math.random() * 0.4 + 0.05; this.sx = (Math.random() - 0.5) * 0.3; this.sy = (Math.random() - 0.5) * 0.3; } update() { this.x += this.sx; this.y += this.sy; if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset(); } draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.s, 0, Math.PI * 2); ctx.fillStyle = `rgba(0,180,216,${this.o})`; ctx.fill(); } }
-  for (let i = 0; i < 80; i++) particles.push(new P());
-  function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { p.update(); p.draw(); }); for (let i = 0; i < particles.length; i++) { for (let j = i + 1; j < particles.length; j++) { const dx = particles[i].x - particles[j].x, dy = particles[i].y - particles[j].y, d = Math.sqrt(dx*dx + dy*dy); if (d < 100) { ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.strokeStyle = `rgba(0,180,216,${0.06 * (1 - d/100)})`; ctx.lineWidth = 0.5; ctx.stroke(); } } } requestAnimationFrame(animate); } animate();
+  const canvas = document.getElementById('hero-canvas'), ctx = canvas.getContext('2d');
+  let particles = [], pulses = [], mouse = {x:-999, y:-999};
+  const MAX_DIST = 140;
+  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  resize(); window.addEventListener('resize', resize);
+  document.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+
+  class P {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.isNode = Math.random() < 0.18;
+      this.s = this.isNode ? Math.random() * 2.6 + 2.0 : Math.random() * 1.3 + 0.5;
+      this.o = this.isNode ? Math.random() * 0.35 + 0.5 : Math.random() * 0.3 + 0.22;
+      this.isWhite = Math.random() < 0.25; // 25% blanco, 75% azul
+      this.sx = (Math.random() - 0.5) * 0.22;
+      this.sy = (Math.random() - 0.5) * 0.22;
+      this.phase = Math.random() * Math.PI * 2;
+    }
+    update() {
+      const dx = this.x - mouse.x, dy = this.y - mouse.y, d = Math.sqrt(dx*dx+dy*dy);
+      if (d < 100) { this.x += dx/d*0.7; this.y += dy/d*0.7; }
+      this.x += this.sx; this.y += this.sy;
+      this.phase += 0.025;
+      if (this.x < -10 || this.x > canvas.width+10 || this.y < -10 || this.y > canvas.height+10) this.reset();
+    }
+    draw() {
+      let r, g, b;
+      if (this.isNode) {
+        // nodos: pulsan entre azul y blanco suavemente
+        const t = (Math.sin(this.phase * 0.5) + 1) / 2;
+        r = Math.round(t * 255); g = Math.round(180 + t * 75); b = Math.round(216 + t * 39);
+        ctx.shadowBlur = 12; ctx.shadowColor = `rgba(${r},${g},${b},0.65)`;
+      } else if (this.isWhite) {
+        r=220; g=235; b=255; // blanco levemente azulado, no puro blanco
+      } else {
+        r=0; g=180; b=216;
+      }
+      const pulse = this.isNode ? 0.1 * Math.sin(this.phase) : 0;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.s, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(${r},${g},${b},${Math.min(1, this.o + pulse)})`;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+  }
+
+  class Pulse {
+    constructor(a, b) {
+      this.a = a; this.b = b; this.t = 0;
+      this.speed = Math.random() * 0.012 + 0.008;
+      this.white = Math.random() < 0.3;
+      this.size = Math.random() * 2.2 + 1.2;
+    }
+    update() { this.t += this.speed; }
+    done() { return this.t >= 1; }
+    draw() {
+      const x = this.a.x + (this.b.x - this.a.x) * this.t;
+      const y = this.a.y + (this.b.y - this.a.y) * this.t;
+      const col = this.white ? '210,230,255' : '0,180,216';
+      ctx.shadowBlur = 10; ctx.shadowColor = `rgba(${col},0.9)`;
+      ctx.beginPath(); ctx.arc(x, y, this.size, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(${col},0.92)`; ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+  }
+
+  for (let i = 0; i < 120; i++) particles.push(new P());
+
+  setInterval(() => {
+    if (pulses.length > 28) return;
+    const cands = [];
+    for (let i = 0; i < particles.length; i++)
+      for (let j = i+1; j < particles.length; j++) {
+        const dx = particles[i].x-particles[j].x, dy = particles[i].y-particles[j].y;
+        if (Math.sqrt(dx*dx+dy*dy) < MAX_DIST) cands.push([i,j]);
+      }
+    if (cands.length) { const p = cands[Math.floor(Math.random()*cands.length)]; pulses.push(new Pulse(particles[p[0]], particles[p[1]])); }
+  }, 190);
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let i = 0; i < particles.length; i++)
+      for (let j = i+1; j < particles.length; j++) {
+        const dx = particles[i].x-particles[j].x, dy = particles[i].y-particles[j].y;
+        const d = Math.sqrt(dx*dx+dy*dy);
+        if (d < MAX_DIST) {
+          const a = 0.20 * (1 - d/MAX_DIST);
+          const both = particles[i].isNode && particles[j].isNode;
+          ctx.beginPath(); ctx.moveTo(particles[i].x,particles[i].y); ctx.lineTo(particles[j].x,particles[j].y);
+          ctx.strokeStyle = `rgba(0,180,216,${both ? a*2.0 : a})`;
+          ctx.lineWidth = both ? 1.0 : 0.65; ctx.stroke();
+        }
+      }
+    particles.forEach(p => { p.update(); p.draw(); });
+    pulses = pulses.filter(p => !p.done());
+    pulses.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animate);
+  }
+  animate();
 })();
 
 // FAQ
 function toggleFaq(el) { const item = el.parentElement; const isOpen = item.classList.contains('open'); document.querySelectorAll('.faq-item').forEach(fi => fi.classList.remove('open')); if (!isOpen) item.classList.add('open'); }
 
-// ROI — solo CLP
-const hoursSlider = document.getElementById('hoursSlider'), rateSlider = document.getElementById('rateSlider');
+// ROI — CLP con personas y costo anual
+const hoursSlider = document.getElementById('hoursSlider'), rateSlider = document.getElementById('rateSlider'), peopleSlider = document.getElementById('peopleSlider');
 function fmtCLP(n) {
   if (n >= 1000000) return '$' + (n/1000000).toFixed(1).replace('.0','') + 'M';
   if (n >= 1000) return '$' + Math.round(n/1000) + 'K';
@@ -2027,28 +2184,38 @@ function fmtCLP(n) {
 function updateROI() {
   const h = parseInt(hoursSlider.value);
   const salarioMensual = parseInt(rateSlider.value) * 1000;
+  const personas = parseInt(peopleSlider.value);
   const costoHora = salarioMensual / 176;
   const horasMes = h * 4.33;
-  const perdidaCLPMes = Math.round(horasMes * costoHora);
+  const perdidaMes = Math.round(horasMes * costoHora * personas);
+  const perdidaAnual = perdidaMes * 12;
   const invCLP = 1000000;
-  const pb = invCLP / perdidaCLPMes;
+  const pb = invCLP / perdidaMes;
 
   document.getElementById('hoursDisplay').textContent = h + ' horas';
   document.getElementById('rateDisplay').textContent = '$' + (rateSlider.value * 1).toLocaleString('es-CL') + '.000 CLP/mes';
-  document.getElementById('costMonthly').textContent = fmtCLP(perdidaCLPMes);
-  document.getElementById('paybackMonths').textContent = pb < 1 ? '<1 mes' : pb.toFixed(1) + ' m';
+  document.getElementById('peopleDisplay').textContent = personas + (personas === 1 ? ' persona' : ' personas');
+  document.getElementById('costMonthly').textContent = fmtCLP(perdidaMes);
+  document.getElementById('costAnnual').textContent = fmtCLP(perdidaAnual);
+  document.getElementById('paybackMonths').textContent = pb < 1 ? '<1 m' : pb.toFixed(1) + ' m';
 
   let msg = '';
-  if (perdidaCLPMes < 300000) msg = `Pierdes <strong>${fmtCLP(perdidaCLPMes)} CLP/mes</strong> en trabajo manual. El Discovery Sprint se paga en <strong>${Math.ceil(pb)} meses</strong>.`;
-  else if (perdidaCLPMes < 1500000) msg = `<strong>${fmtCLP(perdidaCLPMes)} CLP/mes</strong> en tareas que deberian ser automaticas. La automatizacion se paga en <strong>${pb < 1 ? 'menos de 1 mes' : pb.toFixed(1) + ' meses'}</strong>.`;
-  else msg = `Estas perdiendo <strong>${fmtCLP(perdidaCLPMes * 12)} CLP al ano</strong> — equivale a contratar un developer de planta. La automatizacion es la decision obvia.`;
+  const equiv = Math.round(perdidaAnual / (salarioMensual * 12));
+  if (perdidaAnual < 3000000) msg = `Tu equipo pierde <strong>${fmtCLP(perdidaMes)}/mes</strong> en trabajo manual. El Discovery Sprint se recupera en <strong>${pb < 1 ? 'menos de 1 mes' : pb.toFixed(1) + ' meses'}</strong>.`;
+  else if (perdidaAnual < 15000000) msg = `Son <strong>${fmtCLP(perdidaAnual)} al año</strong> pagados en tiempo manual. La automatizacion se paga en <strong>${pb < 1 ? 'menos de 1 mes' : pb.toFixed(1) + ' meses'}</strong> y el resto es ahorro puro.`;
+  else msg = `<strong>${fmtCLP(perdidaAnual)} al año</strong> — equivale a ${equiv > 1 ? equiv + ' sueldos anuales' : 'un sueldo anual'} pagados en ineficiencia. La automatizacion es la decision obvia.`;
   document.getElementById('roiMessage').innerHTML = msg;
 
-  const hp = ((h - 1) / 39) * 100, rp = ((parseInt(rateSlider.value) - 600) / 3400) * 100;
+  const hp = ((h - 1) / 39) * 100, rp = ((parseInt(rateSlider.value) - 600) / 3400) * 100, pp = ((personas - 1) / 19) * 100;
   hoursSlider.style.background = `linear-gradient(90deg, var(--accent) ${hp}%, var(--border) ${hp}%)`;
   rateSlider.style.background = `linear-gradient(90deg, var(--accent) ${rp}%, var(--border) ${rp}%)`;
+  peopleSlider.style.background = `linear-gradient(90deg, var(--accent) ${pp}%, var(--border) ${pp}%)`;
 }
-hoursSlider.addEventListener('input', updateROI); rateSlider.addEventListener('input', updateROI); updateROI();
+function setScenario(h, rate, people) {
+  hoursSlider.value = h; rateSlider.value = rate; peopleSlider.value = people; updateROI();
+  document.getElementById('roi').scrollIntoView({behavior:'smooth',block:'center'});
+}
+hoursSlider.addEventListener('input', updateROI); rateSlider.addEventListener('input', updateROI); peopleSlider.addEventListener('input', updateROI); updateROI();
 
 // ROI infotips
 document.querySelectorAll('.roi-tip').forEach(function(tip) {
@@ -2291,15 +2458,29 @@ function getSolPerPage() {
   return 3;
 }
 
+var solFiltered = null;
+function solFilterBy(key, btn) {
+  document.querySelectorAll('.sol-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  if (key === 'todos') { solFiltered = null; }
+  else if (key === 'ventas') { solFiltered = PRODUCTS.filter(p => p.cat.toLowerCase().includes('ventas') || p.cat.toLowerCase().includes('e-commerce')); }
+  else if (key === 'ia') { solFiltered = PRODUCTS.filter(p => p.cat.toLowerCase().includes('ia')); }
+  else if (key === 'operacion') { solFiltered = PRODUCTS.filter(p => p.cat.toLowerCase().includes('operac') || p.cat.toLowerCase().includes('logist')); }
+  else if (key === 'gestion') { solFiltered = PRODUCTS.filter(p => p.cat.toLowerCase().includes('gerencia') || p.cat.toLowerCase().includes('clientes') || p.cat.toLowerCase().includes('legal') || p.cat.toLowerCase().includes('finanzas')); }
+  solIdx = 0;
+  renderSolCarousel();
+}
+
 function renderSolCarousel() {
   const track = document.getElementById('solTrack');
   const dotsEl = document.getElementById('solDots');
   if (!track) return;
   solPerPage = getSolPerPage();
-  const total = PRODUCTS.length;
+  const source = solFiltered || PRODUCTS;
+  const total = source.length;
   const pages = Math.ceil(total / solPerPage);
 
-  track.innerHTML = PRODUCTS.map((p, i) => {
+  track.innerHTML = source.map((p, i) => {
     const rankLabel = SOL_RANKS[i] || `#${i+1}`;
     const rankClass = SOL_RANK_CLASS[i] || 'sol-rank-n';
     return `<div class="sol-card-wrap">
@@ -2330,7 +2511,8 @@ function renderSolCarousel() {
 
 function solMove(dir) {
   solPerPage = getSolPerPage();
-  const pages = Math.ceil(PRODUCTS.length / solPerPage);
+  const source = solFiltered || PRODUCTS;
+  const pages = Math.ceil(source.length / solPerPage);
   solIdx = Math.max(0, Math.min(solIdx + dir, pages - 1));
   solUpdateTrack();
   resetSolAuto();
@@ -2358,7 +2540,8 @@ function solUpdateTrack() {
 
 function solUpdateNav() {
   solPerPage = getSolPerPage();
-  const pages = Math.ceil(PRODUCTS.length / solPerPage);
+  const source = solFiltered || PRODUCTS;
+  const pages = Math.ceil(source.length / solPerPage);
   const prev = document.getElementById('solPrev');
   const next = document.getElementById('solNext');
   if (prev) prev.disabled = solIdx === 0;
@@ -2369,7 +2552,8 @@ function startSolAuto() {
   clearInterval(solAutoTimer);
   solAutoTimer = setInterval(() => {
     solPerPage = getSolPerPage();
-    const pages = Math.ceil(PRODUCTS.length / solPerPage);
+    const source = solFiltered || PRODUCTS;
+    const pages = Math.ceil(source.length / solPerPage);
     solIdx = (solIdx + 1) % pages;
     solUpdateTrack();
   }, 5000);
@@ -2424,45 +2608,6 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeProdu
 // ── TEMA AUTOMÁTICO (hora del día) + toggle manual ───────────
 var IS_MOBILE = window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
 
-(function initTheme() {
-  if (!IS_MOBILE) { applyTheme('space', false); return; } // desktop: siempre Space
-  var saved = localStorage.getItem('smc-theme-mobile');
-  if (saved) { applyTheme(saved, false); return; }         // respeta elección manual
-  // sin preferencia guardada → seguir sistema operativo
-  var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  applyTheme(prefersDark ? 'space' : 'white', false);
-})();
-
-function applyTheme(theme, save) {
-  var isWhite = theme === 'white';
-  document.documentElement.setAttribute('data-theme', isWhite ? 'white' : 'space');
-  var icon  = document.getElementById('tg-icon');
-  var label = document.getElementById('tg-label');
-  if (icon)  icon.textContent  = isWhite ? '☀️' : '🌌';
-  if (label) label.textContent = isWhite ? 'White' : 'Space';
-  if (save && IS_MOBILE) localStorage.setItem('smc-theme-mobile', theme);
-}
-
-function toggleTheme() {
-  var current = document.documentElement.getAttribute('data-theme');
-  applyTheme(current === 'white' ? 'space' : 'white', true);
-}
-
-// Escuchar cambios del sistema (ej: modo automático del celular)
-if (IS_MOBILE && window.matchMedia) {
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
-    if (localStorage.getItem('smc-theme-mobile')) return; // no sobreescribir si eligió manual
-    applyTheme(e.matches ? 'space' : 'white', false);
-  });
-}
-
-// Ocultar toggle en desktop
-if (!IS_MOBILE) {
-  document.addEventListener('DOMContentLoaded', function() {
-    var t = document.getElementById('theme-toggle');
-    if (t) t.style.display = 'none';
-  });
-}
 
 // ── MODAL AGENDAR — Google Calendar ──────────────────────────
 function openAgendarModal() {
@@ -2517,44 +2662,42 @@ function confirmarAgendar() {
 <script>
 // ══ SOLAR SYSTEM V2 — HERO + TECH SECTION ══
 (function(){
-  var CATS={ia:{label:'IA',color:'#a855f7'},dev:{label:'Dev',color:'#00e5b0'},sap:{label:'SAP',color:'#60a5fa'},cloud:{label:'Cloud',color:'#fbbf24'},integ:{label:'Integracion',color:'#f472b6'}};
+  var CATS={ia:{label:'Modelos IA',color:'#a855f7'},dev:{label:'Dev UX',color:'#00e5b0'},sap:{label:'SAP',color:'#60a5fa'},cloud:{label:'Infraestructura',color:'#fbbf24'},integ:{label:'MCP-API',color:'#f472b6'}};
   var PC=[
-    {name:'Claude',cat:'ia',ring:0,startAngle:0,icon:'CL',desc:'LLM principal de agentes SmartConnection'},
-    {name:'OpenAI',cat:'ia',ring:0,startAngle:Math.PI*2/9,icon:'OAI',desc:'GPT-4o para tareas complejas'},
-    {name:'Gemini',cat:'ia',ring:0,startAngle:Math.PI*4/9,icon:'GEM',desc:'Multimodal y documentos'},
-    {name:'DeepSeek',cat:'ia',ring:0,startAngle:Math.PI*6/9,icon:'DS',desc:'Open source costo-eficiente'},
-    {name:'Groq',cat:'ia',ring:0,startAngle:Math.PI*8/9,icon:'GRQ',desc:'Inferencia ultrarapida de LLMs'},
-    {name:'OpenRouter',cat:'ia',ring:0,startAngle:Math.PI*10/9,icon:'OR',desc:'Gateway unificado para LLMs'},
-    {name:'Ollama',cat:'ia',ring:0,startAngle:Math.PI*12/9,icon:'OLL',desc:'LLMs locales sin dependencia cloud'},
-    {name:'Mistral',cat:'ia',ring:0,startAngle:Math.PI*14/9,icon:'MST',desc:'LLM europeo open source'},
-    {name:'Aider',cat:'ia',ring:0,startAngle:Math.PI*16/9,icon:'AID',desc:'AI pair programming en terminal'},
+    {name:'Claude',cat:'ia',ring:0,startAngle:0,icon:'CL',desc:'LLM principal de agentes Smart Connection'},
+    {name:'OpenAI',cat:'ia',ring:0,startAngle:Math.PI*2/6,icon:'OAI',desc:'GPT-4o — el modelo mas reconocido del mundo'},
+    {name:'Gemini',cat:'ia',ring:0,startAngle:Math.PI*4/6,icon:'GEM',desc:'IA multimodal de Google — documentos, vision y mas'},
+    {name:'DeepSeek',cat:'ia',ring:0,startAngle:Math.PI*6/6,icon:'DS',desc:'Open source chino costo-eficiente, viral 2025'},
+    {name:'Groq',cat:'ia',ring:0,startAngle:Math.PI*8/6,icon:'GRQ',desc:'Inferencia ultrarapida — respuestas en milisegundos'},
+    {name:'Llama (Meta)',cat:'ia',ring:0,startAngle:Math.PI*10/6,icon:'LMA',desc:'Modelo open source de Meta — sin costo por uso'},
     {name:'Next.js',cat:'dev',ring:1,startAngle:0,icon:'NXT',desc:'Framework full-stack principal'},
     {name:'React',cat:'dev',ring:1,startAngle:Math.PI*2/9,icon:'RCT',desc:'UI components y estado'},
     {name:'TypeScript',cat:'dev',ring:1,startAngle:Math.PI*4/9,icon:'TS',desc:'Tipado estricto en todo el stack'},
     {name:'Tailwind',cat:'dev',ring:1,startAngle:Math.PI*6/9,icon:'TW',desc:'Utility CSS con design system'},
     {name:'Node.js',cat:'dev',ring:1,startAngle:Math.PI*8/9,icon:'NOD',desc:'Runtime JS para APIs y automatizacion'},
-    {name:'Astro',cat:'dev',ring:1,startAngle:Math.PI*10/9,icon:'AST',desc:'Sites de marketing ultra rapidos'},
-    {name:'Radix UI',cat:'dev',ring:1,startAngle:Math.PI*12/9,icon:'RDX',desc:'Primitivas accesibles WAI-ARIA'},
+    {name:'PWA',cat:'dev',ring:1,startAngle:Math.PI*10/9,icon:'PWA',desc:'Apps instalables en celular sin App Store'},
+    {name:'Framer Motion',cat:'dev',ring:1,startAngle:Math.PI*12/9,icon:'FRM',desc:'Animaciones fluidas en UI y landing pages'},
     {name:'Python',cat:'dev',ring:1,startAngle:Math.PI*14/9,icon:'PY',desc:'Scripts, automatizacion y IA backend'},
-    {name:'n8n',cat:'dev',ring:1,startAngle:Math.PI*16/9,icon:'N8N',desc:'Automatizacion de workflows sin codigo'},
+    {name:'Figma',cat:'dev',ring:1,startAngle:Math.PI*16/9,icon:'FIG',desc:'Diseño UX colaborativo, prototipado rapido'},
     {name:'SAP BTP',cat:'sap',ring:2,startAngle:0,icon:'BTP',desc:'Plataforma cloud SAP'},
     {name:'S/4HANA',cat:'sap',ring:2,startAngle:Math.PI*2/5,icon:'S/4',desc:'ERP core de clientes enterprise'},
     {name:'ABAP',cat:'sap',ring:2,startAngle:Math.PI*4/5,icon:'ABP',desc:'Logica de negocio SAP'},
     {name:'SAP Fiori',cat:'sap',ring:2,startAngle:Math.PI*6/5,icon:'FIO',desc:'UX premium para SAP'},
     {name:'Integ Suite',cat:'sap',ring:2,startAngle:Math.PI*8/5,icon:'CPI',desc:'Conectores SAP mundo'},
-    {name:'AWS',cat:'cloud',ring:3,startAngle:0,icon:'AWS',desc:'Infra principal: EC2, S3, CloudFront'},
-    {name:'Supabase',cat:'cloud',ring:3,startAngle:Math.PI*2/7,icon:'SUP',desc:'DB PostgreSQL + Auth + Realtime'},
-    {name:'Vercel',cat:'cloud',ring:3,startAngle:Math.PI*4/7,icon:'VCL',desc:'Deploy frontend en segundos'},
-    {name:'GitHub',cat:'cloud',ring:3,startAngle:Math.PI*6/7,icon:'GH',desc:'Control de versiones y CI/CD'},
-    {name:'CloudFront',cat:'cloud',ring:3,startAngle:Math.PI*8/7,icon:'CDN',desc:'CDN global de contenido'},
-    {name:'GCloud',cat:'cloud',ring:3,startAngle:Math.PI*10/7,icon:'GCP',desc:'IA APIs y servicios Google'},
-    {name:'Docker',cat:'cloud',ring:3,startAngle:Math.PI*12/7,icon:'DCK',desc:'Contenedores para deploy reproducible'},
-    {name:'WhatsApp',cat:'integ',ring:4,startAngle:0,icon:'WA',desc:'Canal principal con clientes'},
-    {name:'Bsale',cat:'integ',ring:4,startAngle:Math.PI*2/6,icon:'BSL',desc:'ERP punto de venta chileno'},
-    {name:'Jumpseller',cat:'integ',ring:4,startAngle:Math.PI*4/6,icon:'JMP',desc:'E-commerce chileno'},
-    {name:'MercadoLibre',cat:'integ',ring:4,startAngle:Math.PI*6/6,icon:'ML',desc:'Marketplace lider en Latam'},
-    {name:'Airtable',cat:'integ',ring:4,startAngle:Math.PI*8/6,icon:'AIR',desc:'Base de datos flexible y colaborativa'},
-    {name:'Resend',cat:'integ',ring:4,startAngle:Math.PI*10/6,icon:'RSN',desc:'Email transaccional moderno'}
+    {name:'Amazon (AWS)',cat:'cloud',ring:3,startAngle:0,icon:'AWS',desc:'Infra cloud lider: servidores, storage, CDN y mas'},
+    {name:'Microsoft Azure',cat:'cloud',ring:3,startAngle:Math.PI*2/5,icon:'AZR',desc:'Nube enterprise de Microsoft — integra con Office 365'},
+    {name:'Google Cloud',cat:'cloud',ring:3,startAngle:Math.PI*4/5,icon:'GCP',desc:'IA, storage y compute de Google'},
+    {name:'Vercel',cat:'cloud',ring:3,startAngle:Math.PI*6/5,icon:'VCL',desc:'Deploy de apps web en segundos, CDN global'},
+    {name:'Supabase',cat:'cloud',ring:3,startAngle:Math.PI*8/5,icon:'SUP',desc:'Base de datos PostgreSQL + Auth + Realtime'},
+    {name:'WhatsApp',cat:'integ',ring:4,startAngle:0,icon:'WA',desc:'Canal directo con clientes via API oficial de Meta'},
+    {name:'Instagram',cat:'integ',ring:4,startAngle:Math.PI*2/9,icon:'IG',desc:'DMs, comentarios y anuncios via Meta API'},
+    {name:'Facebook',cat:'integ',ring:4,startAngle:Math.PI*4/9,icon:'FB',desc:'Ads, paginas y audiencias — Meta Business Suite'},
+    {name:'LinkedIn',cat:'integ',ring:4,startAngle:Math.PI*6/9,icon:'LIN',desc:'Automatizacion B2B, leads y campanas'},
+    {name:'Gmail',cat:'integ',ring:4,startAngle:Math.PI*8/9,icon:'GML',desc:'Email transaccional y automatizacion de correos'},
+    {name:'HubSpot',cat:'integ',ring:4,startAngle:Math.PI*10/9,icon:'HBS',desc:'CRM lider: contactos, deals y flujos de venta'},
+    {name:'Bsale',cat:'integ',ring:4,startAngle:Math.PI*12/9,icon:'BSL',desc:'ERP punto de venta chileno — el mas usado en Chile'},
+    {name:'Jumpseller',cat:'integ',ring:4,startAngle:Math.PI*14/9,icon:'JMP',desc:'E-commerce chileno con integracion nativa'},
+    {name:'MercadoLibre',cat:'integ',ring:4,startAngle:Math.PI*16/9,icon:'ML',desc:'Marketplace lider en Latinoamerica'}
   ];
   var RR=[110,185,255,320,385],RP=[38,55,72,90,110],CX=450,CY=450;
 
@@ -2597,6 +2740,39 @@ function confirmarAgendar() {
 
   // TECH SECTION solar
   var solCTech=document.getElementById('solar-container-tech'),activeCatTech=null,planetsTech=[];
+  var connCanvas=document.getElementById('tech-conn-canvas'),connCtx=connCanvas?connCanvas.getContext('2d'):null;
+  var hoveredPlanetTech=null,connAnimFrame=null;
+
+  function drawConnLines(){
+    if(!connCtx||!hoveredPlanetTech){return;}
+    connCtx.clearRect(0,0,900,900);
+    var hx=parseFloat(hoveredPlanetTech.el.style.left),hy=parseFloat(hoveredPlanetTech.el.style.top);
+    var catColor=CATS[hoveredPlanetTech.cat].color;
+    var t=performance.now()/1000;
+    planetsTech.forEach(function(p){
+      if(p===hoveredPlanetTech||p.cat!==hoveredPlanetTech.cat)return;
+      var px=parseFloat(p.el.style.left),py=parseFloat(p.el.style.top);
+      // Base glowing line
+      connCtx.beginPath();connCtx.moveTo(hx,hy);connCtx.lineTo(px,py);
+      connCtx.strokeStyle=catColor+'50';connCtx.lineWidth=1.2;
+      connCtx.shadowColor=catColor;connCtx.shadowBlur=6;connCtx.stroke();
+      // Traveling spark (each line has slight phase offset)
+      var phase=(p.ring||0)*0.3;
+      var prog=((t*0.55)+phase)%1;
+      var sx=hx+(px-hx)*prog,sy=hy+(py-hy)*prog;
+      connCtx.beginPath();connCtx.arc(sx,sy,3,0,Math.PI*2);
+      connCtx.fillStyle=catColor;connCtx.shadowColor=catColor;connCtx.shadowBlur=14;connCtx.fill();
+      connCtx.shadowBlur=0;
+    });
+    connAnimFrame=requestAnimationFrame(drawConnLines);
+  }
+
+  function clearConnLines(){
+    hoveredPlanetTech=null;
+    if(connCtx)connCtx.clearRect(0,0,900,900);
+    if(connAnimFrame){cancelAnimationFrame(connAnimFrame);connAnimFrame=null;}
+  }
+
   function initSolarTech(){
     if(!solCTech||window.innerWidth<=768){var m=document.getElementById('sv2-mobile-tech');if(m)m.style.display='block';return;}
     PC.forEach(function(cfg){
@@ -2604,9 +2780,50 @@ function confirmarAgendar() {
       var c=CATS[cfg.cat].color;el.style.cssText='background:radial-gradient(circle at 35% 35%,'+c+'22,'+c+'08);border:1.5px solid '+c+'66;box-shadow:0 0 10px '+c+'33;color:'+c+';';
       el.innerHTML='<span style="font-size:9px;font-weight:800;letter-spacing:.5px;pointer-events:none;user-select:none;font-family:monospace">'+cfg.icon+'</span>';
       solCTech.appendChild(el);var pc=Object.assign({},cfg);pc.el=el;pc.period=RP[cfg.ring];pc.radius=RR[cfg.ring];planetsTech.push(pc);
-      el.addEventListener('mouseenter',function(e){showTipTech(e,cfg)});el.addEventListener('mouseleave',hideTipTech);el.addEventListener('mousemove',moveTipTech);el.addEventListener('click',function(){toggleCatTech(cfg.cat)});
+      el.addEventListener('mouseenter',function(e){
+        showTipTech(e,cfg);
+        hoveredPlanetTech=pc;
+        if(connAnimFrame)cancelAnimationFrame(connAnimFrame);
+        drawConnLines();
+      });
+      el.addEventListener('mouseleave',function(){hideTipTech();clearConnLines();});
+      el.addEventListener('mousemove',moveTipTech);
+      el.addEventListener('click',function(){toggleCatTech(cfg.cat)});
     });
-    document.querySelectorAll('#sv2-legend-tech .sv2-li').forEach(function(item){item.addEventListener('click',function(){toggleCatTech(item.dataset.catTech)})});
+    document.querySelectorAll('#sv2-legend-tech .sv2-pill').forEach(function(item){item.addEventListener('click',function(){toggleCatTech(item.dataset.catTech)})});
+    document.addEventListener('click', function(e) {
+      if (!activeCatTech) return;
+      var isNode = e.target.closest('.sv2-planet');
+      var isPill = e.target.closest('.sv2-pill');
+      if (!isNode && !isPill) { toggleCatTech(activeCatTech); }
+    });
+    // Parallax — sobre el container interno (no afecta layout)
+    var techSec=document.getElementById('tecnologias'),solarC=document.getElementById('solar-container-tech');
+    if(techSec&&solarC){
+      var pTargX=0,pTargY=0,pCurX=0,pCurY=0,pMouseIn=false,pRaf=null;
+      function parallaxLoop(){
+        var ease=0.08;
+        pCurX+=(pTargX-pCurX)*ease;
+        pCurY+=(pTargY-pCurY)*ease;
+        solarC.style.transform='perspective(1200px) rotateY('+pCurX+'deg) rotateX('+pCurY+'deg)';
+        if(Math.abs(pTargX-pCurX)>0.01||Math.abs(pTargY-pCurY)>0.01||pMouseIn){
+          pRaf=requestAnimationFrame(parallaxLoop);
+        } else {
+          pRaf=null;
+        }
+      }
+      techSec.addEventListener('mousemove',function(e){
+        var r=techSec.getBoundingClientRect();
+        var dx=((e.clientX-r.left)/r.width-0.5)*2;
+        var dy=((e.clientY-r.top)/r.height-0.5)*2;
+        pTargX=dx*4; pTargY=-dy*3; pMouseIn=true;
+        if(!pRaf) pRaf=requestAnimationFrame(parallaxLoop);
+      });
+      techSec.addEventListener('mouseleave',function(){
+        pTargX=0; pTargY=0; pMouseIn=false;
+        if(!pRaf) pRaf=requestAnimationFrame(parallaxLoop);
+      });
+    }
     animateSolarTech();
   }
   function animateSolarTech(){var t=performance.now()/1000;planetsTech.forEach(function(p){var a=p.startAngle+(t/p.period)*Math.PI*2;p.el.style.left=(CX+Math.cos(a)*p.radius)+'px';p.el.style.top=(CY+Math.sin(a)*p.radius)+'px';});requestAnimationFrame(animateSolarTech);}
@@ -2615,7 +2832,69 @@ function confirmarAgendar() {
   function hideTipTech(){tipT.style.opacity='0'}
   function moveTipTech(e){moveTipTechTo(e.clientX,e.clientY)}
   function moveTipTechTo(x,y){var lx=x+16,ly=y+16;if(lx+220>window.innerWidth-8)lx=x-232;if(ly+80>window.innerHeight-8)ly=y-92;tipT.style.left=lx+'px';tipT.style.top=ly+'px'}
-  function toggleCatTech(cat){if(activeCatTech===cat){activeCatTech=null;planetsTech.forEach(function(p){p.el.classList.remove('dimmed','highlighted')})}else{activeCatTech=cat;planetsTech.forEach(function(p){if(p.cat===cat){p.el.classList.add('highlighted');p.el.classList.remove('dimmed')}else{p.el.classList.add('dimmed');p.el.classList.remove('highlighted')}})}}
+  function animateHubCount(from, to, color) {
+    var el = document.getElementById('hub-tech-count');
+    var lbl = document.getElementById('hub-tech-label');
+    if (!el) return;
+    if (color) { el.style.color = color; } else { el.style.color = '#f1f5f9'; }
+    if (lbl) lbl.textContent = to === 34 ? 'tecnologias' : 'en esta categoria';
+    var start = performance.now(), dur = 380;
+    function step(now) {
+      var p = Math.min((now - start) / dur, 1);
+      var ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(from + (to - from) * ease);
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  function triggerHubRipple(color) {
+    var container = document.getElementById('solar-container-tech');
+    if (!container) return;
+    var r = document.createElement('div');
+    r.style.cssText = 'position:absolute;left:450px;top:450px;width:110px;height:110px;border-radius:50%;border:2px solid '+color+';pointer-events:none;animation:hubRipple 0.75s ease-out forwards;z-index:14;';
+    container.appendChild(r);
+    setTimeout(function(){ if (r.parentNode) r.parentNode.removeChild(r); }, 800);
+  }
+  function toggleCatTech(cat){
+    var pills = document.querySelectorAll('#sv2-legend-tech .sv2-pill');
+    var currentCount = parseInt((document.getElementById('hub-tech-count')||{}).textContent) || 34;
+    if (activeCatTech === cat) {
+      activeCatTech = null;
+      triggerHubRipple('rgba(0,180,216,0.55)');
+      animateHubCount(currentCount, 34, null);
+      planetsTech.forEach(function(p) {
+        p.el.classList.remove('dimmed','highlighted');
+        p.el.style.animation = '';
+      });
+      pills.forEach(function(p) { p.classList.remove('active'); });
+    } else {
+      activeCatTech = cat;
+      var catColor = CATS[cat] ? CATS[cat].color : 'rgba(0,180,216,0.6)';
+      var matched = planetsTech.filter(function(p) { return p.cat === cat; });
+      triggerHubRipple(catColor + (catColor.indexOf('rgba')===-1 ? '99' : ''));
+      animateHubCount(currentCount, matched.length, catColor);
+      var staggerIdx = 0;
+      planetsTech.forEach(function(p) {
+        if (p.cat === cat) {
+          p.el.classList.remove('dimmed');
+          p.el.classList.add('highlighted');
+          var delay = staggerIdx * 55;
+          staggerIdx++;
+          (function(el, d) {
+            el.style.animation = 'none';
+            void el.offsetWidth; // reflow
+            el.style.animation = 'sv2NodeIn 0.45s cubic-bezier(0.34,1.56,0.64,1) ' + d + 'ms both';
+            setTimeout(function() { el.style.animation = ''; }, 500 + d);
+          })(p.el, delay);
+        } else {
+          p.el.classList.add('dimmed');
+          p.el.classList.remove('highlighted');
+          p.el.style.animation = '';
+        }
+      });
+      pills.forEach(function(p) { p.classList.toggle('active', p.dataset.catTech === cat); });
+    }
+  }
 
   // TECH mobile timeline
   function initMobileTech(){
@@ -2671,25 +2950,29 @@ function confirmarAgendar() {
 // ══ GLOBAL CARD FX — Mouse tracking (spotlight + 3D tilt) para toda la pagina ══
 function initValorCards() {
   document.querySelectorAll('.valor-card, .pricing-card, .step-card-v3, .auto-card, .sol-card-wrap .glass-card').forEach(function(card) {
+    // Pricing cards: tilt más sutil (5°) — premium feel
+    var isPricing = card.classList.contains('pricing-card');
+    var maxTilt = isPricing ? 5 : 12;
     card.addEventListener('mousemove', function(e) {
       var rect = card.getBoundingClientRect();
       var x = e.clientX - rect.left;
       var y = e.clientY - rect.top;
       var cx = rect.width / 2;
       var cy = rect.height / 2;
-      var rotY = ((x - cx) / cx) * 12;
-      var rotX = -((y - cy) / cy) * 12;
+      var rotY = ((x - cx) / cx) * maxTilt;
+      var rotX = -((y - cy) / cy) * maxTilt;
       card.style.setProperty('--mx', x + 'px');
       card.style.setProperty('--my', y + 'px');
-      card.style.transform = 'perspective(900px) rotateY(' + rotY + 'deg) rotateX(' + rotX + 'deg) translateY(-8px) scale(1.02)';
+      var lift = isPricing ? 'translateY(-8px)' : 'translateY(-6px)';
+      card.style.transform = 'perspective(1100px) rotateY(' + rotY + 'deg) rotateX(' + rotX + 'deg) ' + lift;
       // spotlight en pricing-card via pc-glow div
       var glow = card.querySelector('.pc-glow');
       if (glow) { glow.style.setProperty('--mx', x + 'px'); glow.style.setProperty('--my', y + 'px'); }
     });
     card.addEventListener('mouseleave', function() {
       card.style.transform = '';
-      card.style.transition = 'transform 0.5s cubic-bezier(0.23,1,0.32,1)';
-      setTimeout(function(){ card.style.transition = ''; }, 500);
+      card.style.transition = 'transform 0.5s ease-out';
+      setTimeout(function(){ card.style.transition = ''; }, 600);
     });
   });
 }
@@ -2816,7 +3099,54 @@ function initNodePopups() {
   // Start after 1s delay
   setTimeout(addEvent, 1000);
 })();
+
+// ── Pricing cards mobile scroll-snap + dots ──────────────────────────────
+(function() {
+  function isMobile() { return window.innerWidth <= 768; }
+  var grid = document.getElementById ? null : null;
+
+  function initPricingDots() {
+    var dotsEl = document.getElementById('pricing-dots');
+    var gridEl = document.querySelector('.pricing-grid');
+    if (!dotsEl || !gridEl) return;
+
+    if (isMobile()) {
+      dotsEl.style.display = 'flex';
+    } else {
+      dotsEl.style.display = 'none';
+      return;
+    }
+
+    var dots = dotsEl.querySelectorAll('.pricing-dot');
+    var cards = gridEl.querySelectorAll('.pricing-card');
+
+    gridEl.addEventListener('scroll', function() {
+      var idx = Math.round(gridEl.scrollLeft / (gridEl.scrollWidth / cards.length));
+      dots.forEach(function(d, i) { d.classList.toggle('active', i === idx); });
+    }, { passive: true });
+  }
+
+  window.scrollPricingTo = function(idx) {
+    var gridEl = document.querySelector('.pricing-grid');
+    if (!gridEl) return;
+    var cards = gridEl.querySelectorAll('.pricing-card');
+    if (cards[idx]) cards[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  };
+
+  window.addEventListener('resize', function() {
+    var dotsEl = document.getElementById('pricing-dots');
+    if (dotsEl) dotsEl.style.display = isMobile() ? 'flex' : 'none';
+  });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPricingDots);
+  } else {
+    initPricingDots();
+  }
+})();
 </script>
 
+<div style="position:fixed;bottom:16px;left:16px;z-index:9999;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:6px 12px;font-family:monospace;font-size:11px;color:#94a3b8;pointer-events:none;"><span style="color:#00e5b0;font-weight:600;">&#128197;</span> 2026-04-07 10:29</div>
+<div style="position:fixed;bottom:16px;left:16px;z-index:9999;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:6px 12px;font-family:monospace;font-size:11px;color:#94a3b8;pointer-events:none;"><span style="color:#00e5b0;font-weight:600;">&#128197;</span> 2026-04-07 10:53</div>
 </body>
 </html>

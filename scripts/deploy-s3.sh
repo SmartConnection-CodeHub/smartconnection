@@ -73,3 +73,6 @@ fi
 echo "=== Deploy completado ==="
 echo "URL: https://www.smconnection.cl"
 echo "Tag: $TAG"
+
+# Registrar en deploy log
+bash "$(dirname "$0")/deploy-log.sh" "marketing" "success" "https://www.smconnection.cl"

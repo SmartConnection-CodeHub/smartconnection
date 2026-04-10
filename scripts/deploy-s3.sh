@@ -53,5 +53,23 @@ aws cloudfront create-invalidation \
   --query 'Invalidation.Id' \
   --output text
 
+# Git tag versionado
+TAG="deploy-marketing-$(date +%Y.%m.%d)-$(git -C "$PROJECT_ROOT" rev-list --count HEAD 2>/dev/null | tail -1 | xargs printf '%03d')"
+git -C "$PROJECT_ROOT" tag "$TAG" 2>/dev/null && \
+  git -C "$PROJECT_ROOT" push origin "$TAG" 2>/dev/null && \
+  echo ">>> Tag: $TAG" || echo ">>> Tag omitido (sin cambios git)"
+
+# Smoke test post-deploy
+echo ">>> Smoke test..."
+sleep 3
+STATUS=$(curl -o /dev/null -s -w "%{http_code}" --max-time 10 https://www.smconnection.cl)
+if [ "$STATUS" = "200" ]; then
+  echo "✅ Deploy OK — smconnection.cl responde $STATUS"
+else
+  echo "🔴 Smoke test FALLÓ — status $STATUS"
+  exit 1
+fi
+
 echo "=== Deploy completado ==="
 echo "URL: https://www.smconnection.cl"
+echo "Tag: $TAG"

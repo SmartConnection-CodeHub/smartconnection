@@ -5,6 +5,7 @@
   "description": "SmartConnection Marketing - Sitio estatico HTML + S3/CloudFront",
   "scripts": {
     "deploy": "bash scripts/deploy-s3.sh",
-    "serve": "npx serve . -p 3000"
+    "serve": "npx serve . -p 3000",
+    "check": "bash scripts/check-js.sh"
   }
 }

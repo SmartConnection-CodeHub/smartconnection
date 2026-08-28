@@ -25,6 +25,12 @@ jobs:
           fi
           echo "index.html OK ($SIZE bytes)"
 
+      # Gate de sintaxis JS: corre ANTES de tocar credenciales AWS, así un JS roto
+      # no llega ni a autenticarse contra S3. El smoke de abajo (curl 200) no lo detecta:
+      # un HTML con JavaScript roto responde 200 igual.
+      - name: Validate JS syntax
+        run: bash scripts/check-js.sh
+
       - uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}

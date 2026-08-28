@@ -25,6 +25,11 @@ fi
 
 echo "index.html OK ($FILE_SIZE bytes)"
 
+# Gate de sintaxis JS (2026-08-28): el deploy manual salta el CI, así que el mismo
+# chequeo va acá. Sin esto, `bash scripts/deploy-s3.sh` publica JS roto sin avisar.
+echo ">>> Validando sintaxis JS..."
+bash "$PROJECT_ROOT/scripts/check-js.sh" || { echo "ERROR: JS con errores de sintaxis · deploy abortado"; exit 1; }
+
 # Subir index.html
 echo ">>> Subiendo index.html..."
 aws s3 cp "$PROJECT_ROOT/index.html" "$S3_BUCKET/index.html" \
